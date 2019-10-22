@@ -1,4 +1,4 @@
-# vuedemo01
+# vue-cli3 + vant
 
 ## Project setup
 ```

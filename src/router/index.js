@@ -1,9 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import About from '@/views/About'
-import Test from '@/views/Test'
-import UpLoad from '@/views/uploadImg'
 import VantUpload from '@/views/vantUpload'
+import Index from '@/views/index'
 
 Vue.use(Router)
 
@@ -12,29 +10,12 @@ const router = new Router({
   routes: [
     {
       path: '/',
-      name: 'about',
-      // component: () => import(/* webpackChunkName: "about" */ '../views/About.vue'),
-      component: About,
+      name: 'index',
+      component: Index,
       meta: {
-        title: '测试about页面'
+        title: '首页'
       }
     },
-    {
-      path: '/test',
-      name: 'test',
-      component: Test,
-      meta: {
-        title: '接口测试页面'
-      }
-    },
-    {
-    path: '/upload',
-    name: 'upload',
-    component: UpLoad,
-    meta: {
-      title: '文件上传测试'
-    }
-   },
    {
     path: '/vantUpload',
     name: 'vantUpload',
@@ -50,7 +31,7 @@ router.beforeEach((to, from, next) => {
 	if (to.meta.title) {
     document.title = to.meta.title;
   }else{
-    document.title = '测试页面';
+    document.title = '袋鼠空间';
   }
   next()
 })

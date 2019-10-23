@@ -1,13 +1,16 @@
 import Vue from 'vue'
 import App from './App.vue'
 import './plugins/vant'
+import VueVideoPlayer from 'vue-video-player'
+import 'video.js/dist/video-js.css'
 import router from './router/index.js'
 import store from './store/index.js'
-import HeaderNav from '@/components/HeaderNav.vue'
-import ElementUI from 'element-ui'
-import 'element-ui/lib/theme-chalk/index.css'
+import HeaderNav from '@/components/headerNav.vue'
+import BaseLayout from '@/components/baseLayout'
+import CommonLayout from '@/components/commonLayout'
 
-Vue.use(ElementUI)
+
+Vue.use(VueVideoPlayer)
 Vue.config.productionTip = false;
 
 
@@ -77,6 +80,8 @@ Vue.config.productionTip = false;
 
 
 Vue.component('header-nav',HeaderNav)
+Vue.component('base-layout',BaseLayout)
+Vue.component('common-layout',CommonLayout)
 
 new Vue({
   router,

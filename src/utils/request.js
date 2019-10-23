@@ -43,13 +43,13 @@ request.interceptors.request.use(
     if (!(config.data instanceof FormData)) {
       config.headers = {
         Accept: 'application/json',
-        // 'Authorization': `Bearer ${localStorage.getItem('token_id')}`,
+        'Authorization': `Bearer ${localStorage.getItem('token_id')}`,
         'Content-Type': 'application/json; charset=utf-8',
         ...config.headers
       }
     }else{
       config.headers = {
-        // 'Authorization': `Bearer ${localStorage.getItem('token_id')}`,
+        'Authorization': `Bearer ${localStorage.getItem('token_id')}`,
         ...config.headers
       }
     }

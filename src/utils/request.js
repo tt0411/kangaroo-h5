@@ -65,7 +65,7 @@ request.interceptors.request.use(
 request.interceptors.response.use(
   // 请求成功
   res => {
-    if (res.status === 200) {
+    if (res.code === 200) {
       return res.data
     }
     return Promise.reject(res.data)

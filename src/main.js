@@ -2,7 +2,9 @@ import Vue from 'vue'
 import App from './App.vue'
 import './plugins/vant'
 import VueVideoPlayer from 'vue-video-player'
-import 'video.js/dist/video-js.css'
+require('video.js/dist/video-js.css')
+require('vue-video-player/src/custom-theme.css')
+require('./video.css')
 import router from './router/index.js'
 import store from './store/index.js'
 import HeaderNav from '@/components/headerNav.vue'

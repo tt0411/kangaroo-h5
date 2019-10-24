@@ -3,12 +3,16 @@
     <header-nav :isBack="false" />
     <div class="content">
     <div class="imgList">
-    <div class="imgItem"  v-for="(item, index) in imgFile" :key="index">
-        <img :src="item.content">
-        <van-icon name="delete" @click="delBtn(index)" class="delete"/>  
+    <div>
+        <van-row gutter="5">
+            <van-col class="imgItem" span="8" v-for="(item, index) in imgFile" :key="index">
+                  <van-image :src="item.content" style="width: 100%;height: 100px; border-top-right-radius: 50px;"></van-image> 
+                  <van-icon name="clear" size="18" color="#94979b"  @click="delBtn(index)" class="delete"/>
+            </van-col>  
+        </van-row> 
     </div>
     <div>
-    <van-uploader v-show="imgFile.length < 9" capture="camera" accept="image/*" :after-read="afterRead"></van-uploader>
+    <van-uploader multiple :max-count="9" :preview-image="true" v-show="imgFile.length < 9" capture="camera" accept="image/*" :after-read="afterRead"></van-uploader>
     </div>
    </div> 
    <div style="text-align: center">
@@ -27,11 +31,6 @@ export default {
             imgFile: [],
             backImgList: [],
             imageUrl: [],
-            token: {},
-            //这是根据你创建空间时所选择的地区
-            domain: 'https://up-z2.qiniup.com',
-            // 这是七牛云空间的外链默认域名
-            qiniuaddr: 'pyku15h15.bkt.clouddn.com'
           }
       },
       methods: { 
@@ -39,34 +38,28 @@ export default {
             this.imgFile.push(file)  
          },
          submitData(){
-             let formData = new FormData();  // 为上传文件定义一个formData对象
-                let config = {
-                    headers: {
-                        'Content-Type': 'multipart/form-data'
-                    }
-                };
-                if(this.imgFile.length > 0) {
-                    this.imgFile.forEach( (item, index) => {
-                    const keyname = Date.parse(new Date()) + Math.floor(Math.random() * 100) + '.png' 
-                    axios.get('http://localhost:3001/qiniu/uploadToken').then(res => {
-                        const formdata = new FormData()
-                        formdata.append('file', this.imgFile[index].file)
-                        formdata.append('token', res.data.token)
-                        formdata.append('key', keyname)
-                        // 获取到凭证之后再将文件上传到七牛云空间
-                        axios.post(this.domain, formdata, config).then(res => {
-                        let imageUrl = 'http://' + this.qiniuaddr + '/' + res.data.key
-                        this.backImgList.push(imageUrl)
-                        if(this.backImgList.length > 1) {
-                            this.imageUrl = this.backImgList.join(',')
-                        }else{
-                            this.imageUrl = this.backImgList
-                        }
-                        })
-                    })
-                })  
-            }
-         },
+            let config = {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            };
+            if(this.imgFile.length > 0) {
+                this.imgFile.forEach( (item, index) => {
+                const formdata = new FormData()
+                formdata.append('file', this.imgFile[index].file)
+                axios.post('http://localhost:3001/alioss/uploadOss', formdata, config).then(res => {
+                     if(this.imgFile.length === 1 ){
+                         this.imgUrl = res.data.data
+                     }else{
+                         this.backImgList.push(res.data.data)
+                         this.imgUrl = this.backImgList.join(',')
+                      } 
+                    }).catch(err => {
+                    console.log(err)
+                })
+            })  
+          }
+        },
          delBtn(index){
             if(isNaN(index) || index >= this.imgFile.length){
                 return false;
@@ -89,17 +82,15 @@ export default {
      .imgList{
          display: flex;
          flex-direction: row;
-         flex-wrap: wrap;
-         
-        //  align-items: center;
-         .imgItem{
-            img{
-             width: 100px;
-             height: 100px;
-             margin:5px;
-          }
-          .delete{
-              margin-left: -15px;
+         flex-wrap: wrap; 
+         .imgItem{ 
+             display: flex;
+             flex-direction: row;
+             margin: 10px 0;
+           .delete{
+             margin-left: -10px;
+             margin-top: -10px;
+             z-index: 100000;
           }
          } 
      }

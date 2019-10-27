@@ -65,18 +65,6 @@
                      </div>
                  </div>
                    <div class="content-options">
-                         <!-- <div class="save">
-                             <van-icon name="star-o" size="20px"/>
-                             <div class="count">{{content.save}}</div>
-                         </div>
-                         <div class="comment">
-                             <van-icon name="chat-o" size="20px" /> 
-                             <div class="count">{{content.comment}}</div>
-                         </div>
-                         <div class="mark">
-                             <van-icon name="like-o" size="20px" />
-                             <div class="count">{{content.mark}}</div>
-                         </div> -->
                          <van-tabs v-model="active"  sticky animated swipeable>
                            <van-tab>
                               <div slot="title">

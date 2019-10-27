@@ -69,7 +69,7 @@
                              <van-icon name="star-o" size="20px"/>
                              <div class="count">{{item.save}}</div>
                          </div>
-                         <div class="comment">
+                         <div class="comment"  @click="toDetail(item)">
                              <van-icon name="chat-o" size="20px" /> 
                              <div class="count">{{item.comment}}</div>
                          </div>
@@ -164,7 +164,6 @@ export default {
                 src: item.video//url地址
                 }],
                 poster: "https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=673709352,371074027&fm=26&gp=0.jpg", //你的封面地址
-                // width: document.documentElement.clientWidth, //播放器宽度
                 notSupportedMessage: '此视频暂无法播放，请稍后再试', //允许覆盖Video.js无法播放媒体源时显示的默认信息。
             })
         })
@@ -172,6 +171,10 @@ export default {
     methods: {
         seeMore() {
             console.log('查看更多')
+        },
+        toDetail(item){
+            console.log(item.id);
+            this.$router.push({path: '/detail',query: {id: item.id}})
         }
     }
 }
@@ -179,6 +182,7 @@ export default {
 
 <style lang="scss" scoped>
 .content{
+    background: #ffffff;
     .content-item{
         padding: 8px;
         border-bottom: 1px solid #f5f5f5;

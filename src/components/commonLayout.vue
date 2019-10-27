@@ -25,8 +25,8 @@ export default {
 
 <style lang="scss" scoped>
     #container{
-        background: #f5f5f5;
-        height: 100%;
+        background: #ffffff;
+        height: 100vh;
         font-size:  0.14rem;
         overflow: hidden;
         display: flex;

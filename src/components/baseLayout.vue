@@ -34,7 +34,7 @@ export default {
 
 <style lang="scss" scoped>
     #container{
-        // background: #f5f5f5;
+       background: #ffffff;
         height: 100%;
         font-size: 0.14rem;
         overflow: hidden;

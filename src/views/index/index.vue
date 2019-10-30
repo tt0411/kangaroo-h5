@@ -39,7 +39,10 @@
                    <div class="news">最新内容</div>
                </div>
                <div class="more-content">
-                   <div class="more" @click="moreContent">查看更多 >>></div>
+                   <div class="more" @click="moreContent">查看更多</div>
+                   <div class="more-icon">
+                       <van-icon name="more-o" size="18px" color="#a8a7a7"/>
+                   </div>
                </div>
          </div>
         </van-sticky>
@@ -147,6 +150,10 @@ export default {
      margin-right: 10px;
      .more{
           color: #a8a7a7;
+          margin-right: 5px;
+     }
+     .more-icon{
+         margin-top: 5px;
      }
  }   
 }

@@ -13,7 +13,7 @@ const router = new Router({
     { path: '/', name: 'index', component: Index, meta: { title: '首页' } },
     { path: '/login', name: 'login', component: Login, meta: { title: '登录' } },
     { path: '/upload', name: 'upload', component: Upload, meta: { title: '上传文件测试' } },
-    { path: '/detail', name: 'detail', component: ContentDetail, meta: { title: '内容详情' } },
+    { path: '/detail', name: 'detail', component: ContentDetail, meta: { title: '袋鼠空间' } },
   ]
 })
 

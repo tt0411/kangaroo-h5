@@ -2,12 +2,13 @@
   <div class="footer">
     <div class="input">
       <van-field
+        :disabled="disabled"
         v-model="message"
         rows="1"
         autosize
         type="textarea"
         maxlength="50"
-        placeholder="说点什么...(50字以内)"
+        :placeholder="disabled ? '作者关闭了评论' : '来评论啦...'"
       />
     </div>
     <div class="send">
@@ -29,6 +30,7 @@
 <script>
 import { Toast } from "vant";
 export default {
+  props: ['disabled'],
   data() {
     return {
       message: "",
@@ -37,7 +39,10 @@ export default {
     };
   },
   methods: {
-    sendMessage() {},
+    sendMessage() {
+      Toast.success('发表成功，活跃度+5');
+      this.message = ''
+    },
     toSave() {
       this.isSave = !this.isSave;
       if (this.isSave) {

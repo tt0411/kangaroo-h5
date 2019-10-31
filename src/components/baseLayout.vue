@@ -1,7 +1,7 @@
 <template>
       <div id="container">
           <div class="header">
-             <HeaderNav :isShowLeft="false" :isShow="false"/>
+             <header-nav :isShowLeft="false" :isShow="true"/>
              <slot name="top"></slot>
           </div>
           <div class="content">

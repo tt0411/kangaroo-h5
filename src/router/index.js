@@ -8,9 +8,9 @@ import ContentDetail from '@/views/contentDetail/index'
 Vue.use(Router)
 
 const router = new Router({
-  mode: 'history',
+  mode: 'hash',
   routes: [
-    { path: '/', name: 'index', component: Index, meta: { title: '首页' } },
+    { path: '/', name: 'index', component: Index, meta: { title: '广场' } },
     { path: '/login', name: 'login', component: Login, meta: { title: '登录' } },
     { path: '/upload', name: 'upload', component: Upload, meta: { title: '上传文件测试' } },
     { path: '/detail', name: 'detail', component: ContentDetail, meta: { title: '袋鼠空间' } },

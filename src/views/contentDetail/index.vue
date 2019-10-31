@@ -5,7 +5,7 @@
           <Detail/>
       </div>
          <div slot="footer">
-            <Footer/>
+            <Footer :disabled="false"/>
          </div>
     </common-layout>
 </template>

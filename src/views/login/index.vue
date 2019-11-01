@@ -1,0 +1,135 @@
+<template>
+  <div class="container">
+      <div class="content">
+          <div class="top">
+              <div class="logo">
+                  <van-image round width="60px" height="60px" :src="logo"/>
+              </div>
+              <div class="title">
+                  袋鼠空间
+              </div>
+          </div>
+          <van-divider :style="{ color: '#8a8686', borderColor: '#8a8686', padding: '0 22%' }">
+             留存美好记忆
+          </van-divider>
+          <div class="box">
+              <div class="user">
+                  <van-field  v-model="user" maxlength="11" type="number" :border="false"  size="large"  :error-message="userErrorMsg" placeholder="请填写账号" :clearable="true" class="input">
+                      <van-icon slot="left-icon" name="contact" size="20px" color="#cfcfcf" style="margin-right: 10px;" />
+                  </van-field>
+              </div>
+              <div class="password">
+                  <van-field v-model="password" type="password" :border="false" size="large" :error-message="pwdErrorMsg" placeholder="请输入密码"  :clearable="true" class="input">
+                      <van-icon slot="left-icon" name="closed-eye" size="20px" color="#cfcfcf" style="margin-right: 10px;" />
+                  </van-field>
+              </div>
+              <div class="login">
+                <van-button color="#12C3DF" round  size="large" @click="login">登录</van-button>
+              </div>
+              <div class="bottom">
+                  <div class="tips">
+                      帮助 <van-icon name="question-o" @click="help"/>
+                  </div>
+                  <div class="register" @click="register">
+                      没有账号，去注册
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</template>
+
+<script>
+import {Toast} from 'vant'
+export default {
+    data(){
+        return {
+            logo: require("../../assets/logo.png"),
+            user: '',
+            password: '',
+            userErrorMsg: '',
+            pwdErrorMsg: '',
+        }
+    },
+    methods: {
+        help() {
+            Toast('寻求帮助')
+        },
+        register() {
+            Toast('去注册')
+        },
+        login() {
+            if(!this.user){
+              this.userErrorMsg = '请填写账号'
+            }else if(!this.password){
+               this.pwdErrorMsg = '请填写密码'
+            }else{
+               
+            }
+        }
+    },
+    watch: {
+        user(newVal, oldVal){
+            if(newVal){
+                this.userErrorMsg = ''
+            }
+        },
+        password(newVal, oldVal){
+            if(newVal){
+                this.pwdErrorMsg = ''
+            }
+        }
+    }
+}
+</script>
+
+<style lang="scss" scoped>
+.container {
+    .content{
+       margin-top: 18%;
+        .top{
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            margin-bottom: -20px;
+            .title{
+                line-height: 60px;
+                font-weight: 700;
+                font-size: 26px;
+                letter-spacing: 5px;
+                margin-left: 10px;
+            }
+        }
+        .box{
+            margin-top: 10%;
+            width: 90%;
+            display: flex;
+            flex-direction: column;
+            margin-left: 5%;
+            .input{
+                caret-color: #12C3DF;
+                font-size: 16px;
+                border-bottom: 1px solid #e2e2e2;
+            }
+            .login{
+                 margin-top: 10%;
+            }
+        }
+        .bottom{
+            margin-top: 5%;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            font-size: 14px;
+            .tips{
+                color: #375999;
+                margin-left: 10px;
+            }
+            .register{
+                color:#12C3DF;
+                margin-right: 10px;
+            }
+        }
+    }
+}
+</style>

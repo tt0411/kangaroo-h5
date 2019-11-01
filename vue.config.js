@@ -1,5 +1,5 @@
 module.exports = {
-   baseUrl: './',
+  publicPath: './',
     devServer: {
       port: '8888',
       open: true

@@ -1,5 +1,6 @@
 <template>
-  <div class="container">
+<common-layout>
+  <div slot="content">
       <div class="content">
           <div class="top">
               <div class="logo">
@@ -27,9 +28,14 @@
                 <van-button color="#12C3DF" round  size="large" @click="login">登录</van-button>
               </div>
               <div class="bottom">
-                  <div class="tips">
-                      帮助 <van-icon name="question-o" @click="help"/>
-                  </div>
+                     <div class="tips" @click="forgetPwd">
+                        <div style="margin-top: -2px;">
+                          <span class="tips-content">忘记密码</span>
+                        </div>
+                        <div>
+                          <van-icon name="question" color="#12C3DF"/>
+                        </div> 
+                    </div>
                   <div class="register" @click="register">
                       没有账号，去注册
                   </div>
@@ -37,6 +43,7 @@
           </div>
       </div>
   </div>
+</common-layout>
 </template>
 
 <script>
@@ -52,11 +59,8 @@ export default {
         }
     },
     methods: {
-        help() {
-            Toast('寻求帮助')
-        },
         register() {
-            Toast('去注册')
+            this.$router.push('/register')
         },
         login() {
             if(!this.user){
@@ -66,6 +70,9 @@ export default {
             }else{
                
             }
+        },
+        forgetPwd() {
+            this.$router.push('/forgetPwd')
         }
     },
     watch: {
@@ -84,7 +91,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.container {
     .content{
        margin-top: 18%;
         .top{
@@ -121,15 +127,20 @@ export default {
             flex-direction: row;
             justify-content: space-between;
             font-size: 14px;
-            .tips{
-                color: #375999;
-                margin-left: 10px;
+           .tips{
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            margin-left: 10px;
+            .tips-content{
+                color: #9c9a9a;
+                margin-right: 5px;
             }
+        }
             .register{
                 color:#12C3DF;
                 margin-right: 10px;
             }
         }
     }
-}
 </style>

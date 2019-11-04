@@ -8,22 +8,20 @@
 </template>
 
 <script>
-// import { mapState } from "vuex";
 export default {
   data() {
     return {
-      active: 0,
+      active: '',
     };
   },
   mounted(){
-     this.active = this.$route.name || 0;
-  },
-  updated(){
      this.active = this.$route.name || '';
   },
-  // computed: {
-  //   ...mapState(['global']),
-  // },
+  updated(){
+   
+      this.active = this.$route.name || '';
+      console.log(this.active)
+  },
   methods: {
     toUser(){
       if(this.$route.name !=='user'){
@@ -52,7 +50,7 @@ export default {
             path: "/message"
           });
       }
-    }
+    },
   }
 };
 </script>

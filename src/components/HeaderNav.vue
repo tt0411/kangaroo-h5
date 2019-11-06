@@ -1,14 +1,12 @@
 <template>
-  <div :class="isShow ? 'show' : 'none' ">
-  <van-nav-bar :title="title || '袋鼠空间'"  :left-arrow="isShowLeft"   @click-left="handleBack" :border='border'></van-nav-bar>
-</div>
+  <van-nav-bar :title="title || ''"  :left-arrow="isShowLeft"   @click-left="handleBack" :border='border'></van-nav-bar>
 </template>
 
 <script>
 export default {
    data() {
     return {
-      title:document.title || '袋鼠空间',
+      title:document.title || '',
       border:false,
     };
   },
@@ -21,10 +19,6 @@ export default {
       type: Boolean,
       default: true,
     },
-    isShow: {
-      type: Boolean,
-      default: true
-    }
   },
   methods: {
     handleBack() {
@@ -39,12 +33,6 @@ export default {
 </script>
 
 <style scoped lang='scss'>
-.show{
-  display: block;
-}
-.none{
-  display: none;
-}
 // 重置van-bar
 .van-nav-bar {
   background: #12C3DF;

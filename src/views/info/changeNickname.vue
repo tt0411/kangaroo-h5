@@ -1,7 +1,7 @@
 <template>
   <div class="container">
   <van-nav-bar title="" left-text="更改名字"  right-text="更改" left-arrow @click-left="onClickLeft" @click-right="onClickRight">
-     <van-button slot="right" type="primary" color="#12C3DF" size="small" v-if="!isDisabled">更改</van-button>
+     <van-button slot="right" type="primary" size="small" v-if="!isDisabled">更改</van-button>
      <van-button slot="right" type="default"  size="small" v-else :disabled="true">更改</van-button>
   </van-nav-bar>
   <van-field v-model="value" maxlength="10" class="input"/>
@@ -24,7 +24,10 @@ export default {
           this.$router.go(-1)
         },
         onClickRight() {
+          if(!this.isDisabled){
             Toast('更改')
+          }
+            
         }
     },
     watch: {
@@ -55,15 +58,15 @@ export default {
     }
 // 重置van-bar
 .van-nav-bar {
-  background: #f5f5f5;
+  background: #12C3DF;
   .van-nav-bar__title {
-    color: #000000;
+    color: #ffffff;
   }
   .van-icon {
-    color: #000000;
+    color: #ffffff;
   }
   .van-nav-bar__text {
-    color: #000000;
+    color: #ffffff;
   }
 }
 </style>

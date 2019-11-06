@@ -34,7 +34,7 @@
              <div>
              <van-icon name="warning" color="#12C3DF"/>
              </div> 
-             <div style="margin-top: -4px;">
+             <div style="margin-top: -2px;">
              <span class="tips-content">手机号作为登录的唯一账号，请妥善保管</span>
              </div>
          </div>
@@ -106,6 +106,7 @@ export default {
     .tips-content{
         color: #9c9a9a;
         margin-left: 5px;
+        font-size: 14px;
     }
 }
 .register{

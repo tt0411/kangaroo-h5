@@ -1,18 +1,18 @@
 <template>
-  <base-layout>
+  <user-layout>
    <div slot="content">
      <div class="container"> 
         <div class="setting" @click="setting">
-          <van-icon name="setting-o" color="#ffffff" size="20px"/>
+          <van-icon name="setting-o" color="#ffffff" size="22px"/>
       </div>
       <div class="bg-user">
         <div class="avatar">
-           <van-image width="60" height="60" :round="true" fit="cover" :src="imgUrl" />
+           <van-image width="60" height="60" :round="true" fit="cover" :src="imgUrl[0]" @click="isPreview = true" />
         </div>
         <div class="userName">{{nickName}}</div>
         <div class="signature">个性签名：{{signature}}</div>
       </div>
-    
+      <van-image-preview v-model="isPreview" :images="imgUrl" />
       <div class="box">
           <div class="myContent">
             <div class="contents">我的内容</div>
@@ -51,7 +51,7 @@
       </div>  
      </div>
    </div>
-  </base-layout>
+  </user-layout>
 </template>
 
 <script>
@@ -61,9 +61,10 @@ export default {
     data(){
         return {
           active: 0,
-          imgUrl: 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2967487759,252864316&fm=26&gp=0.jpg',
+          imgUrl: ['https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2967487759,252864316&fm=26&gp=0.jpg'],
           nickName: '李易峰',
-          signature: '2019继续加油！'
+          signature: '2019继续加油！',
+          isPreview: false,
         }
     },
     methods: {
@@ -95,12 +96,13 @@ export default {
   }
   .signature{
     color: #ffffff;
-    font-size: 14px;
+    font-size: 13px;
   }
 }
 .setting{
   position: absolute;
   right: 30px;
+  top: 10px;
 }
 .box{
   background-color: #ffffff;

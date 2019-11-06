@@ -1,7 +1,7 @@
 <template>
  <van-sticky>
    <div class="content-options">
-            <van-tabs v-model="active"  sticky animated swipeable color="#12C3DF">
+            <van-tabs v-model="active"  animated color="#12C3DF">
             <van-tab>
                 <div slot="title">
                     <van-icon name="star-o" size="20px" /> 

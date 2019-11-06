@@ -2,12 +2,12 @@
   <common-layout>
       <div slot="content">
         <div class="container">
-           <van-cell title="个人信息" is-link to="/info"/>
-          <van-cell title="修改密码" is-link to="/changePwd" />
+           <van-cell title="个人信息" title-style="font-size: 16px;" is-link to="/info"/>
+          <van-cell title="修改密码" title-style="font-size: 16px;" is-link to="/changePwd" />
           <div class="zhanwei"></div>
-          <van-cell title="关于袋鼠空间" is-link />
+          <van-cell title="关于袋鼠空间" title-style="font-size: 16px;" is-link to="/about" />
           <div class="zhanwei"></div>
-          <van-cell title="退出" title-style="text-align: center" @click="logout"/>
+          <van-cell title="退出" title-style="text-align: center;font-size: 16px;" @click="logout"/>
         </div>
       </div>
   </common-layout>
@@ -18,7 +18,7 @@ import {Toast} from 'vant'
 export default {
   methods: { 
       logout() {
-          Toast('退出')
+         this.$router.push('/login')
       }
     }
 }
@@ -28,6 +28,7 @@ export default {
 .container{
   background-color: #f5f5f5;
   height: calc(100vh - 44px);
+  font-size: 16px;
   .zhanwei{
     width: 100%;
     height:10px;

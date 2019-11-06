@@ -4,6 +4,7 @@
           <div class="content">
                <van-field
                 v-model="phone"
+                type="number"
                 required
                 clearable
                 label="手机号"
@@ -16,7 +17,7 @@
              <van-icon name="warning" color="#12C3DF"/>
              </div> 
              <div style="margin-top: -4px;">
-             <span class="tips-content">填写手机号即账号，然后重置密码，重置后进入app为保证账号安全，尽快修改密码</span>
+             <span class="tips-content">为保证账号安全,重置密码进入app后尽快修改密码</span>
              </div>
          </div>
           <div class="resetPwd">
@@ -41,7 +42,7 @@ export default {
             if(!(/^1[3456789]\d{9}$/.test(this.phone))){
                 Toast('手机号不合法')
             }else{
-
+                Toast('重置成功，新密码为 123456')
             }
         }
     },
@@ -59,6 +60,7 @@ export default {
 
 <style lang="scss" scoped>
 .content{
+    margin-top: 10px;
      .resetPwd{
        margin-top: 10px; 
        width: 80%;
@@ -73,6 +75,7 @@ export default {
     .tips-content{
         color: #9c9a9a;
         margin-left: 5px;
+        text-indent: 20px;
     }
  }
 }

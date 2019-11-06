@@ -2,6 +2,7 @@
   <div class="footer">
     <div class="input">
       <van-field
+        style="background-color:#f5f5f5;font-size: 16px;"
         :disabled="disabled"
         v-model="message"
         rows="1"
@@ -69,8 +70,12 @@ export default {
   align-items: center;
   justify-content: space-between;
   border-top: 1px solid #eeeeee;
+  .input{
+    flex: 5;
+  }
   .send {
     margin-right: 10px;
+    margin-left: 5px;
   }
   .save_mark {
     display: flex;

@@ -2,7 +2,7 @@
   <common-layout>
       <div slot="content">
           <div class="container">
-          <van-cell title="头像"  style="line-height: 55px;height: 67px;">
+          <van-cell title="头像"  style="line-height: 55px;height: 67px;font-size: 16px;">
            <van-uploader  :after-read="uploadImg" accept="image/*" capture="camera"> 
             <template slot="default">
                <van-image width="46px" height="46px"  round :src="imgUrl[0]" @click="isPreview = true" />
@@ -12,9 +12,9 @@
           
           </van-cell>
           <van-image-preview v-model="isPreview" :images="imgUrl" />
-          <van-cell title="昵称" is-link :value="nickName" to="/changeNickname"/>
-          <van-cell title="性别" is-link :value="genderObj[gender]" @click="genderModal" />
-          <van-cell title="账号" :value="phone" />
+          <van-cell title="昵称" title-style="font-size: 16px;" is-link :value="nickName" to="/changeNickname"/>
+          <van-cell title="性别" title-style="font-size: 16px;" is-link :value="genderObj[gender]" @click="genderModal" />
+          <van-cell title="账号" title-style="font-size: 16px;" :value="phone" />
 
         </div>
         <van-dialog v-model="show" title="选择性别" show-cancel-button @confirm="pickedGender">
@@ -53,7 +53,7 @@ export default {
             this.show = true;
         },
         pickedGender() {
-            console.log(this.radio)
+            this.gender = this.radio
         },
        uploadImg(file) {
             this.imgUrl = []

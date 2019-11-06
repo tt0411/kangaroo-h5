@@ -2,19 +2,12 @@
   <base-layout>
      <div slot="top">
          <div class="header">
-            <!-- <div>
-                <van-image  width="30" height="30" :round="true" fit="cover" :src="avater" />
-            </div> -->
          <van-search
             v-model="value"
             placeholder="请输入搜索关键词"
-            show-action
             shape="round"
-            @focus="toSearch"
-            @search="onSearch"
-            >
-            <div slot="action" @click="onSearch">搜索</div>
-            </van-search>
+            @focus="toSearch"/>
+
          <div class="bg_index">
             <van-swipe :autoplay="5000" indicator-color="white">
                 <van-swipe-item v-for="(item, index) in swiperList" :key="index">
@@ -27,7 +20,7 @@
          <div class="menu">
             <van-grid :border="false" :column-num="4">
                 <van-grid-item v-for="(item, index) in menuList" :key="index">
-                    <van-image  width="45" height="45" :round="true" fit="cover" :src="item.icon" />
+                    <van-image  width="40" height="40" :round="true" fit="cover" :src="item.icon" />
                    <div class="menu-title">{{item.text}}</div>
                 </van-grid-item>
             </van-grid>
@@ -61,7 +54,6 @@ export default {
     components: { ContentItem },
     data(){
        return {
-           value: '',
            createTheme: '',
            writeContent: '',
            textContent: true,
@@ -74,10 +66,10 @@ export default {
            {id: 3, imgSrc: 'https://i.loli.net/2019/10/23/j2o5BVixHnDaqbl.jpg'},
        ],
        menuList: [
-           { icon: 'https://i.loli.net/2019/10/23/dib3uZfWzHTMFxI.png', text: '创主题'},
-           { icon: 'https://i.loli.net/2019/10/23/EK5IuhAHl6nRGp9.png', text: '写内容'},
-           { icon: 'https://i.loli.net/2019/10/23/ZJebCIafXiUTPH6.png', text: '功能待定'},
-           { icon: 'https://i.loli.net/2019/10/23/ZJebCIafXiUTPH6.png', text: '功能待定'},
+           { icon: 'https://i.loli.net/2019/11/06/Lob5m29SstNZwek.png', text: '创主题'},
+           { icon: 'https://i.loli.net/2019/11/06/9UoiHRrpgkOl1Fj.png', text: '写内容'},
+           { icon: 'https://i.loli.net/2019/11/06/insDeR5BfhjMQYq.png', text: '功能待定'},
+           { icon: 'https://i.loli.net/2019/11/06/insDeR5BfhjMQYq.png', text: '功能待定'},
        ],
      }
    },
@@ -91,7 +83,7 @@ export default {
            Toast(this.value)
        },
        toSearch(){
-           console.log('to搜索页面')
+           this.$router.push('/search')
        },
        moreContent() {
           Toast('更多内容')

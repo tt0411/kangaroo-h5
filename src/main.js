@@ -10,8 +10,10 @@ import store from './store/index.js'
 import HeaderNav from '@/components/headerNav.vue'
 import BaseLayout from '@/components/baseLayout'
 import CommonLayout from '@/components/commonLayout'
+import UserLayout from '@/components/userLayout'
+import VueTouch from 'vue-touch'
 
-
+Vue.use(VueTouch, {name: 'v-touch'})
 Vue.use(VueVideoPlayer)
 Vue.config.productionTip = false;
 
@@ -84,6 +86,7 @@ Vue.config.productionTip = false;
 Vue.component('header-nav',HeaderNav)
 Vue.component('base-layout',BaseLayout)
 Vue.component('common-layout',CommonLayout)
+Vue.component('user-layout',UserLayout)
 
 new Vue({
   router,

@@ -1,7 +1,6 @@
 <template>
       <div id="container">
           <div class="header">
-             <header-nav :isShowLeft="false"/>
              <slot name="top"></slot>
           </div>
           <div class="content">
@@ -15,10 +14,15 @@
 </template>
 
 <script>
-import HeaderNav from "./headerNav.vue"; 
 import Tabbar from './tabbar.vue';
 export default {
-  components: {HeaderNav, Tabbar},
+  components: {Tabbar},
+  props: {
+    isShow: {
+      type: Boolean,
+      default: true
+    }
+  },
 };
 </script>
 

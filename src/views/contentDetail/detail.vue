@@ -1,6 +1,7 @@
 <template>
   <div class="content">
     <div class="content-item">
+      <!-- <v-touch @swipeleft="swiperleft" class="wrapper"> -->
       <div class="info">
         <div class="avatar">
           <van-image width="45" height="45" :round="true" fit="cover" :src="content.avatar" />
@@ -62,13 +63,15 @@
           ></video-player>
         </div>
       </div>
-    </div>
+      <!-- </v-touch> -->
+    </div> 
     <ListItem :content="content" />
   </div>
 </template>
 
 <script>
 import ListItem from "./listItem.vue";
+
 export default {
   components: { ListItem },
   data() {
@@ -121,11 +124,17 @@ export default {
       poster:
         "https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=673709352,371074027&fm=26&gp=0.jpg", //你的封面地址
       notSupportedMessage: "此视频暂无法播放，请稍后再试"
-    };
+    }
+  },
+  methods: {
+    // swiperleft() {
+    //   this.$router.push('/user')
+    // },
+
   }
 };
 </script>
-
+ 
 <style lang="scss" scoped>
 .content {
   background: #ffffff;

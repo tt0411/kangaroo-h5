@@ -92,12 +92,13 @@
           <div class="count">{{item.comment}}</div>
         </div>
         <div class="mark">
-          <van-icon name="like-o" size="20px" />
+          <van-icon name="like" color="#12C3DF" size="20px" v-if="like"/>
+          <van-icon name="like-o" size="20px" v-else/>
           <div class="count">{{item.mark}}</div>
         </div>
       </div>
     </div>
-    <div class="seeMore">
+    <div class="seeMore" v-if="more">
       <span @click="seeMore">查看更多</span>
     </div>
   </div>
@@ -105,6 +106,16 @@
 
 <script>
 export default {
+  props: {
+     like: {
+       type: Boolean,
+       default: false
+     },
+     more: {
+       type: Boolean,
+       default: true
+     }
+   },
   data() {
     return {
       show: false,
@@ -126,13 +137,14 @@ export default {
           comment: 23,
           mark: 678,
           img: [
-              "https://kangaroo-app.oss-cn-hangzhou.aliyuncs.com/1571905601259.png?Expires=1572574408&OSSAccessKeyId=TMP.hfUQ6ApZSVaBVCr8Vkf1rjCGT5LzqNtpVA11Avyj2YsXnEWEMrR9juGYAqrNb7oW8tz8YhhJW1K1uzVCfp9i1yP76Uoav9bCLUaRLkt7d1gPWcuoJvjHw4yfjuXi6L.tmp&Signature=hZXZiYk7Ogh8rbN2vW0g2IiF4F8%3D",
-              "https://kangaroo-app.oss-cn-hangzhou.aliyuncs.com/1571905601267.png?Expires=1572574449&OSSAccessKeyId=TMP.hfUQ6ApZSVaBVCr8Vkf1rjCGT5LzqNtpVA11Avyj2YsXnEWEMrR9juGYAqrNb7oW8tz8YhhJW1K1uzVCfp9i1yP76Uoav9bCLUaRLkt7d1gPWcuoJvjHw4yfjuXi6L.tmp&Signature=CYFim94Vor1MtXa%2BWa8sUtKSb8Q%3D",
-              "https://kangaroo-app.oss-cn-hangzhou.aliyuncs.com/1571905711338.png?Expires=1572574462&OSSAccessKeyId=TMP.hfUQ6ApZSVaBVCr8Vkf1rjCGT5LzqNtpVA11Avyj2YsXnEWEMrR9juGYAqrNb7oW8tz8YhhJW1K1uzVCfp9i1yP76Uoav9bCLUaRLkt7d1gPWcuoJvjHw4yfjuXi6L.tmp&Signature=PsCLlAsOICRNs%2FYl82Ec2ex55RQ%3D",
-              "https://kangaroo-app.oss-cn-hangzhou.aliyuncs.com/1571905711350.png?Expires=1572574477&OSSAccessKeyId=TMP.hfUQ6ApZSVaBVCr8Vkf1rjCGT5LzqNtpVA11Avyj2YsXnEWEMrR9juGYAqrNb7oW8tz8YhhJW1K1uzVCfp9i1yP76Uoav9bCLUaRLkt7d1gPWcuoJvjHw4yfjuXi6L.tmp&Signature=7Pn1wWkxjVDBgW9J5mx7mj0ljBs%3D",
-              "https://kangaroo-app.oss-cn-hangzhou.aliyuncs.com/1571905711355.png?Expires=1572574496&OSSAccessKeyId=TMP.hfUQ6ApZSVaBVCr8Vkf1rjCGT5LzqNtpVA11Avyj2YsXnEWEMrR9juGYAqrNb7oW8tz8YhhJW1K1uzVCfp9i1yP76Uoav9bCLUaRLkt7d1gPWcuoJvjHw4yfjuXi6L.tmp&Signature=S%2Byj2DYK29I8O4pAJWxoEbbTStw%3D",
-              "https://kangaroo-app.oss-cn-hangzhou.aliyuncs.com/1571905932616.png?Expires=1572574518&OSSAccessKeyId=TMP.hfUQ6ApZSVaBVCr8Vkf1rjCGT5LzqNtpVA11Avyj2YsXnEWEMrR9juGYAqrNb7oW8tz8YhhJW1K1uzVCfp9i1yP76Uoav9bCLUaRLkt7d1gPWcuoJvjHw4yfjuXi6L.tmp&Signature=Li9vZmLgSgaTu2BywWusqE2w040%3D", 
-          ],
+                  "https://kangaroo-app.oss-cn-hangzhou.aliyuncs.com/1571905601259.png",
+                  "https://kangaroo-app.oss-cn-hangzhou.aliyuncs.com/1571905601267.png",
+                  "https://kangaroo-app.oss-cn-hangzhou.aliyuncs.com/1571905711338.png",
+                  "https://kangaroo-app.oss-cn-hangzhou.aliyuncs.com/1571905711350.png",
+                  "https://kangaroo-app.oss-cn-hangzhou.aliyuncs.com/1571905711355.png",
+                  "https://kangaroo-app.oss-cn-hangzhou.aliyuncs.com/1571905932614.png",
+                  "https://kangaroo-app.oss-cn-hangzhou.aliyuncs.com/1571905932616.png",
+               ],
           address: "杭州市下城区跨贸小镇"
         },
         {
@@ -145,7 +157,7 @@ export default {
                 玄关那里，鞋柜不要到顶，柜子可以全屋定制，质量好点，选择原木色。和白色。混合。 鞋柜做半截。上面可以
                 买挂钩，挂东西，比较实用。半截柜，还可以放小盆栽装点，也很美貌。 厨房，上面柜子除了包住油烟机和水表
                 箱的，其他不做...`,
-          audio: "https://kangaroo-app.oss-cn-hangzhou.aliyuncs.com/%E5%B0%8F%E9%98%BF%E4%B8%83%20-%20%E9%82%A3%E5%A5%B3%E5%AD%A9%E5%AF%B9%E6%88%91%E8%AF%B4%20%28%E6%AD%A3%E5%BC%8F%E7%89%88%29.mp3?Expires=1572574546&OSSAccessKeyId=TMP.hfUQ6ApZSVaBVCr8Vkf1rjCGT5LzqNtpVA11Avyj2YsXnEWEMrR9juGYAqrNb7oW8tz8YhhJW1K1uzVCfp9i1yP76Uoav9bCLUaRLkt7d1gPWcuoJvjHw4yfjuXi6L.tmp&Signature=kU6P%2BbU8qckWekYTgATGHYOg9dg%3D",
+          audio: "https://kangaroo-app.oss-cn-hangzhou.aliyuncs.com/%E5%B0%8F%E9%98%BF%E4%B8%83%20-%20%E9%82%A3%E5%A5%B3%E5%AD%A9%E5%AF%B9%E6%88%91%E8%AF%B4%20%28%E6%AD%A3%E5%BC%8F%E7%89%88%29.mp3",
           video: "",
           save: 11,
           comment: 2,
@@ -164,7 +176,7 @@ export default {
                 物复苏，总是给人欣欣向荣的好心情呀！该上班的上班，该上学的上学，该做的工作还是要
                 继续，该...`,
           audio: "",
-          video: "https://kangaroo-app.oss-cn-hangzhou.aliyuncs.com/%E6%9D%8E%E8%8D%A3%E6%B5%A9-%E5%B9%B4%E5%B0%91%E6%9C%89%E4%B8%BA%28%E8%93%9D%E5%85%89%29.mp4?Expires=1572574565&OSSAccessKeyId=TMP.hfUQ6ApZSVaBVCr8Vkf1rjCGT5LzqNtpVA11Avyj2YsXnEWEMrR9juGYAqrNb7oW8tz8YhhJW1K1uzVCfp9i1yP76Uoav9bCLUaRLkt7d1gPWcuoJvjHw4yfjuXi6L.tmp&Signature=ZpucZo2IU74wN%2FC2mdLYeHRF7kI%3D",
+          video: "https://kangaroo-app.oss-cn-hangzhou.aliyuncs.com/%E6%9D%8E%E8%8D%A3%E6%B5%A9-%E5%B9%B4%E5%B0%91%E6%9C%89%E4%B8%BA%28%E8%93%9D%E5%85%89%29.mp4",
           save: 78,
           comment: 34,
           mark: 45,
@@ -212,6 +224,7 @@ export default {
 <style lang="scss" scoped>
 .content {
   background: #ffffff;
+  font-size: 0.16rem;
   .content-item {
     padding: 8px;
     border-bottom: 1px solid #f5f5f5;
@@ -230,6 +243,7 @@ export default {
         }
         .time {
           color: #a8a7a7;
+          font-size: 13px;
         }
       }
     }
@@ -242,6 +256,7 @@ export default {
         .address-name {
           margin-left: 5px;
           color: #888585;
+          font-size: 14px;
           background-color: #faf7f7;
           border-radius: 10px;
           padding: 2px 5px;
@@ -303,6 +318,7 @@ export default {
 .seeMore {
   text-align: center;
   margin-top: 20px;
+  font-size: 14px;
   span {
     color: #4b4b4b;
   }

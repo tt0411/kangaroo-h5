@@ -1,7 +1,10 @@
 <template>
   <base-layout>
    <div slot="content">
-     <div class="container">
+     <div class="container"> 
+        <div class="setting" @click="setting">
+          <van-icon name="setting-o" color="#ffffff" size="20px"/>
+      </div>
       <div class="bg-user">
         <div class="avatar">
            <van-image width="60" height="60" :round="true" fit="cover" :src="imgUrl" />
@@ -9,6 +12,7 @@
         <div class="userName">{{nickName}}</div>
         <div class="signature">个性签名：{{signature}}</div>
       </div>
+    
       <div class="box">
           <div class="myContent">
             <div class="contents">我的内容</div>
@@ -35,10 +39,10 @@
             </div>
           </div>
       </div>  
-      <div class="">
-        <van-tabs v-model="active" animated swipeable color="#12C3DF">
+      <div>
+        <van-tabs v-model="active" animated color="#12C3DF">
           <van-tab title="喜欢">
-            <ContentItem/>
+            <ContentItem :like="true" :more="false"/>
           </van-tab>
           <van-tab title="收藏">
 
@@ -61,12 +65,18 @@ export default {
           nickName: '李易峰',
           signature: '2019继续加油！'
         }
+    },
+    methods: {
+      setting() {
+        this.$router.push('/setting')
+      }
     }
 }
 </script>
 
 <style lang="scss" scoped>
 .container {
+  position: relative;
 .bg-user {
  // background-image: linear-gradient(to right, rgb(109, 211, 226) ,rgb(6, 192, 221));
   background-color: #12C3DF;
@@ -87,6 +97,10 @@ export default {
     color: #ffffff;
     font-size: 14px;
   }
+}
+.setting{
+  position: absolute;
+  right: 30px;
 }
 .box{
   background-color: #ffffff;

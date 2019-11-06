@@ -90,14 +90,15 @@ export default {
         save: 3,
         comment: 3,
         mark: 2,
-        img: [
-              "https://kangaroo-app.oss-cn-hangzhou.aliyuncs.com/1571905601259.png?Expires=1572574408&OSSAccessKeyId=TMP.hfUQ6ApZSVaBVCr8Vkf1rjCGT5LzqNtpVA11Avyj2YsXnEWEMrR9juGYAqrNb7oW8tz8YhhJW1K1uzVCfp9i1yP76Uoav9bCLUaRLkt7d1gPWcuoJvjHw4yfjuXi6L.tmp&Signature=hZXZiYk7Ogh8rbN2vW0g2IiF4F8%3D",
-              "https://kangaroo-app.oss-cn-hangzhou.aliyuncs.com/1571905601267.png?Expires=1572574449&OSSAccessKeyId=TMP.hfUQ6ApZSVaBVCr8Vkf1rjCGT5LzqNtpVA11Avyj2YsXnEWEMrR9juGYAqrNb7oW8tz8YhhJW1K1uzVCfp9i1yP76Uoav9bCLUaRLkt7d1gPWcuoJvjHw4yfjuXi6L.tmp&Signature=CYFim94Vor1MtXa%2BWa8sUtKSb8Q%3D",
-              "https://kangaroo-app.oss-cn-hangzhou.aliyuncs.com/1571905711338.png?Expires=1572574462&OSSAccessKeyId=TMP.hfUQ6ApZSVaBVCr8Vkf1rjCGT5LzqNtpVA11Avyj2YsXnEWEMrR9juGYAqrNb7oW8tz8YhhJW1K1uzVCfp9i1yP76Uoav9bCLUaRLkt7d1gPWcuoJvjHw4yfjuXi6L.tmp&Signature=PsCLlAsOICRNs%2FYl82Ec2ex55RQ%3D",
-              "https://kangaroo-app.oss-cn-hangzhou.aliyuncs.com/1571905711350.png?Expires=1572574477&OSSAccessKeyId=TMP.hfUQ6ApZSVaBVCr8Vkf1rjCGT5LzqNtpVA11Avyj2YsXnEWEMrR9juGYAqrNb7oW8tz8YhhJW1K1uzVCfp9i1yP76Uoav9bCLUaRLkt7d1gPWcuoJvjHw4yfjuXi6L.tmp&Signature=7Pn1wWkxjVDBgW9J5mx7mj0ljBs%3D",
-              "https://kangaroo-app.oss-cn-hangzhou.aliyuncs.com/1571905711355.png?Expires=1572574496&OSSAccessKeyId=TMP.hfUQ6ApZSVaBVCr8Vkf1rjCGT5LzqNtpVA11Avyj2YsXnEWEMrR9juGYAqrNb7oW8tz8YhhJW1K1uzVCfp9i1yP76Uoav9bCLUaRLkt7d1gPWcuoJvjHw4yfjuXi6L.tmp&Signature=S%2Byj2DYK29I8O4pAJWxoEbbTStw%3D",
-              "https://kangaroo-app.oss-cn-hangzhou.aliyuncs.com/1571905932616.png?Expires=1572574518&OSSAccessKeyId=TMP.hfUQ6ApZSVaBVCr8Vkf1rjCGT5LzqNtpVA11Avyj2YsXnEWEMrR9juGYAqrNb7oW8tz8YhhJW1K1uzVCfp9i1yP76Uoav9bCLUaRLkt7d1gPWcuoJvjHw4yfjuXi6L.tmp&Signature=Li9vZmLgSgaTu2BywWusqE2w040%3D", 
-          ],
+       img: [
+                  "https://kangaroo-app.oss-cn-hangzhou.aliyuncs.com/1571905601259.png",
+                  "https://kangaroo-app.oss-cn-hangzhou.aliyuncs.com/1571905601267.png",
+                  "https://kangaroo-app.oss-cn-hangzhou.aliyuncs.com/1571905711338.png",
+                  "https://kangaroo-app.oss-cn-hangzhou.aliyuncs.com/1571905711350.png",
+                  "https://kangaroo-app.oss-cn-hangzhou.aliyuncs.com/1571905711355.png",
+                  "https://kangaroo-app.oss-cn-hangzhou.aliyuncs.com/1571905932614.png",
+                  "https://kangaroo-app.oss-cn-hangzhou.aliyuncs.com/1571905932616.png",
+               ],
       }
     };
   },

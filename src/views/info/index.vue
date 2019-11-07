@@ -17,7 +17,7 @@
           <van-cell title="账号" title-style="font-size: 16px;" :value="phone" />
 
         </div>
-        <van-dialog v-model="show" title="选择性别" show-cancel-button @confirm="pickedGender">
+        <van-dialog v-model="show" title="选择性别" show-cancel-button @confirm="pickedGender" confirm-button-color="#12C3DF">
             <van-radio-group v-model="radio" style="padding: 20px;">
                 <van-radio name="1" checked-color="#12C3DF" style="margin-bottom: 20px;">男</van-radio>
                 <van-radio name="2" checked-color="#12C3DF">女</van-radio>

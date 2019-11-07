@@ -68,7 +68,7 @@ export default {
             }else if(!this.password){
                this.pwdErrorMsg = '请填写密码'
             }else{
-               
+               this.$router.push('/')
             }
         },
         forgetPwd() {

@@ -35,7 +35,7 @@ export default {
             overflow: auto;
         }
         .footer{
-          margin-top: 94px;
+          margin-top: 50px;
         }
     }
     // 重置van-bar

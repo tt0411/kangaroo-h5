@@ -45,7 +45,9 @@
             <ContentItem :like="true" :more="false"/>
           </van-tab>
           <van-tab title="收藏">
-
+              <div class="nothing">
+                <Empty :type="2"/>
+              </div>
           </van-tab>
       </van-tabs>
       </div>  
@@ -56,8 +58,9 @@
 
 <script>
 import ContentItem from '../index/contentItem'
+import Empty from '../../components/emprty.vue'
 export default {
-  components: { ContentItem },
+  components: { ContentItem, Empty },
     data(){
         return {
           active: 0,
@@ -156,6 +159,9 @@ export default {
       margin-bottom: 5px;
     }
   }
+}
+.nothing{
+  margin-top: 5%;
 }
 }
 </style>

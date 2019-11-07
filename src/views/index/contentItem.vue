@@ -224,7 +224,7 @@ export default {
 <style lang="scss" scoped>
 .content {
   background: #ffffff;
-  font-size: 0.16rem;
+   font-size: 0.15rem;
   .content-item {
     padding: 8px;
     border-bottom: 1px solid #f5f5f5;
@@ -317,7 +317,7 @@ export default {
 }
 .seeMore {
   text-align: center;
-  margin-top: 20px;
+  margin: 20px 0;
   font-size: 14px;
   span {
     color: #4b4b4b;

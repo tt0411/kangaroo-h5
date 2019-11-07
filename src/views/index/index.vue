@@ -3,7 +3,6 @@
      <div slot="top">
          <div class="header">
          <van-search
-            v-model="value"
             placeholder="请输入搜索关键词"
             shape="round"
             @focus="toSearch"/>
@@ -61,9 +60,9 @@ export default {
            videoContent: true,
            avater: 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2967487759,252864316&fm=26&gp=0.jpg',
        swiperList: [
-           {id: 1, imgSrc: 'https://i.loli.net/2019/10/23/vDc9KdXnYNyLPEV.jpg'},
-           {id: 2, imgSrc: 'https://i.loli.net/2019/10/23/97mYVLhvcqZS5jN.jpg'},
-           {id: 3, imgSrc: 'https://i.loli.net/2019/10/23/j2o5BVixHnDaqbl.jpg'},
+           {id: 1, imgSrc: 'https://i.loli.net/2019/11/07/hAv6EFfGCSOeDRI.jpg'},
+           {id: 2, imgSrc: 'https://i.loli.net/2019/11/07/tP3SgWAr7iBlZOx.jpg'},
+           {id: 3, imgSrc: 'https://i.loli.net/2019/11/07/xAlTiQkmIL4doyH.jpg'},
        ],
        menuList: [
            { icon: 'https://i.loli.net/2019/11/06/Lob5m29SstNZwek.png', text: '创主题'},

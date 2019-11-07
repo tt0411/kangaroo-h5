@@ -39,7 +39,7 @@ export default {
             overflow: auto;
         }
         .footer{
-          margin-top: 94px;
+          margin-top: 50px;
         }
     }
     // 重置van-bar
@@ -50,6 +50,7 @@ export default {
   }
   .van-icon {
     color: #ffffff;
+    font-size: 20px;
   }
   .van-nav-bar__text {
     color: #ffffff;

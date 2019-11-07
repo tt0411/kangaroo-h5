@@ -53,6 +53,11 @@ export default {
         }
     },
     created() {
+        if(this.$route.query.type) {
+            this.value = this.$route.query.type
+        }
+    },
+    mounted() {
          if (localStorage.getItem('historySearchList')) {
             let list = localStorage.getItem('historySearchList').split(',')
             this.localHistory = [... new Set(list)]

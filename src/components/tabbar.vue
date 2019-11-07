@@ -18,9 +18,7 @@ export default {
      this.active = this.$route.name || '';
   },
   updated(){
-   
       this.active = this.$route.name || '';
-      console.log(this.active)
   },
   methods: {
     toUser(){
@@ -55,6 +53,6 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 
 </style>

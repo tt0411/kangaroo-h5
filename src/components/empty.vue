@@ -12,6 +12,10 @@
         <img :src="empty[2]"/>
         <div class="text">暂无话题</div>
     </div>
+    <div class="img" v-if="type === 4">
+        <img :src="empty[3]"/>
+        <div class="text">暂无内容</div>
+    </div>
   </div>
 </template>
 
@@ -23,7 +27,8 @@ export default {
             empty: [
                 'https://i.loli.net/2019/11/07/QoxGHMvq5ZdLTXn.png',
                 'https://i.loli.net/2019/11/07/gE4eZNaPVkqwcKi.png', 
-                'https://i.loli.net/2019/11/07/IzRsylA7oe2UCjE.png'
+                'https://i.loli.net/2019/11/07/IzRsylA7oe2UCjE.png', 
+                'https://i.loli.net/2019/11/08/4F5i1MXdWgUSxet.png'
                 ]
         }
     }

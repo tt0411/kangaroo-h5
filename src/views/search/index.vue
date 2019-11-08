@@ -4,8 +4,8 @@
           <div class="container">
            <div class="search">
            <div class="typeList">
-           <van-dropdown-menu active-color="#12C3DF" style="border: none;">
-                <van-dropdown-item v-model="value" :options="typeList" @change="pickedType" style="border: none;" />
+           <van-dropdown-menu active-color="#12C3DF">
+                <van-dropdown-item v-model="value" :options="typeList" @change="pickedType" />
             </van-dropdown-menu>
            </div>
            <div class="searchInput">
@@ -70,9 +70,7 @@ export default {
             }else{
                 this.historyList.push(this.searchValue)
                 localStorage.setItem('historySearchList', this.historyList)
-                let list = localStorage.getItem('historySearchList').split(',')
-                this.localHistory = [... new Set(list)]
-                console.log(this.value) 
+                this.$router.push({ path: '/searchList', query: {value: this.searchValue, type: this.value}}) 
             }
            
         },

@@ -58,7 +58,7 @@
 
 <script>
 import ContentItem from '../index/contentItem'
-import Empty from '../../components/emprty.vue'
+import Empty from '../../components/empty.vue'
 export default {
   components: { ContentItem, Empty },
     data(){

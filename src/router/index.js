@@ -15,13 +15,17 @@ import Message from '@/views/message/index'
 import Theme from '@/views/theme/index'
 import About from '@/views/about/index'
 import Search from '@/views/search/index'
+import Content from '@/views/content/index'
+import ThemeToContent from '@/views/themeTocontent/index'
+import SearchList from '@/views/searchList/index'
+import WriteContent from '@/views/writeContent/index'
 
 Vue.use(Router)
 
 const router = new Router({
   mode: 'hash',
   routes: [
-    { path: '/', name: 'index', component: Index, meta: { title: '广场' } },
+    { path: '/', name: 'index', component: Index, meta: { title: '首页' } },
     { path: '/message', name: 'message', component: Message, meta: { title: '消息' } },
     { path: '/theme', name: 'theme', component: Theme, meta: { title: '主题' } },
     { path: '/login', name: 'login', component: Login, meta: { title: '登录' } },
@@ -34,8 +38,12 @@ const router = new Router({
     { path: '/setting', name: 'setting', component: Setting, meta: { title: '设置'} },
     { path: '/info', name: 'info', component: Info, meta: { title: '个人信息'} },
     { path: '/changeNickname', name: 'changeNickname', component: ChangeNickName, meta: { title: '更改昵称'} },
-    { path: '/about', name: 'about', component: About, meta: { title: '关于袋鼠空间'}},
-    { path: '/search', name: 'search', component: Search, meta: { title: '搜一搜'}},
+    { path: '/about', name: 'about', component: About, meta: { title: '关于袋鼠空间'} },
+    { path: '/search', name: 'search', component: Search, meta: { title: '搜一搜'} },
+    { path: '/content', name: 'content', component: Content, meta: { title: '广场'} },
+    { path: '/ThemeToContent', name: 'ThemeToContent', component: ThemeToContent, meta: { title: ''}},
+    { path: '/searchList', name: 'SearchList', component: SearchList, meta: { title: '搜索列表'}},
+    { path: '/writeContent', name: 'WriteContent', component: WriteContent, meta: { title: '写点啥'}}
   ]
 })
 
@@ -45,7 +53,6 @@ router.beforeEach((to, from, next) => {
   }else{
     document.title = ''
   }
-
   next()
 })
 

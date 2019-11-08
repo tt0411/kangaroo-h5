@@ -66,7 +66,7 @@ export default {
 <style lang="scss" scoped>
 .container{
   background-color: #f5f5f5;
-  height: calc(100vh - 40px);
+  height: calc(100vh - 50px);
     .zhanwei{
     width: 100%;
     height:10px;

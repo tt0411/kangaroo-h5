@@ -211,7 +211,7 @@ export default {
   },
   methods: {
     seeMore() {
-      console.log("查看更多");
+      this.$router.push('/content')
     },
     toDetail(item) {
       console.log(item.id);

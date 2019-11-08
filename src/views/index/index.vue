@@ -18,7 +18,7 @@
         <van-sticky>
          <div class="menu">
             <van-grid :border="false" :column-num="4">
-                <van-grid-item v-for="(item, index) in menuList" :key="index">
+                <van-grid-item v-for="(item, index) in menuList" :key="index" @click="iconGo(item)">
                     <van-image  width="40" height="40" :round="true" fit="cover" :src="item.icon" />
                    <div class="menu-title">{{item.text}}</div>
                 </van-grid-item>
@@ -65,28 +65,31 @@ export default {
            {id: 3, imgSrc: 'https://i.loli.net/2019/11/07/xAlTiQkmIL4doyH.jpg'},
        ],
        menuList: [
-           { icon: 'https://i.loli.net/2019/11/06/Lob5m29SstNZwek.png', text: '创主题'},
-           { icon: 'https://i.loli.net/2019/11/06/9UoiHRrpgkOl1Fj.png', text: '写内容'},
-           { icon: 'https://i.loli.net/2019/11/06/insDeR5BfhjMQYq.png', text: '功能待定'},
-           { icon: 'https://i.loli.net/2019/11/06/insDeR5BfhjMQYq.png', text: '功能待定'},
+           { icon: 'https://i.loli.net/2019/11/08/3fL1Q68g5zoEsV9.png', text: '广场'},
+           { icon: 'https://i.loli.net/2019/11/08/3liqY7uwNDPJKhd.png', text: '创主题'},
+           { icon: 'https://i.loli.net/2019/11/08/MPGuNnFwp936Jai.png', text: '写内容'},
+           { icon: 'https://i.loli.net/2019/11/08/2E4SI35dLeprmza.png', text: '功能待定'},
        ],
      }
    },
-    computed: {
-      player() {
-         return this.$refs.videoPlayer.player
-      }
-    },
    methods: {
-       onSearch(){
-           Toast(this.value)
-       },
        toSearch(){
            this.$router.push('/search')
        },
        moreContent() {
-          Toast('更多内容')
+          this.$router.push('/content') 
        },
+       iconGo(item) {
+           if(item.text === '创主题') {
+               this.$router.push('/theme')
+           }
+           if(item.text === '广场') {
+               this.$router.push('/content')
+           }
+           if(item.text === '写内容') {
+               this.$router.push('/writeContent')
+           }
+       }
    }
 }
 </script>

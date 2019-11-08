@@ -1,7 +1,7 @@
 <template>
   <div class="container">
         <van-row gutter="5">
-            <div class="itemList" v-for="(item, index) in themeList" :key="index">
+            <div class="itemList" v-for="(item, index) in themeList" :key="index" @click="toContent(item)">
               <van-col span="12">
                    <div class="item">
                        <div class="top">
@@ -33,6 +33,11 @@ export default {
               {id: 3, name: '工作的那些事儿', nickName: '杜拉拉', imgSrc: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1820523987,3798556096&fm=26&gp=0.jpg', time: '2019-11-07 11:38:12'},
               {id: 4, name: '少年，你今天努力了吗？', nickName: '李一鸣', imgSrc: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3276179142,1686381254&fm=26&gp=0.jpg', time: '2019-11-07 11:38:12'},
             ]
+        }
+    },
+    methods: {
+        toContent(item) {
+            this.$router.push({ path: '/themeTocontent', query: {id: item.id, name: item.name}})
         }
     }
 }

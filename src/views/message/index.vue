@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import Empty from '../../components/emprty'
+import Empty from '../../components/empty'
 export default {
    components: { Empty },
     data() {

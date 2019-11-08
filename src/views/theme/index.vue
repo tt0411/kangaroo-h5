@@ -58,6 +58,7 @@ export default {
     },
     methods: {
       toSearch() {
+        // 根据type类型去搜索页面切换类型
         this.$router.push({ path: '/search', query: {type: 3}})
       },
       createTheme() {

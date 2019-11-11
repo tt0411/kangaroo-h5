@@ -19,6 +19,7 @@ import Content from '@/views/content/index'
 import ThemeToContent from '@/views/themeTocontent/index'
 import SearchList from '@/views/searchList/index'
 import WriteContent from '@/views/writeContent/index'
+import HomePage from '@/views/homePage/index'
 
 Vue.use(Router)
 
@@ -41,9 +42,10 @@ const router = new Router({
     { path: '/about', name: 'about', component: About, meta: { title: '关于袋鼠空间'} },
     { path: '/search', name: 'search', component: Search, meta: { title: '搜一搜'} },
     { path: '/content', name: 'content', component: Content, meta: { title: '广场'} },
-    { path: '/ThemeToContent', name: 'ThemeToContent', component: ThemeToContent, meta: { title: ''}},
-    { path: '/searchList', name: 'SearchList', component: SearchList, meta: { title: '搜索列表'}},
-    { path: '/writeContent', name: 'WriteContent', component: WriteContent, meta: { title: '写点啥'}}
+    { path: '/themeToContent', name: 'themeToContent', component: ThemeToContent, meta: { title: ''}},
+    { path: '/searchList', name: 'searchList', component: SearchList, meta: { title: '搜索列表'}},
+    { path: '/writeContent', name: 'writeContent', component: WriteContent, meta: { title: '写点啥'}},
+    { path: '/homePage', name: 'homePage', component: HomePage },
   ]
 })
 

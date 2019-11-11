@@ -4,7 +4,7 @@
       <!-- <v-touch @swipeleft="swiperleft" class="wrapper"> -->
       <div class="info">
         <div class="avatar">
-          <van-image width="45" height="45" :round="true" fit="cover" :src="content.avatar" />
+          <van-image width="45" height="45" :round="true" fit="cover" :src="content.avatar"  @click="toHomePage"/>
         </div>
         <div class="name-time">
           <div class="name">{{content.nickName}}</div>
@@ -127,9 +127,9 @@ export default {
     }
   },
   methods: {
-    // swiperleft() {
-    //   this.$router.push('/user')
-    // },
+   toHomePage() {
+     this.$router.push({path: '/homePage', query: { id: this.content.id}})
+   }
 
   }
 };

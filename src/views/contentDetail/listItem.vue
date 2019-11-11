@@ -18,7 +18,7 @@
                         <van-row gutter="5">
                         <van-col span="3">
                             <div class="avatar">
-                                <van-image round width="30px" height="30px" :src="item.imgUrl"/>
+                                <van-image round width="30px" height="30px" :src="item.imgUrl"  @click="toHomePage(item)"/>
                             </div>
                         </van-col>
                         <van-col span="5">
@@ -42,7 +42,7 @@
                        <van-row gutter="5">
                             <van-col span="3">
                                 <div class="avatar">
-                                     <van-image round width="30px" height="30px" :src="item.imgUrl"/>
+                                     <van-image round width="30px" height="30px" :src="item.imgUrl"  @click="toHomePage(item)"/>
                                 </div>
                             </van-col>
                             <van-col span="21">
@@ -71,7 +71,7 @@
                         <van-row gutter="5">
                         <van-col span="3">
                             <div class="avatar">
-                                <van-image round width="30px" height="30px" :src="item.imgUrl"/>
+                                <van-image round width="30px" height="30px" :src="item.imgUrl"  @click="toHomePage(item)"/>
                             </div>
                         </van-col>
                         <van-col span="5">
@@ -117,6 +117,9 @@ export default {
   methods: {
       onLoad(){
 
+      },
+      toHomePage(item) {
+          this.$router.push({ path: '/homePage', query: { id: item.id }})
       }
   }
 }

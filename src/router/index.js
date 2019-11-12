@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Upload from '@/views/vantUpload'
 import Index from '@/views/index/index'
 import Login from '@/views/login/index'
 import ContentDetail from '@/views/contentDetail/index'
@@ -20,6 +19,7 @@ import ThemeToContent from '@/views/themeTocontent/index'
 import SearchList from '@/views/searchList/index'
 import WriteContent from '@/views/writeContent/index'
 import HomePage from '@/views/homePage/index'
+import Addaddress from '@/views/addAddress/index'
 
 Vue.use(Router)
 
@@ -30,7 +30,6 @@ const router = new Router({
     { path: '/message', name: 'message', component: Message, meta: { title: '消息' } },
     { path: '/theme', name: 'theme', component: Theme, meta: { title: '主题' } },
     { path: '/login', name: 'login', component: Login, meta: { title: '登录' } },
-    { path: '/upload', name: 'upload', component: Upload, meta: { title: '上传文件测试' } },
     { path: '/detail', name: 'detail', component: ContentDetail, meta: { title: '袋鼠空间' } },
     { path: '/register', name: 'register', component: Register, meta: { title: '注册' } },
     { path: '/user', name: 'user', component: User },
@@ -44,8 +43,9 @@ const router = new Router({
     { path: '/content', name: 'content', component: Content, meta: { title: '广场'} },
     { path: '/themeToContent', name: 'themeToContent', component: ThemeToContent, meta: { title: ''}},
     { path: '/searchList', name: 'searchList', component: SearchList, meta: { title: '搜索列表'}},
-    { path: '/writeContent', name: 'writeContent', component: WriteContent, meta: { title: '写点啥'}},
+    { path: '/writeContent', name: 'writeContent', component: WriteContent, meta: { title: '写内容'}},
     { path: '/homePage', name: 'homePage', component: HomePage },
+    { path: '/addAddress', name: 'addAddress', component: Addaddress },
   ]
 })
 

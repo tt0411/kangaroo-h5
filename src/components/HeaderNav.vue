@@ -36,7 +36,6 @@ export default {
 // 重置van-bar
 .van-nav-bar {
   background: #12C3DF;
-  //  background-image: linear-gradient( 135deg, #ABDCFF 10%, #12C3DF 100%);
   .van-nav-bar__title {
     color: #ffffff;
   }

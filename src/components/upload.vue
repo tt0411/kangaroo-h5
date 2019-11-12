@@ -1,6 +1,5 @@
 <template>
  <div class="container">
-    <header-nav :isShowLeft="false" />
     <div class="content">
     <div class="imgList" v-if="type === 1">
     <div>
@@ -13,7 +12,7 @@
         <van-image-preview v-model="show" :images="showImg" />
     </div>
     <div>
-    <van-uploader multiple :max-count="9" v-show="imgFile.length < 9" capture="camera" accept="image/*" :after-read="afterRead"></van-uploader>
+    <van-uploader multiple :max-count="9" :preview-size="80" v-show="imgFile.length < 9" :upload-text="'上传图片'" capture="camera" accept="image/*" :after-read="afterImgRead"></van-uploader>
     </div>
    </div> 
    <div class="video" v-if="type === 2">
@@ -33,7 +32,7 @@
             </van-col>  
         </van-row> 
         <div>
-             <van-uploader  v-show="!this.playerOptions.sources[0].src" capture="camera" accept="video/*" :after-read="afterVideoRead"></van-uploader>
+             <van-uploader  v-show="!this.playerOptions.sources[0].src" :preview-size="80" :upload-text="'上传视频'" capture="camera" accept="video/*" :after-read="afterVideoRead"></van-uploader>
         </div>
    </div>
    <div class="audio" v-if="type === 3">
@@ -44,11 +43,8 @@
             </van-col>  
         </van-row> 
         <div>
-             <van-uploader  v-show="!audioSrc" capture="camera" accept="audio/*" :after-read="afterAudioRead"></van-uploader>
+             <van-uploader  v-show="!audioSrc" :upload-text="'上传音频'" :preview-size="80" capture="camera" accept="audio/*" :after-read="afterAudioRead"></van-uploader>
         </div>
-   </div>
-   <div style="text-align: center">
-    <van-button type="info" @click="submitData">提交</van-button>
    </div>
    </div>
 </div>
@@ -59,12 +55,17 @@
 import axios from "axios"
 import {Toast} from 'vant'
 export default {
+      props: { 
+          type: {
+              type: Number, 
+              default: 1
+          }
+      },
       data(){
           return {
-            type: 3,
             imgFile: [],
             backImgList: [],
-            imageUrl: [],
+            imgUrl: [],
             show: false,
             showImg: [],
             videoUrl: '',
@@ -83,7 +84,7 @@ export default {
                 sources: [
                 {
                     type: "video/mp4", //这里的种类支持很多种：基本视频格式、直播、流媒体等，具体可以参看git网址项目
-                    src: "http://kangaroo-app.oss-cn-hangzhou.aliyuncs.com/video/1573464578158.mp4"
+                    src: ""
                }
                 ],
                 poster:
@@ -93,9 +94,35 @@ export default {
           }
       },
       methods: { 
-        afterRead(file, detail) {
+        afterImgRead(file, detail) {
             this.imgFile.push(file)  
             this.showImg.push(file.content)
+             let config = {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            };
+            if(this.imgFile.length > 0) {
+                this.imgFile.forEach( (item, index) => {
+                const formdata = new FormData()
+                formdata.append('file', this.imgFile[index].file)
+                formdata.append('type', 'img')
+                axios.post('http://localhost:3001/alioss/uploadOss', formdata, config).then(res => {
+                    if(res.data.code === 200) {
+                        Toast.success('上传成功')
+                    }
+                     if(this.imgFile.length === 1 ){
+                         this.imgUrl.push(res.data.data)
+                     }else{
+                         this.backImgList.push(res.data.data)
+                         this.imgUrl = this.backImgList.join(',')
+                      } 
+                    }).catch(err => {
+                        Toast.fail('系统错误')
+                       console.log(err)
+                })
+            })  
+          }
          },
          afterVideoRead(file, detail) {
              this.sendVideo.push(file)
@@ -103,19 +130,19 @@ export default {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
-            };
+              };
                 const formdata = new FormData()
                 formdata.append('file', this.sendVideo[0].file)
                 formdata.append('type', 'video')
                 axios.post('http://localhost:3001/alioss/uploadOss', formdata, config).then(res => {
-                    console.log(res)
                     this.playerOptions.sources[0].src = res.data.data
+                    this.videoUrl = res.data.data
                     if(res.data.code === 200) {
                         Toast.success('上传成功')
                     }
                     }).catch(err => {
                         Toast.fail('系统错误')
-                    console.log(err)
+                        console.log(err)
                 })
          },
          delVideo() {
@@ -127,53 +154,23 @@ export default {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
-             };
+               };
                 const formdata = new FormData()
                 formdata.append('file', this.sendAudio[0].file)
                 formdata.append('type', 'audio')
                 axios.post('http://localhost:3001/alioss/uploadOss', formdata, config).then(res => {
-                    console.log(res)
                     this.audioSrc = res.data.data
                     if(res.data.code === 200) {
                         Toast.success('上传成功')
                     }
                     }).catch(err => {
-                        Toast.fail('系统错误')
+                    Toast.fail('系统错误')
                     console.log(err)
                 })
          },
          delAudio() {
              this.audioSrc = ''
          },
-         submitData(){
-            let config = {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
-            };
-            if(this.imgFile.length > 0) {
-                this.imgFile.forEach( (item, index) => {
-                const formdata = new FormData()
-                formdata.append('file', this.imgFile[index].file)
-                formdata.append('type', 'img')
-                axios.post('http://localhost:3001/alioss/uploadOss', formdata, config).then(res => {
-                    console.log(res)
-                    if(res.data.code === 200) {
-                        Toast.success('上传成功')
-                    }
-                     if(this.imgFile.length === 1 ){
-                         this.imgUrl = res.data.data
-                     }else{
-                         this.backImgList.push(res.data.data)
-                         this.imgUrl = this.backImgList.join(',')
-                      } 
-                    }).catch(err => {
-                        Toast.fail('系统错误')
-                    console.log(err)
-                })
-            })  
-          }
-        },
          delBtn(index){
             if(isNaN(index) || index >= this.imgFile.length){
                 return false;
@@ -203,7 +200,7 @@ export default {
              margin: 10px 0;
              .img{
                width: 100%;
-               height: 100px; 
+               height: 80px; 
              }
            .delete{
              margin-left: -10px;

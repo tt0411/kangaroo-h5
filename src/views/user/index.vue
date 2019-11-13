@@ -2,15 +2,17 @@
   <user-layout>
    <div slot="content">
      <div class="container"> 
-        <div class="setting" @click="setting">
+        <div class="setting" @click="setting" v-if="isLogin">
           <van-icon name="setting-o" color="#ffffff" size="22px"/>
       </div>
       <div class="bg-user">
         <div class="avatar">
-           <van-image width="60" height="60" :round="true" fit="cover" :src="imgUrl[0]" @click="isPreview = true" />
+           <van-image width="60" height="60" :round="true" fit="cover" v-if="imgUrl[0]" :src="imgUrl[0]" @click="isPreview = true" />
+           <van-image width="60" height="60" :round="true" fit="cover" v-else :src="defaultImg"/>
         </div>
-        <div class="userName">{{nickName}}</div>
-        <div class="signature">个性签名：{{signature}}</div>
+        <div class="userName" v-if="nickName">{{nickName}}</div>
+        <div class="unuserName" v-else @click="toLogin">登录</div>
+        <!-- <div class="signature">个性签名：{{signature}}</div> -->
       </div>
       <van-image-preview v-model="isPreview" :images="imgUrl" />
       <div class="box">
@@ -59,20 +61,38 @@
 <script>
 import ContentItem from '../index/contentItem'
 import Empty from '../../components/empty.vue'
+import {mapState} from 'vuex'
 export default {
   components: { ContentItem, Empty },
     data(){
         return {
           active: 0,
-          imgUrl: ['https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2967487759,252864316&fm=26&gp=0.jpg'],
-          nickName: '李易峰',
-          signature: '2019继续加油！',
+          imgUrl: [],
+          defaultImg: "https://i.loli.net/2019/11/04/PJSrydQFn3tN42p.png",
+          nickName: '',
+          signature: '',
           isPreview: false,
+          isLogin: true,
         }
+    },
+     computed: {
+       ...mapState(["user"])
+    },
+    mounted() {     
+        this.nickName = this.user.userInfo.nickName;
+        this.imgUrl[0] = this.user.userInfo.imgUrl;
+      if(this.nickName){
+          this.isLogin = true;
+       }else{
+         this.isLogin = false
+       }      
     },
     methods: {
       setting() {
         this.$router.push('/setting')
+      },
+      toLogin() {
+        this.$router.push('/login')
       }
     }
 }
@@ -96,6 +116,12 @@ export default {
     font-size: 18px;
     font-weight: bold;
     margin: 5px;
+  }
+  .unuserName{
+    font-size: 16px;
+    font-weight: bold;
+    margin: 5px; 
+    color: #8b8787;
   }
   .signature{
     color: #ffffff;

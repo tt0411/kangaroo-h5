@@ -15,10 +15,16 @@
 
 <script>
 import {Toast} from 'vant'
+
 export default {
   methods: { 
       logout() {
-         this.$router.push('/login')
+         this.$store.dispatch('user/logout').then(rsp => {
+           if(rsp.code === 200){
+              localStorage.removeItem('token')
+              this.$router.push('/user')
+           }
+         })
       }
     }
 }

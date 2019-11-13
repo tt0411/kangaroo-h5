@@ -68,7 +68,25 @@ export default {
             }else if(!this.password){
                this.pwdErrorMsg = '请填写密码'
             }else{
-               this.$router.push('/')
+                let params ={
+                    phone: this.user,
+                    password: this.password,
+                }
+               this.$store.dispatch("user/login", params).then(rsp => {
+                   if(rsp.code === 200) {
+                       localStorage.setItem('token', rsp.token) 
+                       if(localStorage.getItem('token')){
+                           this.$store.dispatch("user/getInfo").then(rsp => {
+                               if(rsp.code === '200') {
+                                  this.$router.push('/user') 
+                               }
+                           })
+                       }
+                       
+                   }else{
+                       Toast.fail(rsp.msg)
+                   }
+               })
             }
         },
         forgetPwd() {

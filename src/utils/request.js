@@ -43,13 +43,14 @@ request.interceptors.request.use(
     if (!(config.data instanceof FormData)) {
       config.headers = {
         Accept: 'application/json',
-        'Authorization': `Bearer ${localStorage.getItem('token_id')}`,
+        'Authorization': `Bearer ${localStorage.getItem('token')}`,
         'Content-Type': 'application/json; charset=utf-8',
         ...config.headers
       }
     }else{
       config.headers = {
-        'Authorization': `Bearer ${localStorage.getItem('token_id')}`,
+        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        'Content-Type': 'application/json; charset=utf-8',
         ...config.headers
       }
     }
@@ -64,11 +65,11 @@ request.interceptors.request.use(
 // 处理响应数据
 request.interceptors.response.use(
   // 请求成功
-  res => {
+  res => { 
     if (res.code === 200) {
       return res.data
     }
-    return Promise.reject(res.data)
+    return Promise.resolve(res.data)
   },
   err => {
     const { response } = err

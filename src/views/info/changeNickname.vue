@@ -11,13 +11,21 @@
 
 <script>
 import {Toast} from 'vant'
+import {mapState} from 'vuex'
 export default {
     data() {
         return{
             isDisabled: true,
-            value: '李喋喋',
-            nickName: '李喋喋',
+            value: '',
+            nickName: '',
         }
+    },
+    computed: {
+      ...mapState(["user"])
+    },
+    mounted() {
+      this.value = this.user.userInfo.nickName;
+      this.nickName = this.user.userInfo.nickName;
     },
     methods: {
         onClickLeft() {

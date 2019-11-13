@@ -42,7 +42,15 @@ export default {
             if(!(/^1[3456789]\d{9}$/.test(this.phone))){
                 Toast('手机号不合法')
             }else{
-                Toast('重置成功，新密码为 123456')
+                let params = {
+                    phone: this.phone
+                }
+                this.$store.dispatch(`user/resetPwd`, params).then(rsp => {
+                    if(rsp.code === 200){
+                        Toast(rsp.msg)
+                        this.$router.push('/login')
+                    }
+                })
             }
         }
     },

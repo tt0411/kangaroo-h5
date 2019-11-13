@@ -44,7 +44,7 @@ export default {
        }
     },
     mounted () {
-    const toast = Toast.loading({
+    const toast1 = Toast.loading({
          duration: 0, // 持续展示 toast
          forbidClick: true,
          message: '加载中...'
@@ -76,7 +76,7 @@ export default {
                     this.center = [result.position.lng, result.position.lat];
                     this.init(); 
                     // this.show = false;
-                    Toast.clear();
+                    toast1.clear();
                 }
             });
         });

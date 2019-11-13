@@ -29,24 +29,33 @@
 
 <script>
 import {Toast} from 'vant'
+import {mapState} from 'vuex'
+
 export default {
     data() {
         return{
-           imgUrl: ['https://img.yzcdn.cn/vant/cat.jpeg'],
-           nickName: '李喋喋',
-           gender: '1',
+           imgUrl: [],
+           nickName: '',
+           gender: '',
            genderObj:{
                1: '男',
                2: '女'
            },
-           phone: '15188211507',
+           phone: '',
            show: false,
            radio: null, 
            isPreview: false
         }
     },
-    created(){
-        this.radio = this.gender
+    computed:{
+        ...mapState(["user"])
+    },
+    mounted(){
+       this.imgUrl[0] = this.user.userInfo.imgUrl;
+       this.radio = `${this.user.userInfo.gender}`; // 转成字符串
+       this.gender = `${this.user.userInfo.gender}`;
+       this.nickName = this.user.userInfo.nickName;
+       this.phone = this.user.userInfo.phone;
     },
     methods: {
         genderModal() {

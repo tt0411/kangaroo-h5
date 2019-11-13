@@ -54,6 +54,7 @@
 <script>
 import axios from "axios"
 import {Toast} from 'vant'
+import {MURL} from '../utils/config'
 export default {
       props: { 
           type: {
@@ -107,7 +108,7 @@ export default {
                 const formdata = new FormData()
                 formdata.append('file', this.imgFile[index].file)
                 formdata.append('type', 'img')
-                axios.post('http://localhost:3001/alioss/uploadOss', formdata, config).then(res => {
+                axios.post(`${MURL}/alioss/uploadOss`, formdata, config).then(res => {
                     if(res.data.code === 200) {
                         Toast.success('上传成功')
                     }
@@ -134,7 +135,7 @@ export default {
                 const formdata = new FormData()
                 formdata.append('file', this.sendVideo[0].file)
                 formdata.append('type', 'video')
-                axios.post('http://localhost:3001/alioss/uploadOss', formdata, config).then(res => {
+                axios.post(`${MURL}/alioss/uploadOss`, formdata, config).then(res => {
                     this.playerOptions.sources[0].src = res.data.data
                     this.videoUrl = res.data.data
                     if(res.data.code === 200) {
@@ -158,7 +159,7 @@ export default {
                 const formdata = new FormData()
                 formdata.append('file', this.sendAudio[0].file)
                 formdata.append('type', 'audio')
-                axios.post('http://localhost:3001/alioss/uploadOss', formdata, config).then(res => {
+                axios.post(`${MURL}/alioss/uploadOss`, formdata, config).then(res => {
                     this.audioSrc = res.data.data
                     if(res.data.code === 200) {
                         Toast.success('上传成功')

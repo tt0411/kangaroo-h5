@@ -47,18 +47,22 @@
 </template>
 
 <script>
-import {Toast} from 'vant'
+import { Toast } from 'vant'
+import { uploadImg } from '../../utils/utils'
+
 export default {
     data() {
         return {
             show: false,
             imgUrl: ['https://i.loli.net/2019/11/04/PJSrydQFn3tN42p.png'],
+            imgFile: [],
             nickName: '',
             phone: '',
             age: '',
             gender: '1',
             password: '',
             repassword: '',
+            avatar: '',
         }
     },
     methods: {
@@ -66,8 +70,12 @@ export default {
            this.show = true;
         },
         uploadImg(file) {
-            this.imgUrl = []
-            this.imgUrl[0] = file.content
+             this.imgUrl = []
+             this.imgUrl[0] = file.content
+             this.imgFile.push(file)  
+             uploadImg(this.imgFile[0].file).then(res => {
+                this.avatar = res.data
+            }) 
         },
         pickgender(name){
            this.gender = name
@@ -86,7 +94,20 @@ export default {
             }else if(this.password !== this.repassword){
                 Toast('两次密码不一致')
             }else{
-                console.log('去注册')
+               let params = {
+                   phone: this.phone,
+                   password: this.password,
+                   nickName: this.nickName,
+                   age: this.age,
+                   gender: this.gender,
+                   imgUrl: this.avatar,
+               }
+               this.$store.dispatch("user/register",params).then(rsp => {
+                   if(rsp.code === 200) {
+                       Toast('注册成功');
+                       this.$router.push('/login')
+                   }
+               })
             }
             
         }

@@ -1,7 +1,7 @@
 <template>
   <div class="container">
-     <van-nav-bar title="" left-text="返回"  right-text="" left-arrow @click-left="onClickLeft" @click-right="onClickRight">
-      <van-button slot="right" color="#12C3DF" size="normal">发表</van-button>
+     <van-nav-bar title="写内容" left-text=""  right-text="" left-arrow @click-left="onClickLeft" @click-right="onClickRight">
+      <van-button slot="right" color="#12C3DF" size="large">发表</van-button>
     </van-nav-bar>
     <div class="content">
       <van-field
@@ -51,6 +51,10 @@
         <span class="tips-content">关闭评论后，此内容下所有人无法评论</span>
       </div>
     </div>
+    <div class="theme" @click="pickTheme">
+        <van-cell title="选择主题" title-style="font-size: 16px;margin-left: -5px; color: #5e5b5b;" is-link  :value="theme || '请选择主题'" />
+    </div>
+    <van-action-sheet v-model="showThemebox" :actions="themeList" @select="selectTheme" />
     <div class="type">
       <div class="title">选择类型</div>
       <div class="threeType">
@@ -94,7 +98,15 @@ export default {
       isAudio: false,
       isOpen: false,
       isOpenComment: false,
-      address: ""
+      address: "",
+      theme: '',
+      themeId: null,
+      showThemebox: false,
+      themeList: [
+          {id: 1, name: '那年我十八岁'},
+          {id: 2, name: '致我们终将逝去的青春'},
+          {id: 3, name: '实习的那一年'}
+      ]
     };
   },
   mounted() {
@@ -111,6 +123,14 @@ export default {
         // console.log(this.$refs.upload.imgUrl, this.$refs.upload.audioSrc, this.$refs.upload.videoUrl)
         // console.log(112212)
       }
+    },
+    pickTheme() {
+        this.showThemebox = true;
+    },
+    selectTheme(item) {
+         this.showThemebox = false;
+         this.themeId = item.id;
+         this.theme = item.name;
     },
     toAddAddress() {
       this.$router.push("/addAddress");
@@ -202,6 +222,10 @@ export default {
       margin-left: 5px;
       font-size: 13px;
     }
+  }
+  .theme{
+      margin-top: 10px;
+      border-bottom: 1px solid #f5f5f5;
   }
   .type {
     padding: 20px 0 10px 10px;

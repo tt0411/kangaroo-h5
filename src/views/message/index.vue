@@ -34,7 +34,7 @@ export default {
 <style lang="scss" scoped>
 .container{
   background-color: #f5f5f5;
-  height: calc(100vh - 97px);
+  height: calc(100vh - 96px);
   .nothing{
     margin-top: 20%;
   }

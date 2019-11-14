@@ -1,7 +1,7 @@
 <template>
   <base-layout>
   <div slot="top">
-    <van-search v-model="value" placeholder="请输入搜索关键词" shape="round" @focus="toSearch"/>
+    <van-search  placeholder="请输入搜索关键词" shape="round" @focus="toSearch"/>
   </div>
   <div slot="content">
     <div class="container">
@@ -10,10 +10,10 @@
         </div>
           <van-tabs v-model="active" animated color="#12C3DF">
           <van-tab title="公开主题">
-            <OpenItem/>
+            <OpenItem :theme="openItem"/>
           </van-tab>
           <van-tab title="我的主题">
-            <MyItem/>
+            <MyItem :theme="userTheme"/>
           </van-tab>
       </van-tabs>
      </div>
@@ -35,7 +35,6 @@
         </div>
     </van-dialog>
     </div>
-  
   </base-layout>
 </template>
 
@@ -47,14 +46,19 @@ export default {
   components: { OpenItem, MyItem },
     data() {
         return {
-          value: '',
           showBox: false,
           active: 0,
           imgSrc: 'https://i.loli.net/2019/11/07/VEPLA5j2NZSc4Wd.jpg',
           themeName: '',
           isOpen: false,
-          nameError: ''
+          nameError: '', 
+          userTheme: [],
+          openItem: [],
         }
+    },
+    created() {
+      this.$store.dispatch('theme/fetchUserTheme')
+      this.$store.dispatch('theme/fetchOpenTheme')
     },
     methods: {
       toSearch() {
@@ -69,8 +73,21 @@ export default {
        if(!this.themeName) {
          this.nameError = '主题名称不能为空'
          done(false)
+       }else{
+          let params = {
+             name: this.themeName,
+             status: this.isOpen ? 1 : 0
+          }
+         this.$store.dispatch('theme/createTheme', params).then(rsp => {
+           if(rsp.code === 200) {
+             Toast.success(rsp.msg);
+             this.$store.dispatch('theme/fetchUserTheme')
+             this.$store.dispatch('theme/fetchOpenTheme')
+             setTimeout(done)
+           }
+         })
        }
-        setTimeout(done)
+        
       } else if(action === 'cancel') {
          done()
       }

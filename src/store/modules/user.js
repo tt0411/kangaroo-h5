@@ -1,5 +1,5 @@
 import { login, register, resetPwd } from '../../api/global'
-import { logout, getInfo } from '../../api/user'
+import { logout, getInfo, updateAvater, updateGender, updateNickname, updatePwd } from '../../api/user'
 
 const state = {
     userInfo: {
@@ -38,17 +38,42 @@ const actions = {
     },
     async getInfo({commit}) {
         const rsp = await getInfo();
-        if(rsp.code === "200"){
+        console.log(rsp)
+        if(rsp.code === 200){
             commit('changeInfo', rsp.data)
         }
         return rsp;
-    }
+    },
+    async updateAvater( {dispatch} , params) {
+        const rsp = await updateAvater(params);
+        if(rsp.code === 200){
+            dispatch('getInfo')
+        }
+        return rsp;
+    },
+    async updateNickname( {dispatch} , params) {
+        const rsp = await updateNickname(params)
+        if(rsp.code === 200){
+            dispatch('getInfo')
+        }
+        return rsp;
+    },
+    async updateGender( {dispatch} , params) {
+        const rsp = await updateGender(params)
+        if(rsp.code === 200) {
+            dispatch('getInfo')
+        }
+        return rsp;
+    },
+    async updatePwd(_, params) {
+        return await updatePwd(params)
+    },
 }
 
 const mutations = {
     changeInfo(state, payload){
         state.userInfo = payload
-    }
+    },
 }
 
 export default {

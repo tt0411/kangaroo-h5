@@ -33,7 +33,22 @@ export default {
         },
         onClickRight() {
           if(!this.isDisabled){
-            Toast('更改')
+            let params = {
+              nickName: this.value
+            }
+           this.$store.dispatch('user/updateNickname', params).then(rsp => {
+              if(rsp.code === 200) {
+                Toast.success('更改成功')
+                this.$store.dispatch('user/getInfo').then(rsp => {
+                  if(rsp.code === 200) {
+                     this.$router.push('/info')
+                  }
+                })
+               
+              }else{
+                Toast.fail('更改失败')
+              }
+           })
           }
             
         }

@@ -2,7 +2,7 @@
   <user-layout>
    <div slot="content">
      <div class="container"> 
-        <div class="setting" @click="setting" v-if="isLogin">
+        <div class="setting" @click="setting" v-if="nickName">
           <van-icon name="setting-o" color="#ffffff" size="22px"/>
       </div>
       <div class="bg-user">
@@ -72,20 +72,21 @@ export default {
           nickName: '',
           signature: '',
           isPreview: false,
-          isLogin: true,
         }
     },
      computed: {
        ...mapState(["user"])
     },
-    mounted() {     
-        this.nickName = this.user.userInfo.nickName;
-        this.imgUrl[0] = this.user.userInfo.imgUrl;
-      if(this.nickName){
-          this.isLogin = true;
-       }else{
-         this.isLogin = false
-       }      
+    created() { 
+      if(localStorage.getItem('token')){
+         this.$store.dispatch("user/getInfo").then(rsp => {
+            if(rsp.code === 200) {
+                this.nickName = this.user.userInfo.nickName;
+                this.imgUrl[0] = this.user.userInfo.imgUrl;
+            }
+        })    
+      }
+        
     },
     methods: {
       setting() {
@@ -121,7 +122,7 @@ export default {
     font-size: 16px;
     font-weight: bold;
     margin: 5px; 
-    color: #8b8787;
+    color: #464343;
   }
   .signature{
     color: #ffffff;

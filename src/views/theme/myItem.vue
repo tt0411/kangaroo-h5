@@ -1,43 +1,57 @@
 <template>
   <div class="container">
-        <van-row gutter="5">
-            <div class="itemList" v-for="(item, index) in themeList" :key="index" @click="toContent(item)">
-              <van-col span="12">
+        <div class="box">
+          <div class="itemList" v-for="(item, index) in themeList" :key="index" @click="toContent(item)">
                    <div class="item">
                        <div class="top">
+                            <div class="status" v-if="item.status === 1 && item.flag === 0"><van-tag mark type="warning">待审核</van-tag></div>
+                            <div class="status" v-if="item.status === 0"><van-tag mark type="primary">不公开</van-tag></div>
+                            <div class="status" v-if="item.status === 1 && item.flag === 1"><van-tag mark type="success">审核通过</van-tag></div>
+                            <div class="status" v-if="item.status === 1 && item.flag === 2"><van-tag mark>审核不通过</van-tag></div>
+                            
                            <div class="name">{{item.name}}</div>
                        </div>
                        <div class="bottom">
                            <div class="user">
                                <div class="avatar">
-                                   <van-image width="30" height="30" :round="true" fit="cover" :src="item.imgSrc" />
+                                   <van-image width="30" height="30" :round="true" fit="cover" :src="item.imgUrl" />
                                </div>
                                <div class="userName">{{item.nickName}}</div>
                            </div>
-                           <div class="time">创建于: {{item.time}}</div>
+                           <div class="time">创建于: {{item.create_time}}</div>
                        </div>
-                   </div>
-              </van-col>
+                </div>
          </div>
-        </van-row>
+         </div>
   </div>
 </template>
 
 <script>
+import {mapState} from 'vuex'
 export default {
     data() {
         return {
-            themeList:[
-              {id: 1, name: '十八岁的天空', nickName: '李喋喋', imgSrc: 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2967487759,252864316&fm=26&gp=0.jpg', time: '2019-11-07 11:38:12'},
-              {id: 2, name: '2019加油！', nickName: '李喋喋', imgSrc: 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2967487759,252864316&fm=26&gp=0.jpg', time: '2019-11-07 11:38:12'},
-              {id: 3, name: '工作的那些事儿', nickName: '李喋喋', imgSrc: 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2967487759,252864316&fm=26&gp=0.jpg', time: '2019-11-07 11:38:12'},
-              {id: 4, name: '少年，你今天努力了吗？', nickName: '李喋喋', imgSrc: 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2967487759,252864316&fm=26&gp=0.jpg', time: '2019-11-07 11:38:12'},
-            ]
+            themeList: []
         }
+    },
+    computed: {
+        ...mapState(['theme'])
+    },
+    created() {
+      this.themeList = this.theme.userTheme
+    //    this.$store.dispatch('theme/fetchUserTheme').then(rsp => {
+    //        console.log(rsp)
+    //        if(rsp.code === 200) {
+    //            this.themeList = rsp.data
+    //        }
+    //    })
     },
     methods: {
         toContent(item) {
-            this.$router.push({ path: '/themeTocontent', query: { id: item.id, name: item.name } });
+            if(item.status === 0 || (item.status === 1 && item.flag === 1)) {
+               this.$router.push({ path: '/themeTocontent', query: { id: item.id, name: item.name } }); 
+            }
+            
         }
     }
 }
@@ -45,20 +59,31 @@ export default {
 
 <style lang="scss" scoped>
 .container{
-    margin: 15px 5px;
-    .item{
-        // background-image: linear-gradient( 135deg, #ABDCFF 10%, #12C3DF 100%);
-        background-image: linear-gradient( 135deg, #3C8CE7 10%, #00EAFF 100%);
+      margin: 15px 5px;
+     .box{
+      column-count: 2;
+      width: 100%;
+      column-gap: 10px;
+      column-width: 50%;
+    .itemList{
+        background-image: linear-gradient( 135deg, #ABDCFF 10%, #12C3DF 100%);
         display: flex;
         flex-direction: column;
         padding: 5px 10px;
         margin-bottom: 10px;
         border-radius: 5px;
+        break-inside: avoid;
         .top{
             margin-bottom: 10px;
             .name{
                 font-size: 18px;
                 color: #ffffff;
+            }
+            .status {
+                color: #ffffff;
+                margin-left: -10px;
+                margin-top: -5px;
+               
             }
         }
         .bottom{
@@ -81,5 +106,7 @@ export default {
             }
         }
     }
+     }
+    
 }
 </style>

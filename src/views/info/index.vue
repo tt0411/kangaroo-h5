@@ -1,6 +1,6 @@
 <template>
-  <common-layout>
-      <div slot="content">
+      <div class="content">
+            <van-nav-bar title="个人信息"  left-arrow   @click-left="handleBack" :border="false"></van-nav-bar>
           <div class="container">
           <van-cell title="头像"  style="line-height: 55px;height: 67px;font-size: 16px;">
            <van-uploader  :after-read="uploadImg" accept="image/*" capture="camera"> 
@@ -24,17 +24,18 @@
             </van-radio-group>
        </van-dialog>
       </div>
-  </common-layout>
 </template>
 
 <script>
-import {Toast} from 'vant'
-import {mapState} from 'vuex'
+import { Toast } from 'vant'
+import { uploadImg } from '../../utils/utils'
+import { mapState } from 'vuex'
 
 export default {
     data() {
         return{
            imgUrl: [],
+           imgFile: [],
            nickName: '',
            gender: '',
            genderObj:{
@@ -50,7 +51,7 @@ export default {
     computed:{
         ...mapState(["user"])
     },
-    mounted(){
+    created(){
        this.imgUrl[0] = this.user.userInfo.imgUrl;
        this.radio = `${this.user.userInfo.gender}`; // 转成字符串
        this.gender = `${this.user.userInfo.gender}`;
@@ -58,21 +59,63 @@ export default {
        this.phone = this.user.userInfo.phone;
     },
     methods: {
+        handleBack() {
+            this.$router.push('/setting')
+        },
         genderModal() {
             this.show = true;
         },
         pickedGender() {
-            this.gender = this.radio
+            this.gender = this.radio;
+            let params = {
+                gender: this.gender
+            }
+            this.$store.dispatch('user/updateGender', params).then( rsp => {
+                if(rsp.code === '200'){
+                    console.log('性别修改成功')
+                }else{
+                    Toast.fail('性别修改失败')
+                }
+            })
         },
        uploadImg(file) {
             this.imgUrl = []
             this.imgUrl[0] = file.content
+             this.imgFile.push(file)  
+             uploadImg(this.imgFile[0].file).then(res => {
+                let params = {
+                    imgUrl: res.data
+                }
+                if(res.code === 200){
+                    this.$store.dispatch('user/updateAvater', params).then(rsp => {
+                        if(rsp.code === 200) {
+                            console.log('头像更改成功')
+                        }else{
+                            Toast.fail('头像更改失败')
+                        }
+                    })
+                }
+            }) 
         },
     }
 }
 </script>
 
 <style lang="scss" scoped>
+// 重置van-bar
+.van-nav-bar {
+  background: #12C3DF;
+  .van-nav-bar__title {
+    color: #ffffff;
+  }
+  .van-icon {
+    color: #ffffff;
+    font-size: 20px;
+  }
+  .van-nav-bar__text {
+    color: #ffffff;
+  }
+}
 .container{
   background-color: #f5f5f5;
   height: calc(100vh - 50px);

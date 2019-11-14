@@ -75,14 +75,7 @@ export default {
                this.$store.dispatch("user/login", params).then(rsp => {
                    if(rsp.code === 200) {
                        localStorage.setItem('token', rsp.token) 
-                       if(localStorage.getItem('token')){
-                           this.$store.dispatch("user/getInfo").then(rsp => {
-                               if(rsp.code === '200') {
-                                  this.$router.push('/user') 
-                               }
-                           })
-                       }
-                       
+                       this.$router.push('/user')       
                    }else{
                        Toast.fail(rsp.msg)
                    }

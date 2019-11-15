@@ -9,11 +9,14 @@ const actions = {
     async createTheme({dispatch}, params) {
        const rsp = await createTheme(params); 
        if(rsp.code === 200) {
+           dispatch('fetchOpenTheme');
+           dispatch('fetchUserTheme');
        }
        return rsp;
     },
     async fetchUserTheme({commit}) {
        const rsp = await fetchUserTheme()
+       console.log(rsp)
        if(rsp.code === 200) {
            commit('changeUserTheme', rsp.data)
        }

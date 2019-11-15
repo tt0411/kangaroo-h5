@@ -8,12 +8,12 @@
        <div class="bg_index" @click="createTheme">
          <img :src="imgSrc" />
         </div>
-          <van-tabs v-model="active" animated color="#12C3DF">
+          <van-tabs v-model="active" animated color="#12C3DF" @click="onClickTab">
           <van-tab title="公开主题">
-            <OpenItem :theme="openItem"/>
+            <OpenItem />
           </van-tab>
           <van-tab title="我的主题">
-            <MyItem :theme="userTheme"/>
+            <MyItem />
           </van-tab>
       </van-tabs>
      </div>
@@ -52,13 +52,12 @@ export default {
           themeName: '',
           isOpen: false,
           nameError: '', 
-          userTheme: [],
-          openItem: [],
+          msg: '',
         }
     },
     created() {
-      this.$store.dispatch('theme/fetchUserTheme')
       this.$store.dispatch('theme/fetchOpenTheme')
+      this.$store.dispatch('theme/fetchUserTheme')
     },
     methods: {
       toSearch() {
@@ -67,6 +66,14 @@ export default {
       },
       createTheme() {
         this.showBox = true;
+      },
+      onClickTab(name, title) {
+        if(title ==='我的主题') {
+          this.$store.dispatch('theme/fetchUserTheme')
+        }
+        if(title === '公开主题') {
+         this.$store.dispatch('theme/fetchOpenTheme')
+        }
       },
      beforeClose(action, done) {
       if(action === 'confirm') {
@@ -80,10 +87,9 @@ export default {
           }
          this.$store.dispatch('theme/createTheme', params).then(rsp => {
            if(rsp.code === 200) {
-             Toast.success(rsp.msg);
-             this.$store.dispatch('theme/fetchUserTheme')
-             this.$store.dispatch('theme/fetchOpenTheme')
-             setTimeout(done)
+              this.msg = rsp.msg;
+              Toast.success(this.msg);
+               setTimeout(done)
            }
          })
        }

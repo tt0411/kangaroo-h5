@@ -11,9 +11,9 @@ import HeaderNav from '@/components/headerNav.vue'
 import BaseLayout from '@/components/baseLayout'
 import CommonLayout from '@/components/commonLayout'
 import UserLayout from '@/components/userLayout'
-import VueTouch from 'vue-touch'
 
-Vue.use(VueTouch, {name: 'v-touch'})
+
+
 Vue.use(VueVideoPlayer)
 Vue.config.productionTip = false;
 

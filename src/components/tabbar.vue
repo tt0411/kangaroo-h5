@@ -1,6 +1,6 @@
 <template>
       <van-tabbar v-model="active"  active-color="#12C3DF">
-        <van-tabbar-item name='index' icon="home-o" @click="toHome">广场</van-tabbar-item>
+        <van-tabbar-item name='index' icon="home-o" @click="toHome">首页</van-tabbar-item>
         <van-tabbar-item name='theme' icon="points" @click="toTheme">主题</van-tabbar-item>
         <van-tabbar-item name='message' icon="envelop-o" @click="toMessage">消息</van-tabbar-item>
         <van-tabbar-item name='user' icon="manager-o" @click="toUser">个人中心</van-tabbar-item>

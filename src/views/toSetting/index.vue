@@ -22,7 +22,7 @@ export default {
            if(rsp.code === 200){
               localStorage.removeItem('token')
               this.$store.commit('user/changeInfo',{})
-              this.$router.push('/user')
+              this.$router.push('/')
             
            }
          })

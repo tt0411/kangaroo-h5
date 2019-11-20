@@ -82,6 +82,11 @@
     <div class="upload" v-if="isAudio">
       <Upload :type="3" ref="upload" />
     </div>
+
+
+     <van-dialog v-model="show" title="提示" show-cancel-button confirmButtonColor="#12C3DF" @cancel="toBack" confirmButtonText="去创建" @confirm="toCreate">
+         <div class="loginDialog">由于您未创建主题或创建主题正在审核中当前不能发表内容</div>
+        </van-dialog>
   </div>
 </template>
 
@@ -102,12 +107,20 @@ export default {
       theme: '',
       themeId: null,
       showThemebox: false,
-      themeList: [
-          {id: 1, name: '那年我十八岁'},
-          {id: 2, name: '致我们终将逝去的青春'},
-          {id: 3, name: '实习的那一年'}
-      ]
+      show: false,
+      themeList: []
     };
+  },
+  created() {
+     this.$store.dispatch('theme/getThemeList').then(rsp => {
+        if(rsp.code === 200) {
+           if(rsp.count === 0) {
+             this.show = true;
+           }else{
+             this.themeList = rsp.data
+           }
+        }
+     })
   },
   mounted() {
     this.address = this.$route.query.name;
@@ -119,10 +132,29 @@ export default {
     onClickRight() {
       if (!this.content) {
         Toast("请填写内容后再发表");
-      } else {
+      }else if(!this.themeId) {
+        Toast('请选择主题');
+      }else {
+        let params = {
+            context: this.content,
+            address: this.address,
+            is_comment: this.isOpenComment ? 1 : 0,
+            img: this.$refs.upload.imgUrl, 
+            video: this.$refs.upload.videoUrl,
+            audio: this.$refs.upload.audioUrl,
+            status: this.isOpen ? 1 : 0,
+            flag: this.isOpen ? 0 : 3,
+            tid: this.this.themeId
+        }
         // console.log(this.$refs.upload.imgUrl, this.$refs.upload.audioSrc, this.$refs.upload.videoUrl)
-        // console.log(112212)
+       
       }
+    },
+    toCreate() {
+      this.$router.push({path: '/theme', query:{ isWrite: true }})
+    },
+    toBack() {
+      this.$router.go(-1)
     },
     pickTheme() {
         this.showThemebox = true;
@@ -242,5 +274,11 @@ export default {
       }
     }
   }
+  .loginDialog{
+    padding: 10px;
+    color: #776d6d;
+    text-indent: 20px;
+   }
 }
+
 </style>

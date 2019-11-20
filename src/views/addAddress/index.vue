@@ -9,7 +9,7 @@
             @click-right="onClickRight"
         />
       <!-- <van-overlay :show="show" @click="show = false" /> -->
-      <div id="container" style="width:100%; height:300px"></div>
+      <div id="container" style="width:100%; height:200px"></div>
       </van-sticky>
       <div class="centerList">
           <!-- <div class="listItem" v-for="(item, index) in addressList" :key="index" @click="pickedAddress(item)">
@@ -77,6 +77,7 @@ export default {
                     this.init(); 
                     // this.show = false;
                     toast1.clear();
+                    
                 }
             });
         });
@@ -117,7 +118,8 @@ export default {
         //根据地图中心点查附近地点
         placeSearch.searchNearBy('', [this.center[0],this.center[1]], 200, (status, result) => {
             if(status == 'complete'){
-             this.addressList = result.poiList.pois
+             this.addressList = result.poiList.pois;
+             toast1.clear();
             //    list = result.poiList.pois
             //    list.forEach(item => {
             //       let addItem = Object.assign(item , {isPicked: false})

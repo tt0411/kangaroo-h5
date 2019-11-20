@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+      <div v-if="themeList.length > 0">
         <div class="box">
           <div class="itemList" v-for="(item, index) in themeList" :key="index" @click="toContent(item)">
                    <div class="item">
@@ -16,14 +17,20 @@
                            <div class="time">创建于: {{item.create_time}}</div>
                        </div>
                 </div>
+          </div>
          </div>
-         </div>
+      </div>
+      <div v-else>
+          <Empty :type="3"/>
+      </div>
   </div>
 </template>
 
 <script>
+import Empty from '../../components/empty'
 import {mapState} from 'vuex'
 export default {
+    components: { Empty },
     data() {
         return {
             themeList: []
@@ -34,15 +41,10 @@ export default {
     },
     mounted() {
         this.themeList = this.theme.openTheme;
-        // this.$store.dispatch('theme/fetchOpenTheme').then(rsp =>{
-        //     if(rsp.code === 200) {
-        //         this.themeList = rsp.data
-        //     }
-        // })
     },
     methods: {
         toContent(item) {
-            this.$router.push({ path: '/themeTocontent', query: { id: item.id, name: item.name } });
+            this.$router.push({ path: '/themeTocontent', query: { id: item.id, name: item.name, isEdit: false } });
         }
     }
 }

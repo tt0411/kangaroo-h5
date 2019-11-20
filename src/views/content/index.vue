@@ -10,9 +10,11 @@
                   <van-icon name="https://i.loli.net/2019/11/08/MPGuNnFwp936Jai.png" size="30px"  @click="toWrite"/>
               </div>
               <div class="user">
-                  <div class="userName">李喋喋</div>
+                  <div class="userName" v-if="isLogin">{{nickName}}</div>
+                  <div class="userName" v-else>未登录</div>
                   <div class="avatar">
-                      <van-image width="50" height="50" :round="true" fit="cover" :src="avatar"></van-image>
+                      <van-image width="50" height="50" :round="true" fit="cover" :src="avatar" v-if="isLogin" ></van-image>
+                      <van-image width="50" height="50" :round="true" fit="cover" :src="defaultAvatar" v-else @click="toLogin"></van-image>
                   </div>
               </div>
               </div>
@@ -22,6 +24,10 @@
                   </div>
               </div>
           </div>
+
+          <van-dialog v-model="show" title="提示" show-cancel-button confirmButtonColor="#12C3DF" confirmButtonText="去登录" @confirm="toLogin">
+         <div class="loginDialog">登录后才能写内容哟 ~_~</div>
+        </van-dialog>
       </div>
   </common-layout>
 </template>
@@ -29,17 +35,41 @@
 <script>
 import {Toast} from 'vant' 
 import ContentItem from '../index/contentItem'
+import {mapState} from 'vuex'
 export default {
     components: { ContentItem },
        data() {
            return {
                imgUrl: 'https://i.loli.net/2019/11/08/wlkQoEpDPJAyj19.jpg',
-               avatar: 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2967487759,252864316&fm=26&gp=0.jpg',
+               avatar: '',
+               defaultAvatar: 'https://i.loli.net/2019/11/20/aGvftlCNr7TOLKB.png',
+               nickName: '',
+               show: false,
+               isLogin: false,
            }
+       },
+       computed: {
+           ...mapState(['user'])
+       },
+       created() {
+           if(localStorage.getItem('token')) {
+                this.isLogin = true;
+           }else{
+                this.isLogin = false;
+           }
+           this.avatar = this.user.userInfo.imgUrl;
+           this.nickName = this.user.userInfo.nickName;
        },
        methods: {
            toWrite() {
-               this.$router.push('/writeContent')
+               if(localStorage.getItem('token')){
+                   this.$router.push('/writeContent')
+               }else{
+                   this.show = true;
+               }
+           },
+           toLogin() {
+               this.$router.push('/login')
            }
        }
 }
@@ -72,6 +102,12 @@ export default {
             color: #fff;
         }
     }
+   }
+ 
 }
+  .loginDialog{
+    text-align: center;
+    padding: 10px 0;
+    color: #776d6d;
 }
 </style>

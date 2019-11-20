@@ -34,6 +34,10 @@
          </div>
         </div>
     </van-dialog>
+
+      <van-dialog v-model="show" title="提示" show-cancel-button confirmButtonColor="#12C3DF" confirmButtonText="去登录" @confirm="toLogin">
+         <div class="loginDialog">登录后才能创建主题哟 ~_~</div>
+        </van-dialog>
     </div>
   </base-layout>
 </template>
@@ -53,19 +57,30 @@ export default {
           isOpen: false,
           nameError: '', 
           msg: '',
+          show: false,
         }
     },
     created() {
       this.$store.dispatch('theme/fetchOpenTheme')
       this.$store.dispatch('theme/fetchUserTheme')
+      if(this.$route.query.isWrite) {
+        this.showBox = true
+      }
     },
     methods: {
       toSearch() {
         // 根据type类型去搜索页面切换类型
         this.$router.push({ path: '/search', query: {type: 3}})
       },
+      toLogin() {
+        this.$router.push('/login')
+      },
       createTheme() {
-        this.showBox = true;
+         if(localStorage.getItem('token')) {
+           this.showBox = true;
+         }else{
+           this.show = true;
+         }
       },
       onClickTab(name, title) {
         if(title ==='我的主题') {
@@ -148,4 +163,9 @@ export default {
     }
    }
  }
+   .loginDialog{
+    text-align: center;
+    padding: 10px 0;
+    color: #776d6d;
+}
 </style>

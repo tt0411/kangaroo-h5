@@ -42,6 +42,10 @@
    </div>
      <div slot="content">
        <content-item></content-item>
+
+       <van-dialog v-model="show" title="提示" show-cancel-button confirmButtonColor="#12C3DF" confirmButtonText="去登录" @confirm="toLogin">
+         <div class="loginDialog">登录后才能写内容哟 ~_~</div>
+        </van-dialog>
      </div>
   </base-layout>
 </template>
@@ -58,6 +62,7 @@ export default {
            textContent: true,
            audioContent: true,
            videoContent: true,
+           show: false,
            avater: 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2967487759,252864316&fm=26&gp=0.jpg',
        swiperList: [
            {id: 1, imgSrc: 'https://i.loli.net/2019/11/07/hAv6EFfGCSOeDRI.jpg'},
@@ -79,15 +84,25 @@ export default {
        moreContent() {
           this.$router.push('/content') 
        },
+       toLogin() {
+           this.$router.push('/login')
+       },
        iconGo(item) {
            if(item.text === '创主题') {
-               this.$router.push('/theme')
+              this.$router.push({ path: '/theme', query: { isWrite: true}})
            }
            if(item.text === '广场') {
                this.$router.push('/content')
            }
            if(item.text === '写内容') {
-               this.$router.push('/writeContent')
+               if(localStorage.getItem('token')){
+                  this.$router.push('/writeContent') 
+               }else{
+                  this.show = true;
+               }   
+           }
+           if(item.text === '功能待定') {
+               Toast('功能待定中...')
            }
        }
    }
@@ -151,6 +166,10 @@ export default {
      }
  }   
 }
-
+.loginDialog{
+    text-align: center;
+    padding: 10px 0;
+    color: #776d6d;
+}
 
 </style>

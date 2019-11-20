@@ -1,4 +1,4 @@
-import { createTheme, fetchUserTheme, fetchOpenTheme } from '../../api/theme'
+import { createTheme, fetchUserTheme, fetchOpenTheme, updateTheme, getThemeById, getThemeList } from '../../api/theme'
 
 const state = {
     userTheme: [],
@@ -16,7 +16,6 @@ const actions = {
     },
     async fetchUserTheme({commit}) {
        const rsp = await fetchUserTheme()
-       console.log(rsp)
        if(rsp.code === 200) {
            commit('changeUserTheme', rsp.data)
        }
@@ -24,11 +23,19 @@ const actions = {
     },
     async fetchOpenTheme({commit}) {
         const rsp = await fetchOpenTheme();
-        console.log(rsp)
         if(rsp.code === 200) {
             commit('changeOpenTheme', rsp.data)
         }
         return rsp;
+    },
+    async updateTheme(_, params) {
+        return  await updateTheme(params)
+    },
+    async getThemeById(_, id) {
+        return  await getThemeById(id)
+    },
+    async getThemeList(_) {
+        return await getThemeList()
     }
 }
 

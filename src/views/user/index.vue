@@ -2,16 +2,14 @@
   <user-layout>
    <div slot="content">
      <div class="container"> 
-        <div class="setting" @click="setting" v-if="nickName">
+        <div class="setting" @click="setting" >
           <van-icon name="setting-o" color="#ffffff" size="22px"/>
       </div>
       <div class="bg-user">
         <div class="avatar">
            <van-image width="60" height="60" :round="true" fit="cover" v-if="imgUrl[0]" :src="imgUrl[0]" @click="isPreview = true" />
-           <van-image width="60" height="60" :round="true" fit="cover" v-else :src="defaultImg"/>
         </div>
-        <div class="userName" v-if="nickName">{{nickName}}</div>
-        <div class="unuserName" v-else @click="toLogin">登录</div>
+        <div class="userName">{{nickName}}</div>
         <!-- <div class="signature">个性签名：{{signature}}</div> -->
       </div>
       <van-image-preview v-model="isPreview" :images="imgUrl" />
@@ -68,7 +66,6 @@ export default {
         return {
           active: 0,
           imgUrl: [],
-          defaultImg: "https://i.loli.net/2019/11/04/PJSrydQFn3tN42p.png",
           nickName: '',
           signature: '',
           isPreview: false,
@@ -117,12 +114,6 @@ export default {
     font-size: 18px;
     font-weight: bold;
     margin: 5px;
-  }
-  .unuserName{
-    font-size: 16px;
-    font-weight: bold;
-    margin: 5px; 
-    color: #464343;
   }
   .signature{
     color: #ffffff;

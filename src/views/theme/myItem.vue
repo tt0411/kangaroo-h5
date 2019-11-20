@@ -1,7 +1,8 @@
 <template>
   <div class="container">
+      <div v-if="themeList.length > 0">
         <div class="box">
-          <div class="itemList" v-for="(item, index) in themeList" :key="index" @click="toContent(item)">
+             <div class="itemList" v-for="(item, index) in themeList" :key="index" @click="toContent(item)">
                    <div class="item">
                        <div class="top">
                             <div class="status" v-if="item.status === 1 && item.flag === 0"><van-tag mark type="warning">待审核</van-tag></div>
@@ -21,14 +22,20 @@
                            <div class="time">创建于: {{item.create_time}}</div>
                        </div>
                 </div>
-         </div>
+           </div>
+          </div>
+         </div> 
+         <div v-else>
+             <Empty :type="3"/>
          </div>
   </div>
 </template>
 
 <script>
-import {mapState} from 'vuex'
+import Empty from '../../components/empty'
+import { mapState } from 'vuex'
 export default {
+    components: { Empty },
     data() {
         return {
             themeList: []
@@ -39,17 +46,11 @@ export default {
     },
     created() {
       this.themeList = this.theme.userTheme
-    //    this.$store.dispatch('theme/fetchUserTheme').then(rsp => {
-    //        console.log(rsp)
-    //        if(rsp.code === 200) {
-    //            this.themeList = rsp.data
-    //        }
-    //    })
     },
     methods: {
         toContent(item) {
             if(item.status === 0 || (item.status === 1 && item.flag === 1)) {
-               this.$router.push({ path: '/themeTocontent', query: { id: item.id, name: item.name } }); 
+               this.$router.push({ path: '/themeTocontent', query: { id: item.id, name: item.name,isEdit: true } }); 
             }
             
         }

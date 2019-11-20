@@ -3,20 +3,11 @@ import axios from 'axios'
 import Vue from 'vue'
 import { Toast } from 'vant'
 import { URL } from './config'
-// import store from '@/store/index.js'
 Vue.use(Toast)
 
 const errorHandle = status => {
   // 判断状态码
   switch (status) {
-    case 401:
-      Toast.fail('请登录后操作')
-    //   store.dispatch('login/logout');
-      break
-    case 403:
-      Toast.fail('登录过期，请重新登录')
-    //   store.dispatch('login/logout');
-      break
     case 500:
       Toast.fail('找不到此服务，可能是在路上~')
       break

@@ -10,7 +10,7 @@
     </div>
      <div class="img" v-if="type === 3">
         <img :src="empty[2]"/>
-        <div class="text">暂无话题</div>
+        <div class="text">暂无主题</div>
     </div>
     <div class="img" v-if="type === 4">
         <img :src="empty[3]"/>

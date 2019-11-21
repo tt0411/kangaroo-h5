@@ -6,7 +6,7 @@
     <div class="content">
       <van-field
         class="text"
-        v-model="content"
+        v-model="context"
         rows="3"
         autosize
         type="textarea"
@@ -92,12 +92,13 @@
 
 <script>
 import Upload from "../../components/upload";
+import {mapState} from 'vuex'
 import { Toast } from "vant";
 export default {
   components: { Upload },
   data() {
     return {
-      content: "",
+      context: "",
       isPic: true,
       isVideo: false,
       isAudio: false,
@@ -108,8 +109,11 @@ export default {
       themeId: null,
       showThemebox: false,
       show: false,
-      themeList: []
+      themeList: [],
     };
+  },
+  computed: { 
+    ...mapState(['content'])
   },
   created() {
      this.$store.dispatch('theme/getThemeList').then(rsp => {
@@ -123,31 +127,42 @@ export default {
      })
   },
   mounted() {
-    this.address = this.$route.query.name;
+    this.address = this.$route.query.name || '';
+    this.context = this.content.sendData.context;
+    this.tid = this.content.sendData.tid;
+    this.theme = this.content.sendData.theme;
+    this.isOpen = this.content.sendData.isOpen;
+    this.isOpenComment = this.content.sendData.is_comment;
   },
   methods: {
     onClickLeft() {
-      this.$router.go(-1);
+        this.$router.push('/')
     },
     onClickRight() {
-      if (!this.content) {
+      if (!this.context) {
         Toast("请填写内容后再发表");
       }else if(!this.themeId) {
         Toast('请选择主题');
       }else {
         let params = {
-            context: this.content,
+            context: this.context,
             address: this.address,
-            is_comment: this.isOpenComment ? 1 : 0,
+            is_comment: this.isOpenComment ? 0 : 1,
             img: this.$refs.upload.imgUrl, 
             video: this.$refs.upload.videoUrl,
-            audio: this.$refs.upload.audioUrl,
+            audio: this.$refs.upload.audioSrc,
             status: this.isOpen ? 1 : 0,
             flag: this.isOpen ? 0 : 3,
-            tid: this.this.themeId
+            tid: this.themeId
         }
-        // console.log(this.$refs.upload.imgUrl, this.$refs.upload.audioSrc, this.$refs.upload.videoUrl)
-       
+       this.$store.dispatch('content/createContent', params).then(rsp => {
+         if(rsp.code === 200) {
+           Toast.success(rsp.msg);
+           this.$store.commit('content/changeSendData', {});
+           this.address = '';
+           this.$router.push('/myContent');
+         }
+       })
       }
     },
     toCreate() {
@@ -163,6 +178,7 @@ export default {
          this.showThemebox = false;
          this.themeId = item.id;
          this.theme = item.name;
+         this.isOpen = item.status === 1 ? true : false;
     },
     toAddAddress() {
       this.$router.push("/addAddress");
@@ -181,6 +197,48 @@ export default {
       this.isAudio = !this.isAudio;
       this.isVideo = false;
       this.isPic = false;
+    }
+  },
+  watch: {
+    context(newVal, oldVal) {
+      let data = {
+        context: this.context,
+        theme: this.theme,
+        tid: this.themeId,
+        isOpen: this.isOpen,
+        is_comment: this.isOpenComment
+      }
+      this.$store.commit('content/changeSendData', data)
+    },
+    theme(newVal, oldVal) {
+       let data = {
+        context: this.context,
+        theme: this.theme,
+        tid: this.themeId,
+        isOpen: this.isOpen,
+        is_comment: this.isOpenComment
+      }
+      this.$store.commit('content/changeSendData', data)
+    },
+    isOpen(newVal, oldVal) {
+       let data = {
+        context: this.context,
+        theme: this.theme,
+        tid: this.themeId,
+        isOpen: this.isOpen,
+        is_comment: this.isOpenComment
+      }
+      this.$store.commit('content/changeSendData', data)
+    },
+    isOpenComment(newVal, oldVal) {
+      let data = {
+        context: this.context,
+        theme: this.theme,
+        tid: this.themeId,
+        isOpen: this.isOpen,
+        is_comment: this.isOpenComment
+      }
+      this.$store.commit('content/changeSendData', data)
     }
   }
 };

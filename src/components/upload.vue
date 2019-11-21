@@ -66,7 +66,7 @@ export default {
           return {
             imgFile: [],
             backImgList: [],
-            imgUrl: [],
+            imgUrl: '',
             show: false,
             showImg: [],
             videoUrl: '',
@@ -110,13 +110,12 @@ export default {
                 formdata.append('type', 'img')
                 axios.post(`${MURL}/alioss/uploadOss`, formdata, config).then(res => {
                     if(res.data.code === 200) {
-                        Toast.success('上传成功')
-                    }
                      if(this.imgFile.length === 1 ){
-                         this.imgUrl.push(res.data.data)
+                         this.imgUrl = res.data.data
                      }else{
                          this.backImgList.push(res.data.data)
                          this.imgUrl = this.backImgList.join(',')
+                       }
                       } 
                     }).catch(err => {
                         Toast.fail('系统错误')
@@ -136,10 +135,9 @@ export default {
                 formdata.append('file', this.sendVideo[0].file)
                 formdata.append('type', 'video')
                 axios.post(`${MURL}/alioss/uploadOss`, formdata, config).then(res => {
-                    this.playerOptions.sources[0].src = res.data.data
-                    this.videoUrl = res.data.data
                     if(res.data.code === 200) {
-                        Toast.success('上传成功')
+                        this.playerOptions.sources[0].src = res.data.data;
+                        this.videoUrl = res.data.data;
                     }
                     }).catch(err => {
                         Toast.fail('系统错误')
@@ -160,9 +158,8 @@ export default {
                 formdata.append('file', this.sendAudio[0].file)
                 formdata.append('type', 'audio')
                 axios.post(`${MURL}/alioss/uploadOss`, formdata, config).then(res => {
-                    this.audioSrc = res.data.data
                     if(res.data.code === 200) {
-                        Toast.success('上传成功')
+                        this.audioSrc = res.data.data;
                     }
                     }).catch(err => {
                     Toast.fail('系统错误')

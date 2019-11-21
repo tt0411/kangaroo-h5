@@ -41,10 +41,11 @@ export default {
            pickAddress: '',
            pickedName: '',
            radio: '',
+           toast1: null,
        }
     },
     mounted () {
-    const toast1 = Toast.loading({
+     this.toast1 = Toast.loading({
          duration: 0, // 持续展示 toast
          forbidClick: true,
          message: '加载中...'
@@ -76,7 +77,7 @@ export default {
                     this.center = [result.position.lng, result.position.lat];
                     this.init(); 
                     // this.show = false;
-                    toast1.clear();
+                    this.toast1.clear();
                     
                 }
             });
@@ -119,7 +120,7 @@ export default {
         placeSearch.searchNearBy('', [this.center[0],this.center[1]], 200, (status, result) => {
             if(status == 'complete'){
              this.addressList = result.poiList.pois;
-             toast1.clear();
+             this.toast1.clear();
             //    list = result.poiList.pois
             //    list.forEach(item => {
             //       let addItem = Object.assign(item , {isPicked: false})

@@ -4,14 +4,10 @@
       <div class="container">
         <van-tabs v-model="active" animated color="#12C3DF">
           <van-tab title="用户消息">
-            <div class="nothing">
-              <Empty :type="1"/>
-            </div>
+            <Empty :type="1"/>
           </van-tab>
           <van-tab title="系统消息">
-            <div class="nothing">
-              <Empty :type="1"/>
-             </div>
+            <Empty :type="1"/>
           </van-tab>
        </van-tabs>
       </div>
@@ -35,8 +31,5 @@ export default {
 .container{
   background-color: #f5f5f5;
   height: calc(100vh - 96px);
-  .nothing{
-    margin-top: 20%;
-  }
 }
 </style>

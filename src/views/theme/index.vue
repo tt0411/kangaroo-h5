@@ -66,6 +66,9 @@ export default {
       if(this.$route.query.isWrite) {
         this.showBox = true
       }
+     if(this.$route.query.active) {
+       this.active = this.$route.query.active
+     }
     },
     methods: {
       toSearch() {

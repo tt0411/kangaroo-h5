@@ -1,7 +1,13 @@
 import { createContent } from '../../api/content'
 
 const state = {
-    
+    sendData: {
+        context: '',
+        theme: '',
+        tid: null,
+        is_comment: false,
+        isOpen: false,
+    },
 }
 
 const actions = {
@@ -11,7 +17,9 @@ const actions = {
 }
 
 const mutations = {
-    
+    changeSendData(state, payload) {
+        state.sendData = payload
+    },
 }
 
 export default {

@@ -14,13 +14,13 @@
       </div>
       <van-image-preview v-model="isPreview" :images="imgUrl" />
       <div class="box">
-          <div class="myContent">
+          <div class="myContent" @click="toMyContent">
             <div class="contents">我的内容</div>
             <div class="content-count">
               <van-tag color="#ffe1e1" text-color="#ad0000" size="large">21</van-tag>
             </div>
           </div>
-          <div class="myTheme">
+          <div class="myTheme" @click="toTheme">
             <div class="themes">我的主题</div>
             <div class="theme-count">
                <van-tag color="#ffe1e1" text-color="#ad0000" size="large">3</van-tag>
@@ -91,6 +91,12 @@ export default {
       },
       toLogin() {
         this.$router.push('/login')
+      },
+      toMyContent() {
+        this.$router.push('/mycontent')
+      },
+      toTheme() {
+        this.$router.push({path: '/theme', query: { active: 1 }})
       }
     }
 }

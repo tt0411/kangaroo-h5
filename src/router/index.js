@@ -20,6 +20,7 @@ import SearchList from '@/views/searchList/index'
 import WriteContent from '@/views/writeContent/index'
 import HomePage from '@/views/homePage/index'
 import Addaddress from '@/views/addAddress/index'
+import MyContent from '@/views/myContent/index'
 
 Vue.use(Router)
 
@@ -46,6 +47,7 @@ const router = new Router({
     { path: '/writeContent', name: 'writeContent', component: WriteContent, meta: { title: '写内容'}},
     { path: '/homePage', name: 'homePage', component: HomePage },
     { path: '/addAddress', name: 'addAddress', component: Addaddress },
+    { path: '/myContent', name: 'myContent', component: MyContent, meta: { title: '我的内容'} },
   ]
 })
 

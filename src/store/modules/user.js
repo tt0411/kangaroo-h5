@@ -38,7 +38,6 @@ const actions = {
     },
     async getInfo({commit}) {
         const rsp = await getInfo();
-        console.log(rsp)
         if(rsp.code === 200){
             commit('changeInfo', rsp.data)
         }

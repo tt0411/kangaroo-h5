@@ -50,7 +50,7 @@ export default {
     methods: {
         toContent(item) {
             if(item.status === 0 || (item.status === 1 && item.flag === 1)) {
-               this.$router.push({ path: '/themeTocontent', query: { id: item.id, name: item.name,isEdit: true } }); 
+               this.$router.push({ path: '/themeTocontent', query: { id: item.id, name: item.name, isEdit: true } }); 
             }
             
         }

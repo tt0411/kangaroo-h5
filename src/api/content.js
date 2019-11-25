@@ -18,3 +18,6 @@ export const getMyMarkContent = () => request.get(`/content/getMyMarkContent`)
 
 // 获取用户收藏内容
 export const getMySaveContent = () => request.get(`/content/getMySaveContent`)
+
+// 获取某一条内容
+export const getContentById = (id) => request.get(`/content/getContentById?id=${id}`)

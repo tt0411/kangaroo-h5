@@ -41,8 +41,10 @@
      </div> 
    </div>
      <div slot="content">
+     <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
        <ContentItem :contentItem="contentList" :playerOptions="playerOptions"/>
-       <van-dialog v-model="show" title="提示" show-cancel-button confirmButtonColor="#12C3DF" confirmButtonText="去登录" @confirm="toLogin">
+     </van-pull-refresh> 
+      <van-dialog v-model="show" title="提示" show-cancel-button confirmButtonColor="#12C3DF" confirmButtonText="去登录" @confirm="toLogin">
          <div class="loginDialog">登录后才能写内容哟 ~_~</div>
         </van-dialog>
      </div>
@@ -62,6 +64,7 @@ export default {
            audioContent: true,
            videoContent: true,
            show: false,
+           isLoading: false,
            avater: 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2967487759,252864316&fm=26&gp=0.jpg',
        swiperList: [
            {id: 1, imgSrc: 'https://i.loli.net/2019/11/07/hAv6EFfGCSOeDRI.jpg'},
@@ -79,7 +82,12 @@ export default {
      }
    },
    created() {
-       this.$store.dispatch('content/getAllOpenContent', 10).then(rsp => {
+       this.fetchList();
+   },
+   methods: {
+       fetchList() {
+          this.$store.dispatch('content/getAllOpenContent', 10).then(rsp => {
+            this.isLoading = false;
            if(rsp.code === 200) {
                this.contentList = rsp.list;
                 this.contentList.forEach((item, index) => {
@@ -106,8 +114,7 @@ export default {
               
            }
        })
-   },
-   methods: {
+       },
        toSearch(){
            this.$router.push('/search')
        },
@@ -116,6 +123,9 @@ export default {
        },
        toLogin() {
            this.$router.push('/login')
+       },
+       onRefresh() {
+           this.fetchList();
        },
        iconGo(item) {
            if(item.text === '创主题') {

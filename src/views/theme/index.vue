@@ -8,7 +8,7 @@
        <div class="bg_index" @click="createTheme">
          <img :src="imgSrc" />
         </div>
-          <van-tabs v-model="active" animated color="#12C3DF" @click="onClickTab">
+          <van-tabs v-model="active" animated color="#12C3DF" @click="onClickTab" swipeable>
           <van-tab title="公开主题">
             <OpenItem />
           </van-tab>

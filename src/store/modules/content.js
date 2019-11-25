@@ -1,4 +1,4 @@
-import { createContent, getOpencontentByTid, getMycontentByTid, getAllOpenContent, getMyMarkContent, getMySaveContent } from '../../api/content'
+import { createContent, getOpencontentByTid, getMycontentByTid, getAllOpenContent, getMyMarkContent, getMySaveContent, getContentById } from '../../api/content'
 
 const state = {
     sendData: {
@@ -8,7 +8,8 @@ const state = {
         is_comment: false,
         isOpen: false,
     },
-    contentList: []
+    contentList: [],
+    content_id: null,
 }
 
 const actions = {
@@ -37,6 +38,9 @@ const actions = {
    },
    async getMySaveContent(_) {
        return await getMySaveContent()
+   },
+   async getContentById(_, id) {
+       return await getContentById(id)
    }
 }
 
@@ -46,6 +50,9 @@ const mutations = {
     },
     changeContentList(state, payload) {
         state.contentList = payload
+    },
+    changeContentId(state, payload) {
+        state.content_id = payload
     }
 }
 

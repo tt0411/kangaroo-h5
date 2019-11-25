@@ -40,7 +40,7 @@
           </div>
       </div>  
       <div>
-        <van-tabs v-model="active" animated color="#12C3DF">
+        <van-tabs v-model="active" animated color="#12C3DF" swipeable>
           <van-tab >
              <div slot="title">喜欢 {{markCount}}</div>
             <ContentItem :like="true" :more="false" :contentItem="contentList" :playerOptions="playerOptions"/>

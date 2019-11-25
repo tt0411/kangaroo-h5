@@ -1,56 +1,55 @@
 <template>
   <div class="content">
     <div class="content-item">
-      <!-- <v-touch @swipeleft="swiperleft" class="wrapper"> -->
       <div class="info">
         <div class="avatar">
-          <van-image width="45" height="45" :round="true" fit="cover" :src="content.avatar"  @click="toHomePage"/>
+          <van-image width="45" height="45" :round="true" fit="cover" :src="detailData.imgUrl"  @click="toHomePage"/>
         </div>
         <div class="name-time">
-          <div class="name">{{content.nickName}}</div>
-          <div class="time">发表于: {{content.create_time}}</div>
+          <div class="name">{{detailData.nickName}}</div>
+          <div class="time">发表于: {{detailData.create_time}}</div>
         </div>
       </div>
       <div class="three-content">
-        <div class="img-content" v-if="content.img">
-          <div class="text-content" v-if="content.content">{{content.content}}</div>
-          <div class="imageList" v-if="content.img">
-            <div v-if="content.img.length === 1">
+        <div class="img-content" v-if="detailData.img">
+          <div class="text-content" v-if="detailData.context">{{detailData.context}}</div>
+          <div class="imageList" v-if="detailData.img">
+            <div v-if="detailData.img.length === 1">
               <van-row>
                 <van-col span="24">
                   <van-image
-                    :src="content.img"
+                    :src="detailData.img"
                     style="width: 100%;height: 100px;"
                     @click="show = true"
                   ></van-image>
                 </van-col>
               </van-row>
-              <van-image-preview v-model="show" :images="content.img"></van-image-preview>
+              <van-image-preview v-model="show" :images="detailData.img"></van-image-preview>
             </div>
-            <div v-if="content.img.length === 2">
+            <div v-if="detailData.img.length === 2">
               <van-row gutter="5">
-                <van-col span="12" v-for="(item1, index) in content.img" :key="index">
+                <van-col span="12" v-for="(item1, index) in detailData.img" :key="index">
                   <van-image :src="item1" style="width: 100%;height: 100px;" @click="show = true"></van-image>
                 </van-col>
               </van-row>
-              <van-image-preview v-model="show" :images="content.img"></van-image-preview>
+              <van-image-preview v-model="show" :images="detailData.img"></van-image-preview>
             </div>
-            <div v-if="content.img.length >= 3">
+            <div v-if="detailData.img.length >= 3">
               <van-row gutter="5">
-                <van-col span="8" v-for="(item1, index) in content.img" :key="index">
+                <van-col span="8" v-for="(item1, index) in detailData.img" :key="index">
                   <van-image :src="item1" style="width: 100%;height: 100px;" @click="show = true"></van-image>
                 </van-col>
               </van-row>
-              <van-image-preview v-model="show" :images="content.img"></van-image-preview>
+              <van-image-preview v-model="show" :images="detailData.img"></van-image-preview>
             </div>
           </div>
         </div>
-        <div class="audio-content" v-if="content.audio">
-          <div class="text-content" v-if="content.content">{{content.content}}</div>
-          <audio :src="content.audio" controls="controls"></audio>
+        <div class="audio-content" v-if="detailData.audio">
+          <div class="text-content" v-if="detailData.context">{{detailData.context}}</div>
+          <audio :src="detailData.audio" controls="controls"></audio>
         </div>
-        <div class="video-content" v-if="content.video">
-          <div class="text-content" v-if="content.content">{{content.content}}</div>
+        <div class="video-content" v-if="detailData.video">
+          <div class="text-content" v-if="detailData.context">{{detailData.context}}</div>
           <video-player
             class="video-player-box"
             ref="videoPlayer"
@@ -63,14 +62,14 @@
           ></video-player>
         </div>
       </div>
-      <!-- </v-touch> -->
     </div> 
-    <ListItem :content="content" />
+    <ListItem :count="threeCount" />
   </div>
 </template>
 
 <script>
 import ListItem from "./listItem.vue";
+import {mapState} from 'vuex'
 
 export default {
   components: { ListItem },
@@ -78,34 +77,26 @@ export default {
     return {
       show: false,
       playerOptions: {},
-      content: {
-        id: 1,
-        nickName: "李易峰",
-        avatar:
-          "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2967487759,252864316&fm=26&gp=0.jpg",
-        create_time: "2019-10-12 11:03:27",
-        content: `我们城里九十平的房子，如果可以重新装修，我希望改造的有，可以说几乎全部。
-                        从玄关开始，玄关那里，鞋柜不要到顶，柜子可以全屋定制，质量好点，选择原木色。
-                        和白色。混合。 鞋柜做半截。上面可以买挂钩，挂东西，比较实用。半截柜，还可以放
-                        小盆栽装点，也很美貌。 厨房，上面柜子除了包住油烟机和水表箱的，其他不做...`,
-        audio: "",
-        video: "",
-        save: 3,
-        comment: 3,
-        mark: 2,
-       img: [
-                  "https://kangaroo-app.oss-cn-hangzhou.aliyuncs.com/1571905601259.png",
-                  "https://kangaroo-app.oss-cn-hangzhou.aliyuncs.com/1571905601267.png",
-                  "https://kangaroo-app.oss-cn-hangzhou.aliyuncs.com/1571905711338.png",
-                  "https://kangaroo-app.oss-cn-hangzhou.aliyuncs.com/1571905711350.png",
-                  "https://kangaroo-app.oss-cn-hangzhou.aliyuncs.com/1571905711355.png",
-                  "https://kangaroo-app.oss-cn-hangzhou.aliyuncs.com/1571905932614.png",
-                  "https://kangaroo-app.oss-cn-hangzhou.aliyuncs.com/1571905932616.png",
-               ],
-      }
-    };
+      detailData: {},
+      threeCount: null,
+    }
+  },
+  computed: {
+    ...mapState(['content'])
   },
   created() {
+     this.$store.dispatch('content/getContentById', this.content.content_id).then(rsp => {
+       if(rsp.code === 200) {
+         this.detailData = rsp.data
+          this.threeCount = { 
+            save: rsp.data.save,
+            mark: rsp.data.mark, 
+            comment: rsp.data.comment
+         }
+       }
+     })
+  },
+  mounted() {
     this.playerOptions = {
       playbackRates: [0.7, 1.0, 1.5, 2.0], //播放速度
       autoplay: false,
@@ -118,21 +109,22 @@ export default {
       sources: [
         {
           type: "video/mp4",
-          src: this.content.video
+          src: this.detailData.video
         }
       ],
       poster:
         "https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=673709352,371074027&fm=26&gp=0.jpg", //你的封面地址
       notSupportedMessage: "此视频暂无法播放，请稍后再试"
     }
+    
   },
   methods: {
    toHomePage() {
-     this.$router.push({path: '/homePage', query: { id: this.content.id}})
-   }
-
+     this.$router.push({path: '/homePage', query: { id: this.detailData.uid }})
+   },
+   
   }
-};
+}
 </script>
  
 <style lang="scss" scoped>

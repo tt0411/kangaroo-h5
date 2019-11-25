@@ -1,11 +1,11 @@
 <template>
  <van-sticky>
    <div class="content-options">
-            <van-tabs v-model="active"  animated color="#12C3DF">
+            <van-tabs v-model="active"  animated color="#12C3DF" swipeable>
             <van-tab>
                 <div slot="title">
                     <van-icon name="star-o" size="20px" /> 
-                    {{content.save}}
+                    {{count.save}}
                 </div>
                 <div class="saveList">
                    <!-- <van-list
@@ -35,7 +35,7 @@
             <van-tab>
                 <div slot="title">
                     <van-icon name="chat-o" size="20px"/>
-                    {{content.comment}}
+                    {{count.comment}}
                 </div>
                 <div class="commentList">
                    <div class="commentItem" v-for="(item, index) in commentList" :key="index">
@@ -64,7 +64,7 @@
             <van-tab>
                 <div slot="title">
                     <van-icon name="like-o" size="20px"/> 
-                {{content.mark}}
+                {{count.mark}}
                 </div>
                 <div class="markList">
                      <div class="markItem" v-for="(item, index) in markList" :key="index">
@@ -92,7 +92,7 @@
 
 <script>
 export default {
-  props: ['content'],
+  props: ['count'],
   data(){
       return{
            active: 1,

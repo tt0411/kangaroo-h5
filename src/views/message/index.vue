@@ -2,7 +2,7 @@
   <base-layout>
     <div slot="content">
       <div class="container">
-        <van-tabs v-model="active" animated color="#12C3DF">
+        <van-tabs v-model="active" animated color="#12C3DF" swipeable>
           <van-tab title="用户消息">
             <Empty :type="1"/>
           </van-tab>

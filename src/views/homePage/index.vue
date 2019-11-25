@@ -38,7 +38,7 @@
           </div>
       </div>  
       <div>
-        <van-tabs v-model="active" animated color="#12C3DF">
+        <van-tabs v-model="active" animated color="#12C3DF" swipeable>
           <van-tab title="喜欢">
             <ContentItem :like="true" :more="false"/>
           </van-tab>

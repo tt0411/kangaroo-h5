@@ -1,13 +1,12 @@
 <template>
- <van-sticky>
    <div class="content-options">
-            <van-tabs v-model="active"  animated color="#12C3DF" swipeable>
+         <van-tabs v-model="active"  animated color="#12C3DF" swipeable>
             <van-tab>
                 <div slot="title">
                     <van-icon name="star-o" size="20px" /> 
-                    {{count.save}}
+                    {{saveCount}}
                 </div>
-                <div class="saveList">
+                <div class="saveList" v-if="saveList.length > 0">
                    <!-- <van-list
                     v-model="loading"
                     :finished="finished"
@@ -25,19 +24,23 @@
                            <div class="name">{{item.nickName}}</div>
                         </van-col>
                         <van-col span="16">
-                            <div class="time">{{item.time}} 收藏了该内容</div>
+                            <div class="time">{{item.create_time}} 收藏了该内容</div>
                         </van-col>
                      </van-row>
                     </div>
-                   <div class="noMore">已经到底了 ~_~</div>
                 </div>
+                <Empty :type="2" v-else/>
             </van-tab>
             <van-tab>
-                <div slot="title">
+                <div slot="title" v-if="!is_comment">
                     <van-icon name="chat-o" size="20px"/>
-                    {{count.comment}}
+                    {{commentCount}}
                 </div>
-                <div class="commentList">
+                 <div slot="title" v-else>
+                    <van-icon name="chat-o" size="20px"/>
+                    0
+                </div>
+                <div class="commentList" v-if="commentList.length > 0 && !is_comment">
                    <div class="commentItem" v-for="(item, index) in commentList" :key="index">
                        <van-row gutter="5">
                             <van-col span="3">
@@ -55,18 +58,19 @@
                             </van-col>
                         </van-row>
                         <div class="time">
-                          评论时间：  {{item.time}}
+                          评论时间：  {{item.create_time}}
                         </div>
                    </div>
-                   <div class="noMore">已经到底了 ~_~</div>
                 </div>
+                <Empty :type="5" v-if="commentList.length == 0 && !is_comment"/>
+                <Empty :type="6" v-if="is_comment"/>
             </van-tab>
             <van-tab>
                 <div slot="title">
                     <van-icon name="like-o" size="20px"/> 
-                {{count.mark}}
+                {{markCount}}
                 </div>
-                <div class="markList">
+                <div class="markList" v-if="markList.length > 0">
                      <div class="markItem" v-for="(item, index) in markList" :key="index">
                         <van-row gutter="5">
                         <van-col span="3">
@@ -78,48 +82,46 @@
                            <div class="name">{{item.nickName}}</div>
                         </van-col>
                         <van-col span="16">
-                            <div class="time">{{item.time}} 点赞了该内容</div>
+                            <div class="time">{{item.create_time}} 点赞了该内容</div>
                         </van-col>
                      </van-row>
                     </div>
-                    <div class="noMore">已经到底了 ~_~</div>
                 </div>
+                 <Empty :type="4" v-else/>
             </van-tab>
         </van-tabs>
     </div>
-</van-sticky>
 </template>
 
 <script>
+import Empty from '../../components/empty'
+import {mapState} from 'vuex'
 export default {
-  props: ['count'],
+  props: ['saveCount', 'markCount', 'commentCount'],
+  components: { Empty },
   data(){
       return{
            active: 1,
            loading: false,
            finished: false,
-           saveList: [
-               {id: 1, nickName: '张三丰', time: '2019-10-30 13:15:09', imgUrl: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1820523987,3798556096&fm=26&gp=0.jpg'},
-               {id: 2, nickName: '李世民', time: '2019-10-31 13:15:09', imgUrl: 'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=320178652,790985626&fm=26&gp=0.jpg'},
-               {id: 3, nickName: '李怼怼', time: '2019-10-31 15:13:18', imgUrl: 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2724886373,3500404552&fm=26&gp=0.jpg'},
-           ],
-           markList: [
-                {id: 1, nickName: '张三丰', time: '2019-10-30 13:15:09', imgUrl: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1820523987,3798556096&fm=26&gp=0.jpg'},
-                {id: 2, nickName: '李世民', time: '2019-10-31 13:15:09', imgUrl: 'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=320178652,790985626&fm=26&gp=0.jpg'},
-           ],
-           commentList: [
-              {id: 1, nickName: '张三丰', time: '2019-10-30 13:15:09', imgUrl: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1820523987,3798556096&fm=26&gp=0.jpg', comment: '这是一条有趣的评论！这是一条有趣的评论！这是一条有趣的评论！这是一条有趣的评论！这是一条有趣的评论！'},
-               {id: 2, nickName: '李世民', time: '2019-10-31 13:15:09', imgUrl: 'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=320178652,790985626&fm=26&gp=0.jpg', comment: '这是一条有趣的评论！这是一条有趣的评论！这是一条有趣的评论！这是一条有趣的评论！这是一条有趣的评论！'},
-               {id: 3, nickName: '李怼怼', time: '2019-10-31 15:13:18', imgUrl: 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2724886373,3500404552&fm=26&gp=0.jpg', comment: '这是一条有趣的评论！这是一条有趣的评论！这是一条有趣的评论！这是一条有趣的评论！这是一条有趣的评论！'},
-           ]
+           saveList: [],
+           markList: [],
+           commentList: [],
+           is_comment: false,
       }
   },
-  methods: {
-      onLoad(){
-
-      },
+  computed: {
+      ...mapState(['content'])
+  },
+ 
+  mounted() {
+      this.commentList = this.content.commentList
+      this.markList = this.content.markList
+      this.saveList = this.content.saveList
+ },
+  methods: { 
       toHomePage(item) {
-          this.$router.push({ path: '/homePage', query: { id: item.id }})
+          this.$router.push({ path: '/homePage', query: { id: item.uid }})
       }
   }
 }
@@ -128,6 +130,7 @@ export default {
 <style lang="scss" scoped>
  .content-options{
     width: 100%;
+    font-size: 0.15rem;
     .noMore{
         text-align: center;
         margin: 10px 0;
@@ -177,6 +180,9 @@ export default {
                 }
             }
             .time{
+             display: flex;
+                flex-direction: row;
+                justify-content: flex-end;
                 color: #979494;
                 font-size: 12px;
             }

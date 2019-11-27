@@ -63,60 +63,49 @@
         </div>
       </div>
     </div> 
-    <ListItem :count="threeCount" />
   </div>
 </template>
 
 <script>
-import ListItem from "./listItem.vue";
 import {mapState} from 'vuex'
 
 export default {
-  components: { ListItem },
   data() {
     return {
       show: false,
       playerOptions: {},
       detailData: {},
-      threeCount: null,
     }
   },
   computed: {
     ...mapState(['content'])
   },
-  created() {
+  mounted() {
      this.$store.dispatch('content/getContentById', this.content.content_id).then(rsp => {
        if(rsp.code === 200) {
          this.detailData = rsp.data
-          this.threeCount = { 
-            save: rsp.data.save,
-            mark: rsp.data.mark, 
-            comment: rsp.data.comment
-         }
+       
+         this.playerOptions = {
+          playbackRates: [0.7, 1.0, 1.5, 2.0], //播放速度
+          autoplay: false,
+          muted: false,
+          loop: false,
+          preload: "auto",
+          language: "zh-CN",
+          aspectRatio: "16:9",
+          fluid: true,
+          sources: [
+            {
+              type: "video/mp4",
+              src: this.detailData.video
+            }
+          ],
+          poster:
+            "https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=673709352,371074027&fm=26&gp=0.jpg", //你的封面地址
+          notSupportedMessage: "此视频暂无法播放，请稍后再试"
+        }
        }
      })
-  },
-  mounted() {
-    this.playerOptions = {
-      playbackRates: [0.7, 1.0, 1.5, 2.0], //播放速度
-      autoplay: false,
-      muted: false,
-      loop: false,
-      preload: "auto",
-      language: "zh-CN",
-      aspectRatio: "16:9",
-      fluid: true,
-      sources: [
-        {
-          type: "video/mp4",
-          src: this.detailData.video
-        }
-      ],
-      poster:
-        "https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=673709352,371074027&fm=26&gp=0.jpg", //你的封面地址
-      notSupportedMessage: "此视频暂无法播放，请稍后再试"
-    }
-    
   },
   methods: {
    toHomePage() {
@@ -129,8 +118,8 @@ export default {
  
 <style lang="scss" scoped>
 .content {
-  background: #ffffff;
-  height: 100vh;
+  // background: #ffffff;
+  // height: 100vh;
   .content-item {
     padding: 8px;
     .info {

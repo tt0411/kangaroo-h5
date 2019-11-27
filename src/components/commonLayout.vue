@@ -27,7 +27,7 @@ export default {
     #container{
         background: #ffffff;
         height: 100vh;
-        font-size:  0.16rem;
+        font-size:  0.14rem;
         overflow: hidden;
         display: flex;
         flex-direction: column;

@@ -21,3 +21,21 @@ export const getMySaveContent = () => request.get(`/content/getMySaveContent`)
 
 // 获取某一条内容
 export const getContentById = (id) => request.get(`/content/getContentById?id=${id}`)
+
+// 获取某一条内容的评论
+export const getCommentById = (id) => request.get(`/comment/commentByCid?id=${id}`)
+
+// 获取某一条内容的点赞
+export const getMarkById = (id) => request.get(`/mark/markCountByCid?id=${id}`)
+
+// 获取某一条内容的收藏
+export const getSaveById = (id) => request.get(`/save/saveCountByCid?id=${id}`)
+
+// 评论某一内容
+export const addComment = (params) => request.post(`/comment/addComment?${stringify(params)}`)
+
+// 点赞取消点赞
+export const isMarkContent = (params) =>request.post(`/mark/isMarkContent?${stringify(params)}`)
+
+// 收藏与取消收藏
+export const isSaveContent = (params) =>request.post(`/save/isSaveContent?${stringify(params)}`)

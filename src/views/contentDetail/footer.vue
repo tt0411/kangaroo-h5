@@ -3,13 +3,13 @@
     <div class="input">
       <van-field
         style="background-color:#f5f5f5;font-size: 16px;"
-        :disabled="disabled"
+        :disabled="is_comment"
         v-model="message"
         rows="1"
         autosize
         type="textarea"
         maxlength="50"
-        :placeholder="disabled ? '作者关闭了评论' : '来评论啦...'"
+        :placeholder="is_comment ? '作者关闭了评论' : '来评论啦...'"
       />
     </div>
     <div class="send">
@@ -30,34 +30,76 @@
 
 <script>
 import { Toast } from "vant";
+import {mapState} from 'vuex';
+
 export default {
-  props: ['disabled'],
   data() {
     return {
       message: "",
       isSave: false,
-      isMark: false
+      isMark: false,
+      is_comment: false,
+      cid: null
     };
+  },
+  computed: {
+    ...mapState(['content'])
+  },
+  mounted() {
+      this.is_comment = this.content.is_comment;
+      this.cid = this.content.content_id;
   },
   methods: {
     sendMessage() {
-      Toast.success('发表成功，活跃度+5');
-      this.message = ''
+      let params = {
+        content: this.message,
+        cid: this.cid
+      }
+      this.$store.dispatch('content/addComment', params).then(rsp => {
+          if(rsp.code === 200) {
+              let msg = rsp.msg;
+              this.$store.dispatch('content/getCommentById', this.cid).then(rsp => {
+                if(rsp.code === 200) {
+                   Toast.success(msg);
+                   this.message = '';
+                }
+              })
+          }
+      })
     },
     toSave() {
-      this.isSave = !this.isSave;
-      if (this.isSave) {
-        Toast({
-          message: "收藏成功",
-          icon: "star-o",
-          color:"#12C3DF"
-        });
-      } else {
-        Toast("取消收藏");
+      let params = {
+        cid: this.cid,
+        status: this.isSave ? 0 : 1,
       }
+      this.$store.dispatch('content/isSaveContent', params).then(rsp => {
+        if(rsp.code === 200) {
+          if(!this.isSave) {
+            Toast({
+            message: rsp.msg,
+            icon: 'star-o'
+          });
+           this.isSave = !this.isSave;
+        }else{
+          Toast(rsp.msg)
+        }
+        }else{
+          Toast.fail(rsp.msg)
+        }
+      })
     },
     toMark() {
-      this.isMark = !this.isMark;
+      let params = {
+        cid: this.cid,
+        status: this.isMark ? 0 : 1
+      }
+      this.$store.dispatch('content/isMarkContent', params).then(rsp => {
+        if(rsp.code === 200) {
+          this.isMark = !this.isMark;
+        }else{
+          Toast.fail(rsp.msg)
+        }
+      })
     }
   }
 };

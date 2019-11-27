@@ -111,7 +111,7 @@
 
 <script>
 import Empty from '../../components/empty'
-import { mapState } from 'vuex'
+
 export default {
   components: { Empty },
   props: {
@@ -145,8 +145,12 @@ export default {
     seeMore() {
       this.$router.push('/content')
     },
-    toDetail(item) {
-      console.log(item.id);
+    toDetail(item) { 
+       
+      this.$store.commit('content/changeIsComment',item.is_comment)
+      this.$store.dispatch('content/getCommentById', item.id)
+      this.$store.dispatch('content/getSaveById', item.id)
+      this.$store.dispatch('content/getMarkById', item.id)
       this.$router.push({ path: "/detail", query: { id: item.id } });
     }
   }

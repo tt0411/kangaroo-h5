@@ -39,7 +39,7 @@
             </van-dialog>
       </div>
       <div slot="content">
-          <ContentItem :more="false" :countItem="true" :contentItem="contentList" :playerOptions="playerOptions"/>
+          <ContentItem :more="false" :contentItem="contentList" :isDel="true" :playerOptions="playerOptions"/>
       </div>
      
   </common-layout>
@@ -54,16 +54,16 @@ export default {
         return {
             id: null,
             name: '',
-            imgUrl: 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2967487759,252864316&fm=26&gp=0.jpg', 
-            time: '2019-11-07 11:38:12',
-            nickName: '李喋喋',
+            imgUrl: '', 
+            time: '',
+            nickName: '',
             nameError: '',
             showBox: false,
             themeName: '',
             isEdit: false,
             contentList: [],
             count: 0,
-            playerOptions: null
+            playerOptions: []
         }
     },
     created() {

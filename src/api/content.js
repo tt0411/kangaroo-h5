@@ -39,3 +39,22 @@ export const isMarkContent = (params) =>request.post(`/mark/isMarkContent?${stri
 
 // 收藏与取消收藏
 export const isSaveContent = (params) =>request.post(`/save/isSaveContent?${stringify(params)}`)
+
+// 判断某一内容是否标记喜欢
+export const markSign = (cid) => request.get(`/mark/markSign?cid=${cid}`)
+
+// 判断某一内容是否收藏
+export const saveSign = (cid) => request.get(`/save/saveSign?cid=${cid}`)
+
+// 获取用户内容数量
+export const getcontentCountByUid = () => request.get(`/content/getcontentCountByUid`)
+
+// 用户获得的收藏数
+export const getSaveByUid = () => request.get(`/save/getSaveByUid`)
+
+// 用户获得的点赞数
+export const getMarkByUid = () => request.get(`/mark/getMarkByUid`)
+
+// 用户删除内容
+export const isDelContent = (params) => request.post(`/content/isDelContent?${stringify(params)}`)
+

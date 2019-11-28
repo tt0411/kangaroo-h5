@@ -17,25 +17,25 @@
           <div class="myContent" @click="toMyContent">
             <div class="contents">我的内容</div>
             <div class="content-count">
-              <van-tag color="#ffe1e1" text-color="#ad0000" size="large">21</van-tag>
+              <van-tag color="#ffe1e1" text-color="#ad0000" size="large">{{contentAllCount}}</van-tag>
             </div>
           </div>
           <div class="myTheme" @click="toTheme">
             <div class="themes">我的主题</div>
             <div class="theme-count">
-               <van-tag color="#ffe1e1" text-color="#ad0000" size="large">3</van-tag>
+               <van-tag color="#ffe1e1" text-color="#ad0000" size="large">{{themeAllCount}}</van-tag>
             </div>
           </div>
            <div class="getMark">
             <div class="marks">获得点赞</div>
             <div class="mark-count">
-               <van-tag color="#ffe1e1" text-color="#ad0000" size="large">321</van-tag>
+               <van-tag color="#ffe1e1" text-color="#ad0000" size="large">{{markedCount}}</van-tag>
             </div>
           </div>
            <div class="getSave">
             <div class="saves">获得收藏</div>
             <div class="save-count">
-               <van-tag color="#ffe1e1" text-color="#ad0000" size="large">76</van-tag>
+               <van-tag color="#ffe1e1" text-color="#ad0000" size="large">{{savedCount}}</van-tag>
             </div>
           </div>
       </div>  
@@ -43,11 +43,11 @@
         <van-tabs v-model="active" animated color="#12C3DF" swipeable>
           <van-tab >
              <div slot="title">喜欢 {{markCount}}</div>
-            <ContentItem :like="true" :more="false" :contentItem="contentList" :playerOptions="playerOptions"/>
+            <ContentItem :more="false" :contentItem="contentList" :playerOptions="playerOptions"/>
           </van-tab>
           <van-tab>
-              <div slot="title">收藏 {{markCount}}</div>
-            <ContentItem :like="true" :more="false" :contentItem="contentLists" :playerOptions="splayerOptions"/>
+              <div slot="title">收藏 {{saveCount}}</div>
+            <ContentItem :more="false" :contentItem="contentLists" :playerOptions="splayerOptions"/>
           </van-tab>
       </van-tabs>
       </div>  
@@ -75,6 +75,10 @@ export default {
           splayerOptions: [],
           markCount: 0,
           saveCount: 0,
+          contentAllCount: 0,
+          themeAllCount: 0,
+          markedCount: 0,
+          savedCount: 0,
         }
     },
      computed: {
@@ -119,7 +123,7 @@ export default {
 
          this.$store.dispatch('content/getMySaveContent').then(rsp => {
           if(rsp.code === 200) {
-             this.contentList = rsp.list;
+             this.contentLists = rsp.list;
              this.saveCount = rsp.count;
               this.contentLists.forEach((item, index) => {
                     this.splayerOptions.push({
@@ -142,6 +146,27 @@ export default {
                         notSupportedMessage: "此视频暂无法播放，请稍后再试" //允许覆盖Video.js无法播放媒体源时显示的默认信息。
                     });
               });
+          }
+        })
+
+        this.$store.dispatch('content/getcontentCountByUid').then(rsp => {
+          if(rsp.code === 200) {
+            this.contentAllCount = rsp.count
+          }
+        })
+        this.$store.dispatch('theme/fetchUserTheme').then(rsp=> {
+          if(rsp.code === 200) {
+            this.themeAllCount = rsp.count
+          }
+        })
+        this.$store.dispatch('content/getSaveByUid').then(rsp=> {
+          if(rsp.code === 200) {
+            this.savedCount = rsp.count
+          }
+        })
+        this.$store.dispatch('content/getMarkByUid').then(rsp=> {
+          if(rsp.code === 200) {
+            this.markedCount = rsp.count
           }
         })
       } 

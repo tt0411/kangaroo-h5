@@ -3,7 +3,7 @@
     <div solt="top"> </div>
       <div slot="content">
             <Detail /> 
-            <ListItem :saveCount="saveCount" :markCount="markCount" :commentCount="commentCount" />
+            <ListItem />
       </div>
          <div slot="footer">
             <Footer />
@@ -22,9 +22,6 @@ export default {
         return {
             data: [],
             id: null,
-            saveCount: 0,
-            markCount: 0,
-            commentCount: 0,
         }
     },
     computed: {
@@ -35,16 +32,6 @@ export default {
             this.id = this.$route.query.id 
             this.$store.commit('content/changeContentId', this.id)
         }
-    },
-    mounted() {
-        this.$store.dispatch('content/getContentById', this.content.content_id).then(rsp => {
-         if(rsp.code === 200) {
-         this.saveCount =rsp.data.save
-         this.markCount = rsp.data.mark
-         this.commentCount = rsp.data.comment
-       }
-    })
-        
     },
     methods: {
        

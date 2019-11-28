@@ -50,7 +50,14 @@
                             </van-col>
                             <van-col span="21">
                                 <div class="right">
-                                    <div class="name">{{item.nickName}}</div>
+                                    <div class="sign">
+                                        <div class="name">
+                                           {{item.nickName}}  
+                                        </div>
+                                        <div style="margin-top: -6px;">
+                                        <van-tag color="#f2826a"  v-if="item.uid == uid">作者</van-tag>
+                                        </div>
+                                        </div>
                                     <div class="comment">
                                         {{item.comment}}
                                     </div>
@@ -97,7 +104,6 @@
 import Empty from '../../components/empty'
 import {mapState} from 'vuex'
 export default {
-  props: ['saveCount', 'markCount', 'commentCount'],
   components: { Empty },
   data(){
       return{
@@ -108,16 +114,29 @@ export default {
            markList: [],
            commentList: [],
            is_comment: false,
+           saveCount: 0,
+           markCount: 0,
+           commentCount: 0,
+           uid: null,
       }
   },
   computed: {
       ...mapState(['content'])
   },
- 
   mounted() {
+  
+      this.$store.dispatch('content/markSign', this.content.content_id)
+      this.$store.dispatch('content/saveSign', this.content.content_id)
+      this.$store.dispatch('content/getCommentById', this.content.content_id)
+      this.$store.dispatch('content/getSaveById', this.content.content_id)
+      this.$store.dispatch('content/getMarkById', this.content.content_id)
       this.commentList = this.content.commentList
       this.markList = this.content.markList
       this.saveList = this.content.saveList
+      this.commentCount = this.content.commentCount
+      this.markCount = this.content.markCount
+      this.saveCount = this.content.saveCount
+      this.uid = this.content.authorId
  },
   methods: { 
       toHomePage(item) {
@@ -173,11 +192,18 @@ export default {
             padding: 5px;
             .right{
                 margin-bottom: 10px;
-                .name{
+                .sign{
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    .name{
                     margin-bottom: 5px;
                     color:#585656;
-                    font-size: 14px;
+                    font-size: 15px;
+                    margin-right: 10px;
+                 }
                 }
+                
             }
             .time{
              display: flex;

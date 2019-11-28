@@ -5,19 +5,21 @@
       class="content-item"
       v-for="(item, index) in contentItem"
       :key="index"
-      @click="toDetail(item)"
     >
-      <div class="info">
+      <div class="info" >
         <div class="avatar">
           <van-image width="45" height="45" :round="true" fit="cover" :src="item.imgUrl"/>
         </div>
-        <div class="name-time">
+        <div class="name-time" @click="toDetail(item)">
           <div class="name">{{item.nickName}}</div>
           <div class="time">发表于: {{item.create_time}}</div>
         </div>
+        <div class="delBtn" v-if="isDel" @click="delContent(item)" style="margin-left: 25%;margin-top: -5%;">
+          <van-icon name="delete" size="20px" />
+        </div>
       </div>
-      <div class="three-content">
-        <div class="img-content" v-if="item.img">
+      <div class="three-content" @click="toDetail(item)">
+        <div class="img-content">
           <div class="text-content" v-if="item.context">{{item.context}}</div>
           <div class="imageList" v-if="item.img">
             <div v-if="item.img.length === 1">
@@ -83,7 +85,7 @@
           </div>
         </div>
       </div>
-      <div class="content-options" v-if="countItem">
+      <div class="content-options" v-if="countItem" @click="toDetail(item)">
         <div class="save">
           <van-icon name="star-o" size="20px" />
           <div class="count">{{item.save}}</div>
@@ -93,8 +95,7 @@
           <div class="count">{{item.comment}}</div>
         </div>
         <div class="mark">
-          <van-icon name="like" color="#12C3DF" size="20px" v-if="like"/>
-          <van-icon name="like-o" size="20px" v-else/>
+          <van-icon name="like-o" size="20px"/>
           <div class="count">{{item.mark}}</div>
         </div>
       </div>
@@ -111,14 +112,10 @@
 
 <script>
 import Empty from '../../components/empty'
-
+import {Dialog, Toast} from 'vant'
 export default {
   components: { Empty },
   props: {
-     like: {
-       type: Boolean,
-       default: false
-     },
      more: {
        type: Boolean,
        default: true
@@ -134,6 +131,10 @@ export default {
      playerOptions: {
        type: Array,
        default: []
+     },
+     isDel: {
+       type: Boolean,
+       default: false
      }
    },
   data() {
@@ -146,13 +147,29 @@ export default {
       this.$router.push('/content')
     },
     toDetail(item) { 
-       
       this.$store.commit('content/changeIsComment',item.is_comment)
-      this.$store.dispatch('content/getCommentById', item.id)
-      this.$store.dispatch('content/getSaveById', item.id)
-      this.$store.dispatch('content/getMarkById', item.id)
+      this.$store.commit('content/changeAuthorId', item.uid)
       this.$router.push({ path: "/detail", query: { id: item.id } });
-    }
+    },
+    delContent(item){
+       Dialog.confirm({
+        title: '提示',
+        message: '是否要删除此内容'
+      }).then(() => {
+        let params = {
+          id: item.id, 
+          status: 2
+        }
+         this.$store.dispatch('content/isDelContent',params).then(rsp => {
+           if(rsp.code === 200) {
+             Toast.success(rsp.msg)
+
+           }
+         })
+      }).catch(() => {
+        // on cancel
+      });
+     }
   }
 };
 </script>

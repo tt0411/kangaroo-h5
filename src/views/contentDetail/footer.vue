@@ -25,6 +25,10 @@
         <van-icon name="like-o" size="22px" color="#afaeae" v-else />
       </div>
     </div>
+
+      <van-dialog v-model="show" title="提示" show-cancel-button confirmButtonColor="#12C3DF" confirmButtonText="去登录" @confirm="toLogin">
+         <div class="loginDialog">登录后才能操作哟 ~_~</div>
+        </van-dialog>
   </div>
 </template>
 
@@ -39,8 +43,9 @@ export default {
       isSave: false,
       isMark: false,
       is_comment: false,
-      cid: null
-    };
+      cid: null,
+      show: false,
+    }
   },
   computed: {
     ...mapState(['content'])
@@ -48,26 +53,34 @@ export default {
   mounted() {
       this.is_comment = this.content.is_comment;
       this.cid = this.content.content_id;
+      this.isMark = this.content.isMark;
+      this.isSave = this.content.isSave;
   },
   methods: {
+    toLogin() {
+      this.$router.push('/login')
+    },
     sendMessage() {
+       if(!localStorage.getItem('token')){
+        this.show = true;
+        return
+      }
       let params = {
         content: this.message,
         cid: this.cid
       }
       this.$store.dispatch('content/addComment', params).then(rsp => {
           if(rsp.code === 200) {
-              let msg = rsp.msg;
-              this.$store.dispatch('content/getCommentById', this.cid).then(rsp => {
-                if(rsp.code === 200) {
-                   Toast.success(msg);
-                   this.message = '';
-                }
-              })
+             Toast.success(rsp.msg);
+             this.message = '';
           }
       })
     },
     toSave() {
+      if(!localStorage.getItem('token')){
+        this.show = true;
+        return
+      }
       let params = {
         cid: this.cid,
         status: this.isSave ? 0 : 1,
@@ -78,17 +91,21 @@ export default {
             Toast({
             message: rsp.msg,
             icon: 'star-o'
-          });
-           this.isSave = !this.isSave;
+          }) 
         }else{
           Toast(rsp.msg)
         }
+         this.isSave = !this.isSave;
         }else{
           Toast.fail(rsp.msg)
         }
       })
     },
     toMark() {
+      if(!localStorage.getItem('token')){
+        this.show = true;
+        return
+      }
       let params = {
         cid: this.cid,
         status: this.isMark ? 0 : 1
@@ -130,5 +147,10 @@ export default {
       margin-right: 20px;
     }
   }
+  .loginDialog{
+    text-align: center;
+    padding: 10px 0;
+    color: #776d6d;
+ }
 }
 </style>

@@ -58,3 +58,6 @@ export const getMarkByUid = () => request.get(`/mark/getMarkByUid`)
 // 用户删除内容
 export const isDelContent = (params) => request.post(`/content/isDelContent?${stringify(params)}`)
 
+// 获取用户所有内容(分类)
+export const getcontentByUid = (status) => request.get(`/content/getContentByUid?status=${status}`)
+

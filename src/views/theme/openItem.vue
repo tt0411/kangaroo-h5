@@ -28,7 +28,6 @@
 
 <script>
 import Empty from '../../components/empty'
-import {mapState} from 'vuex'
 export default {
     components: { Empty },
     data() {
@@ -36,11 +35,12 @@ export default {
             themeList: []
         }
     },
-    computed: {
-        ...mapState(['theme'])
-    },
     mounted() {
-        this.themeList = this.theme.openTheme;
+          this.$store.dispatch('theme/fetchOpenTheme').then(rsp => {
+              if(rsp.code === 200) {
+                  this.themeList = rsp.data;
+              }
+          })
     },
     methods: {
         toContent(item) {

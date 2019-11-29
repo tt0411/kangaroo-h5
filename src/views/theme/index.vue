@@ -61,8 +61,6 @@ export default {
         }
     },
     created() {
-      this.$store.dispatch('theme/fetchOpenTheme')
-      this.$store.dispatch('theme/fetchUserTheme')
       if(this.$route.query.isWrite) {
         this.showBox = true
       }
@@ -101,7 +99,8 @@ export default {
        }else{
           let params = {
              name: this.themeName,
-             status: this.isOpen ? 1 : 0
+             status: this.isOpen ? 1 : 0,
+             flag: this.isOpen ? 0 : 3
           }
          this.$store.dispatch('theme/createTheme', params).then(rsp => {
            if(rsp.code === 200) {

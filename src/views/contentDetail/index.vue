@@ -33,6 +33,13 @@ export default {
             this.$store.commit('content/changeContentId', this.id)
         }
     },
+    mounted() {
+        this.$store.dispatch('content/markSign', this.id)
+        this.$store.dispatch('content/saveSign', this.id)
+        this.$store.dispatch('content/getCommentById', this.id)
+        this.$store.dispatch('content/getSaveById', this.id)
+        this.$store.dispatch('content/getMarkById', this.id)
+    },
     methods: {
        
     }

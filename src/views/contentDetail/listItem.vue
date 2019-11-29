@@ -6,13 +6,8 @@
                     <van-icon name="star-o" size="20px" /> 
                     {{saveCount}}
                 </div>
+                 <van-pull-refresh v-model="isSaveLoading" @refresh="onSaveRefresh">
                 <div class="saveList" v-if="saveList.length > 0">
-                   <!-- <van-list
-                    v-model="loading"
-                    :finished="finished"
-                    finished-text="没有更多了"
-                    @load="onLoad"
-                    ></van-list> -->
                     <div class="saveItem" v-for="(item, index) in saveList" :key="index">
                         <van-row gutter="5">
                         <van-col span="3">
@@ -29,9 +24,11 @@
                      </van-row>
                     </div>
                 </div>
-                <Empty :type="2" v-else/>
+                <Empty :type="2" v-else/> 
+                  </van-pull-refresh>
             </van-tab>
-            <van-tab>
+         
+            <van-tab> 
                 <div slot="title" v-if="!is_comment">
                     <van-icon name="chat-o" size="20px"/>
                     {{commentCount}}
@@ -39,7 +36,8 @@
                  <div slot="title" v-else>
                     <van-icon name="chat-o" size="20px"/>
                     0
-                </div>
+                </div> 
+                <van-pull-refresh v-model="isCommentLoading" @refresh="onCommentRefresh">
                 <div class="commentList" v-if="commentList.length > 0 && !is_comment">
                    <div class="commentItem" v-for="(item, index) in commentList" :key="index">
                        <van-row gutter="5">
@@ -55,7 +53,7 @@
                                            {{item.nickName}}  
                                         </div>
                                         <div style="margin-top: -6px;">
-                                        <van-tag color="#f2826a"  v-if="item.uid == uid">作者</van-tag>
+                                        <van-tag type="danger"  v-if="item.uid == uid">作者</van-tag>
                                         </div>
                                         </div>
                                     <div class="comment">
@@ -70,13 +68,17 @@
                    </div>
                 </div>
                 <Empty :type="5" v-if="commentList.length == 0 && !is_comment"/>
-                <Empty :type="6" v-if="is_comment"/>
+                <Empty :type="6" v-if="is_comment"/> 
+                </van-pull-refresh>
             </van-tab>
+           
+           
             <van-tab>
                 <div slot="title">
                     <van-icon name="like-o" size="20px"/> 
                 {{markCount}}
                 </div>
+                 <van-pull-refresh v-model="isMarkLoading" @refresh="onMarkRefresh">
                 <div class="markList" v-if="markList.length > 0">
                      <div class="markItem" v-for="(item, index) in markList" :key="index">
                         <van-row gutter="5">
@@ -94,8 +96,10 @@
                      </van-row>
                     </div>
                 </div>
-                 <Empty :type="4" v-else/>
+                 <Empty :type="4" v-else/> 
+                 </van-pull-refresh>
             </van-tab>
+           
         </van-tabs>
     </div>
 </template>
@@ -108,8 +112,6 @@ export default {
   data(){
       return{
            active: 1,
-           loading: false,
-           finished: false,
            saveList: [],
            markList: [],
            commentList: [],
@@ -118,18 +120,15 @@ export default {
            markCount: 0,
            commentCount: 0,
            uid: null,
+           isSaveLoading: false,
+           isMarkLoading: false,
+           isCommentLoading: false
       }
   },
   computed: {
       ...mapState(['content'])
   },
   mounted() {
-  
-      this.$store.dispatch('content/markSign', this.content.content_id)
-      this.$store.dispatch('content/saveSign', this.content.content_id)
-      this.$store.dispatch('content/getCommentById', this.content.content_id)
-      this.$store.dispatch('content/getSaveById', this.content.content_id)
-      this.$store.dispatch('content/getMarkById', this.content.content_id)
       this.commentList = this.content.commentList
       this.markList = this.content.markList
       this.saveList = this.content.saveList
@@ -141,6 +140,39 @@ export default {
   methods: { 
       toHomePage(item) {
           this.$router.push({ path: '/homePage', query: { id: item.uid }})
+      },
+      onSaveRefresh() {
+          this.$store.dispatch('content/getSaveById', this.content.content_id).then(rsp => {
+              this.$store.dispatch('content/markSign', this.content.content_id)
+              this.$store.dispatch('content/saveSign', this.content.content_id)
+              if(rsp.code === 200) {
+                  this.saveList = rsp.list;
+                  this.saveCount = rsp.count;
+                  this.isSaveLoading = false;
+              }
+          })
+      },
+      onMarkRefresh() {
+          this.$store.dispatch('content/getMarkById',this.content.content_id).then(rsp => {
+               this.$store.dispatch('content/markSign', this.content.content_id)
+               this.$store.dispatch('content/saveSign', this.content.content_id)
+              if(rsp.code === 200) {
+                  this.markList = rsp.list;
+                  this.markCount = rsp.count;
+                  this.isMarkLoading = false;
+              }
+          })
+      },
+      onCommentRefresh() {
+          this.$store.dispatch('content/getCommentById',this.content.content_id).then(rsp => {
+                this.$store.dispatch('content/markSign', this.content.content_id)
+              this.$store.dispatch('content/saveSign', this.content.content_id)
+              if(rsp.code === 200) {
+                  this.commentList = rsp.list;
+                  this.commentCount = rsp.count;
+                  this.isCommentLoading = false;
+              }
+          })
       }
   }
 }

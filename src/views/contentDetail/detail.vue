@@ -11,7 +11,7 @@
         </div>
       </div>
       <div class="three-content">
-        <div class="img-content" v-if="detailData.img">
+        <div class="img-content">
           <div class="text-content" v-if="detailData.context">{{detailData.context}}</div>
           <div class="imageList" v-if="detailData.img">
             <div v-if="detailData.img.length === 1">

@@ -1,4 +1,4 @@
-import { createContent, getOpencontentByTid, getMycontentByTid, getAllOpenContent, getMyMarkContent, getMySaveContent, getContentById, getCommentById, getMarkById,getSaveById, addComment, isMarkContent,isSaveContent, markSign, saveSign, getcontentCountByUid, getSaveByUid, getMarkByUid, isDelContent } from '../../api/content'
+import { createContent, getOpencontentByTid, getMycontentByTid, getAllOpenContent, getMyMarkContent, getMySaveContent, getContentById, getCommentById, getMarkById,getSaveById, addComment, isMarkContent,isSaveContent, markSign, saveSign, getcontentCountByUid, getSaveByUid, getMarkByUid, isDelContent,getcontentByUid } from '../../api/content'
 
 const state = {
     sendData: {
@@ -26,19 +26,11 @@ const actions = {
    async createContent(_, params) {
        return await createContent(params)
    },
-   async getOpencontentByTid({commit}, tid) {
-       const rsp =await getOpencontentByTid(tid)
-       if(rsp.code === 200) {
-         commit('changeContentList', rsp.list)
-       }
-       return rsp;
+   async getOpencontentByTid(_, tid) {
+      return  await getOpencontentByTid(tid)
    },
-   async getMycontentByTid({commit}, tid) {
-       const rsp =await getMycontentByTid(tid)
-       if(rsp.code === 200) {
-        commit('changeContentList', rsp.list)
-    }
-    return rsp;
+   async getMycontentByTid(_, tid) {
+      return  await getMycontentByTid(tid)
    },
    async getAllOpenContent(_, limitCount) {
        return await getAllOpenContent(limitCount)
@@ -74,17 +66,25 @@ const actions = {
        return rsp;
    },
    async addComment({dispatch,state}, params) {
-    await dispatch('getCommentById',state.content_id) 
-      return await addComment(params)
+     let rsp = await  addComment(params)
+     if(rsp.code === 200) {
+        dispatch('getCommentById',state.content_id)
+     }
+     return rsp;
    },
    async isMarkContent({dispatch,state}, params) {
-       await dispatch('getMarkById',state.content_id) 
-       return await isMarkContent(params)
-        
+       let rsp = await isMarkContent(params)
+       if(rsp.code === 200) {
+            dispatch('getMarkById',state.content_id) 
+       }
+       return rsp;  
    },
    async isSaveContent({dispatch,state}, params) {
-      await dispatch('getSaveById', state.content_id)
-       return await isSaveContent(params)
+       let rsp = await isSaveContent(params)
+       if(rsp.code === 200) {
+           dispatch('getSaveById', state.content_id)
+       }
+       return rsp;
    },
    async markSign({commit}, cid) {
        let rsp = await markSign(cid)
@@ -109,17 +109,21 @@ const actions = {
    async getMarkByUid(_) {
        return await getMarkByUid()
    },
-   async isDelContent(_, params) {
-       return await isDelContent(params)
+   async isDelContent({dispatch,state}, params) {
+       let rsp = await isDelContent(params)
+       if(rsp.code === 200) {
+           dispatch('getMycontentByTid', state.content_id)
+       }
+       return rsp;
+   },
+   async getcontentByUid(_,status) {
+       return await getcontentByUid(status)
    }
 }
 
 const mutations = {
     changeSendData(state, payload) {
         state.sendData = payload
-    },
-    changeContentList(state, payload) {
-        state.contentList = payload
     },
     changeContentId(state, payload) {
         state.content_id = payload

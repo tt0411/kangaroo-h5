@@ -8,18 +8,18 @@
            <van-image width="60" height="60" :round="true" fit="cover" :src="imgUrl[0]" @click="isPreview = true" />
         </div>
         <div class="userName">{{nickName}}</div>
-        <div class="signature">个性签名：{{signature}}</div>
+        <!-- <div class="signature">个性签名：{{signature}}</div> -->
       </div>
       <van-image-preview v-model="isPreview" :images="imgUrl" />
       <div class="box">
           <div class="myContent">
-            <div class="contents">我的内容</div>
+            <div class="contents">Ta的内容</div>
             <div class="content-count">
               <van-tag color="#ffe1e1" text-color="#ad0000" size="large">21</van-tag>
             </div>
           </div>
           <div class="myTheme">
-            <div class="themes">我的主题</div>
+            <div class="themes">Ta的主题</div>
             <div class="theme-count">
                <van-tag color="#ffe1e1" text-color="#ad0000" size="large">3</van-tag>
             </div>
@@ -40,7 +40,7 @@
       <div>
         <van-tabs v-model="active" animated color="#12C3DF" swipeable>
           <van-tab title="喜欢">
-            <ContentItem :like="true" :more="false"/>
+            <ContentItem  :more="false"/>
           </van-tab>
           <van-tab title="收藏">
               <div class="nothing">
@@ -78,7 +78,6 @@ export default {
 .container {
   position: relative;
 .bg-user {
- // background-image: linear-gradient(to right, rgb(109, 211, 226) ,rgb(6, 192, 221));
   background-color: #12C3DF;
   height: 180px;
   display: flex;

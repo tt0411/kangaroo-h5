@@ -139,7 +139,7 @@ export default {
  },
   methods: { 
       toHomePage(item) {
-          this.$router.push({ path: '/homePage', query: { id: item.uid }})
+         // this.$router.push({ path: '/homePage', query: { id: item.uid }})
       },
       onSaveRefresh() {
           this.$store.dispatch('content/getSaveById', this.content.content_id).then(rsp => {

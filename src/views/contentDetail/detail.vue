@@ -109,7 +109,7 @@ export default {
   },
   methods: {
    toHomePage() {
-     this.$router.push({path: '/homePage', query: { id: this.detailData.uid }})
+    // this.$router.push({path: '/homePage', query: { id: this.detailData.uid }})
    },
    
   }

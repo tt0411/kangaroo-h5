@@ -100,7 +100,7 @@ export default {
                    nickName: this.nickName,
                    age: this.age,
                    gender: this.gender,
-                   imgUrl: this.avatar,
+                   imgUrl: this.avatar || this.imgUrl[0],
                }
                this.$store.dispatch("user/register",params).then(rsp => {
                    if(rsp.code === 200) {

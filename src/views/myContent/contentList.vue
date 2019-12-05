@@ -8,7 +8,7 @@
     >
       <div class="info" >
         <div class="avatar">
-          <van-image width="45" height="45" :round="true" fit="cover" :src="item.imgUrl"/>
+          <van-image width="45" height="45" :round="true" fit="cover" :src="item.avatar"/>
         </div>
         <div class="name-time" @click="toDetail(item)">
           <div class="name">{{item.nickName}}</div>

@@ -86,7 +86,7 @@ export default {
     return {
       value: "",
       type: null,
-      searchList: ["11"],
+      searchList: [],
       titleObj: {
           1: '用户', 
           2: '作品',
@@ -108,7 +108,7 @@ export default {
       }
     },
     toHomePage() {
-      this.$router.push('/homePage')
+      // this.$router.push('/homePage')
     },
      toThemeContent() {
     this.$router.push('/themeTocontent')

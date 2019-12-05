@@ -71,7 +71,7 @@ export default {
                 gender: this.gender
             }
             this.$store.dispatch('user/updateGender', params).then( rsp => {
-                if(rsp.code === '200'){
+                if(rsp.code === 200){
                     console.log('性别修改成功')
                 }else{
                     Toast.fail('性别修改失败')

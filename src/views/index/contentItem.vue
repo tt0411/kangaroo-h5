@@ -163,7 +163,7 @@ export default {
          this.$store.dispatch('content/isDelContent',params).then(rsp => {
            if(rsp.code === 200) {
              Toast.success(rsp.msg)
-
+             this.$emit('refreshContentList')
            }
          })
       }).catch(() => {

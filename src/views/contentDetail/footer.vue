@@ -71,6 +71,7 @@ export default {
       }
       this.$store.dispatch('content/addComment', params).then(rsp => {
           if(rsp.code === 200) {
+            this.$emit('refreshList')
              Toast.success(rsp.msg);
              this.message = '';
           }
@@ -87,6 +88,7 @@ export default {
       }
       this.$store.dispatch('content/isSaveContent', params).then(rsp => {
         if(rsp.code === 200) {
+          this.$emit('refreshList')
           if(!this.isSave) {
             Toast({
             message: rsp.msg,
@@ -112,6 +114,7 @@ export default {
       }
       this.$store.dispatch('content/isMarkContent', params).then(rsp => {
         if(rsp.code === 200) {
+            this.$emit('refreshList')
           this.isMark = !this.isMark;
         }else{
           Toast.fail(rsp.msg)

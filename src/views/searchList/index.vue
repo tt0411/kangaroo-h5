@@ -119,8 +119,8 @@ export default {
 
 <style lang="scss" scoped>
 .container {
-  height: calc(100vh - 105px);
-  background-color: #f5f5f5;
+  // height: calc(100vh - 145px);
+  // background-color: #f5f5f5;
 }
 .nothing {
   margin-top: 10%;

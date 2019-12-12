@@ -3,10 +3,10 @@
     <div solt="top"> </div>
       <div slot="content">
             <Detail /> 
-            <ListItem />
+            <ListItem ref="listItem"/>
       </div>
          <div slot="footer">
-            <Footer />
+            <Footer @refreshList="refreshList"/>
          </div>
     </common-layout>
 </template>
@@ -33,15 +33,12 @@ export default {
             this.$store.commit('content/changeContentId', this.id)
         }
     },
-    mounted() {
-        this.$store.dispatch('content/markSign', this.id)
-        this.$store.dispatch('content/saveSign', this.id)
-        this.$store.dispatch('content/getCommentById', this.id)
-        this.$store.dispatch('content/getSaveById', this.id)
-        this.$store.dispatch('content/getMarkById', this.id)
-    },
     methods: {
-       
+       refreshList() {
+            this.$refs.listItem.onSaveRefresh();
+            this.$refs.listItem.onMarkRefresh();
+            this.$refs.listItem.onCommentRefresh();
+       }
     }
 }
 </script>

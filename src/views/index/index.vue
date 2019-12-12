@@ -45,7 +45,7 @@
        <ContentItem :contentItem="contentList" :playerOptions="playerOptions"/>
      </van-pull-refresh> 
       <van-dialog v-model="show" title="提示" show-cancel-button confirmButtonColor="#12C3DF" confirmButtonText="去登录" @confirm="toLogin">
-         <div class="loginDialog">登录后才能写内容哟 ~_~</div>
+         <div class="loginDialog">{{tipMsg}}</div>
         </van-dialog>
      </div>
   </base-layout>
@@ -79,6 +79,7 @@ export default {
        ],
        contentList: [],
        playerOptions: [],
+       tipMsg: '',
      }
    },
    created() {
@@ -129,7 +130,13 @@ export default {
        },
        iconGo(item) {
            if(item.text === '创主题') {
-              this.$router.push({ path: '/theme', query: { isWrite: true}})
+                if(localStorage.getItem('token')){
+                  this.$router.push({ path: '/theme', query: { isWrite: true}})
+               }else{
+                  this.tipMsg = '登录后才能进行创主题哟 ~_~'
+                  this.show = true;
+               }   
+             
            }
            if(item.text === '广场') {
                this.$router.push('/content')
@@ -138,6 +145,7 @@ export default {
                if(localStorage.getItem('token')){
                   this.$router.push('/writeContent') 
                }else{
+                  this.tipMsg = '登录后才能进行写内容哟 ~_~'
                   this.show = true;
                }   
            }

@@ -12,7 +12,7 @@
         <van-image-preview v-model="show" :images="showImg" />
     </div>
     <div>
-    <van-uploader multiple :max-count="9" :preview-size="80" v-show="imgFile.length < 9" :upload-text="'上传图片'" capture="camera" accept="image/*" :after-read="afterImgRead"></van-uploader>
+    <van-uploader multiple :max-count="1" :preview-size="80" v-show="imgFile.length < 9" :upload-text="'上传图片'" capture="camera" accept="image/*" :after-read="afterImgRead"></van-uploader>
     </div>
    </div> 
    <div class="video" v-if="type === 2">
@@ -32,7 +32,7 @@
             </van-col>  
         </van-row> 
         <div>
-             <van-uploader  v-show="!this.playerOptions.sources[0].src" :preview-size="80" :upload-text="'上传视频'" capture="camera" accept="video/*" :after-read="afterVideoRead"></van-uploader>
+             <van-uploader max-size="1024*30"  v-show="!this.playerOptions.sources[0].src" :preview-size="80" :upload-text="'上传视频'" capture="camera" accept="video/*" :after-read="afterVideoRead"></van-uploader>
         </div>
    </div>
    <div class="audio" v-if="type === 3">
@@ -43,7 +43,7 @@
             </van-col>  
         </van-row> 
         <div>
-             <van-uploader  v-show="!audioSrc" :upload-text="'上传音频'" :preview-size="80" capture="camera" accept="audio/*" :after-read="afterAudioRead"></van-uploader>
+             <van-uploader max-size="1024*10" v-show="!audioSrc" :upload-text="'上传音频'" :preview-size="80" capture="camera" accept="audio/*" :after-read="afterAudioRead"></van-uploader>
         </div>
    </div>
    </div>
@@ -96,6 +96,10 @@ export default {
       },
       methods: { 
         afterImgRead(file, detail) {
+            const Toast = Toast.loading({
+                message: '视频上传中...',
+                forbidClick: true
+            });
             this.imgFile.push(file)  
             this.showImg.push(file.content)
              let config = {
@@ -112,6 +116,7 @@ export default {
                     if(res.data.code === 200) {
                      if(this.imgFile.length === 1 ){
                          this.imgUrl = res.data.data
+                         Toast.clear();
                      }else{
                          this.backImgList.push(res.data.data)
                          this.imgUrl = this.backImgList.join(',')
@@ -119,12 +124,17 @@ export default {
                       } 
                     }).catch(err => {
                         Toast.fail('系统错误')
-                       console.log(err)
+                        console.log(err)
+                        Toast.clear();
                 })
             })  
           }
          },
          afterVideoRead(file, detail) {
+             const Toast1 = Toast.loading({
+                message: '视频上传中...',
+                forbidClick: true
+            });
              this.sendVideo.push(file)
              let config = {
                 headers: {
@@ -138,16 +148,22 @@ export default {
                     if(res.data.code === 200) {
                         this.playerOptions.sources[0].src = res.data.data;
                         this.videoUrl = res.data.data;
+                        Toast1.clear();
                     }
                     }).catch(err => {
                         Toast.fail('系统错误')
-                        console.log(err)
+                        console.log(err) 
+                        Toast1.clear();
                 })
          },
          delVideo() {
            this.playerOptions.sources[0].src = ''
          },
          afterAudioRead(file, detail) {
+             const Toast2 = Toast.loading({
+                message: '音频上传中...',
+                forbidClick: true
+            });
                this.sendAudio.push(file)
                let config = {
                 headers: {
@@ -158,12 +174,15 @@ export default {
                 formdata.append('file', this.sendAudio[0].file)
                 formdata.append('type', 'audio')
                 axios.post(`${MURL}/alioss/uploadOss`, formdata, config).then(res => {
+                    Toast2.clear();
                     if(res.data.code === 200) {
                         this.audioSrc = res.data.data;
+                        Toast2.clear();
                     }
                     }).catch(err => {
                     Toast.fail('系统错误')
                     console.log(err)
+                    Toast2.clear();
                 })
          },
          delAudio() {

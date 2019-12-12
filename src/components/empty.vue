@@ -29,7 +29,12 @@
 
 <script>
 export default {
-    props: ['type'],
+    props: {
+        type: {
+            type: String,
+            default: 1,
+        }
+    },
     data() {
         return {
             empty: [
@@ -37,8 +42,8 @@ export default {
                 'https://i.loli.net/2019/11/07/gE4eZNaPVkqwcKi.png', 
                 'https://i.loli.net/2019/11/07/IzRsylA7oe2UCjE.png', 
                 'https://i.loli.net/2019/11/08/4F5i1MXdWgUSxet.png', 
-                'https://i.loli.net/2019/11/27/WPizHm1yvClEZdX.png'
-                ]
+                'https://i.loli.net/2019/11/27/WPizHm1yvClEZdX.png',
+            ]
         }
     }
 }
@@ -49,7 +54,7 @@ export default {
     .img{ 
         text-align: center;
      img{
-        width: 60%;
+        width: 50%;
      }
      .text{
          font-size: 16px;

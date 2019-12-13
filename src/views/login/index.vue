@@ -59,7 +59,7 @@ export default {
         }
     },
     methods: {
-        register() {
+        register() { 
             this.$router.push('/register')
         },
         login() {

@@ -127,10 +127,11 @@ export default {
       }
   },
   computed: {
-      ...mapState(['content'])
+      ...mapState(['content', 'user'])
   },
   created() {
         this.id = this.content.content_id;
+        this.uid = this.content.authorId
   },
   mounted() {
      this.$store.dispatch('content/getCommentById', this.id).then(rsp => {
@@ -158,11 +159,15 @@ export default {
  },
   methods: { 
       toHomePage(item) {
-         // this.$router.push({ path: '/homePage', query: { id: item.uid }})
+        if(this.user.userInfo.id == item.uid) { // 用户本人，跳转到我的页面
+          this.$router.push('/user')
+        }else {
+            this.$router.push({path: '/homePage', query: { id: item.uid }})
+         }
       },
       onSaveRefresh() {
           this.$store.dispatch('content/getSaveById', this.content.content_id).then(rsp => {
-             this.$store.dispatch('content/markSign', this.content.content_id)
+           //  this.$store.dispatch('content/markSign', this.content.content_id)
               this.$store.dispatch('content/saveSign', this.content.content_id)
               if(rsp.code === 200) {
                   this.saveList = rsp.list;
@@ -174,7 +179,7 @@ export default {
       onMarkRefresh() {
           this.$store.dispatch('content/getMarkById',this.content.content_id).then(rsp => {
                this.$store.dispatch('content/markSign', this.content.content_id)
-               this.$store.dispatch('content/saveSign', this.content.content_id)
+              // this.$store.dispatch('content/saveSign', this.content.content_id)
               if(rsp.code === 200) {
                   this.markList = rsp.list;
                   this.markCount = rsp.count;
@@ -184,8 +189,8 @@ export default {
       },
       onCommentRefresh() {
           this.$store.dispatch('content/getCommentById',this.content.content_id).then(rsp => {
-            this.$store.dispatch('content/markSign', this.content.content_id)
-            this.$store.dispatch('content/saveSign', this.content.content_id)
+          //  this.$store.dispatch('content/markSign', this.content.content_id)
+          //  this.$store.dispatch('content/saveSign', this.content.content_id)
               if(rsp.code === 200) {
                   this.commentList = rsp.list;
                   this.commentCount = rsp.count;

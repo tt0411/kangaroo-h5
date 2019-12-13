@@ -89,8 +89,12 @@ export default {
     } else {
       this.isLogin = false;
     }
-    this.avatar = this.user.userInfo.imgUrl;
-    this.nickName = this.user.userInfo.nickName;
+     this.$store.dispatch("user/getInfo").then(rsp => {
+            if(rsp.code === 200) {
+                this.nickName = this.user.userInfo.nickName;
+                this.avatar = this.user.userInfo.imgUrl;
+            }
+        }) 
   },
   mounted() {
       this.fetchList();

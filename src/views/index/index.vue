@@ -84,6 +84,7 @@ export default {
    },
    created() {
        this.fetchList();
+       this.$store.dispatch('user/getInfo');
    },
    methods: {
        fetchList() {

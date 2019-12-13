@@ -78,7 +78,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['content'])
+    ...mapState(['content', 'user'])
   },
   mounted() {
      this.$store.dispatch('content/getContentById', this.content.content_id).then(rsp => {
@@ -109,9 +109,12 @@ export default {
   },
   methods: {
    toHomePage() {
-    // this.$router.push({path: '/homePage', query: { id: this.detailData.uid }})
+     if(this.user.userInfo.id == this.detailData.uid) { // 用户本人，跳转到我的页面
+          this.$router.push('/user')
+     }else {
+        this.$router.push({path: '/homePage', query: { id: this.detailData.uid }})
+     }
    },
-   
   }
 }
 </script>

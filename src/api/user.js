@@ -5,7 +5,7 @@ import {stringify} from 'qs'
 export const logout = () => request.post('/user/logout')
 
 // 获取个人信息
-export const getInfo = () => request.get('/user/getInfo')
+export const getInfo = (id) => request.get(`/user/getInfo?uid=${id}`)
 
 // 修改头像
 export const updateAvater = (params) => request.put(`/user/updateAvater?${stringify(params)}`)

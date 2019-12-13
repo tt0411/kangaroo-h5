@@ -88,8 +88,8 @@ export default {
       if(localStorage.getItem('token')){
          this.$store.dispatch("user/getInfo").then(rsp => {
             if(rsp.code === 200) {
-                this.nickName = this.user.userInfo.nickName;
-                this.imgUrl[0] = this.user.userInfo.imgUrl;
+                this.nickName = rsp.data.nickName;
+                this.imgUrl[0] = rsp.data.imgUrl;
             }
         }) 
         

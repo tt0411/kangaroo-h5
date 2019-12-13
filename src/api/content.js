@@ -14,10 +14,10 @@ export const getMycontentByTid = (tid) => request.get(`/content/getMycontentByTi
 export const getAllOpenContent = (limitCount) => request.get(`/content/getAllContents?limitCount=${limitCount}`)
 
 // 获取用户喜欢(点赞)内容
-export const getMyMarkContent = () => request.get(`/content/getMyMarkContent`)
+export const getMyMarkContent = (id) => request.get(`/content/getMyMarkContent?uid=${id}`)
 
 // 获取用户收藏内容
-export const getMySaveContent = () => request.get(`/content/getMySaveContent`)
+export const getMySaveContent = (id) => request.get(`/content/getMySaveContent?uid=${id}`)
 
 // 获取某一条内容
 export const getContentById = (id) => request.get(`/content/getContentById?id=${id}`)
@@ -47,13 +47,13 @@ export const markSign = (cid) => request.get(`/mark/markSign?cid=${cid}`)
 export const saveSign = (cid) => request.get(`/save/saveSign?cid=${cid}`)
 
 // 获取用户内容数量
-export const getcontentCountByUid = () => request.get(`/content/getcontentCountByUid`)
+export const getcontentCountByUid = (id) => request.get(`/content/getcontentCountByUid?uid=${id}`)
 
 // 用户获得的收藏数
-export const getSaveByUid = () => request.get(`/save/getSaveByUid`)
+export const getSaveByUid = (id) => request.get(`/save/getSaveByUid?uid=${id}`)
 
 // 用户获得的点赞数
-export const getMarkByUid = () => request.get(`/mark/getMarkByUid`)
+export const getMarkByUid = (id) => request.get(`/mark/getMarkByUid?uid=${id}`)
 
 // 用户删除内容
 export const isDelContent = (params) => request.post(`/content/isDelContent?${stringify(params)}`)

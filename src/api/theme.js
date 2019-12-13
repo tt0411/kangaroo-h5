@@ -5,7 +5,7 @@ import {stringify} from 'qs'
 export const createTheme = (params) => request.post(`/theme/createTheme?${stringify(params)}`)
 
 // 获取用户创建的主题
-export const fetchUserTheme = () => request.get(`/theme/getThemeByUid`)
+export const fetchUserTheme = (id) => request.get(`/theme/getThemeByUid?uid=${id}`)
 
 // 获取公开主题
 export const fetchOpenTheme = () => request.get(`/theme/getOpenTheme`)

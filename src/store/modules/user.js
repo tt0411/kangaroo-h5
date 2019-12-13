@@ -70,7 +70,7 @@ const actions = {
 }
 
 const mutations = {
-    changeInfo(state, payload){
+    changeInfo(state, payload) {
         state.userInfo = payload
     },
 }

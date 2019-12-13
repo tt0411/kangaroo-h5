@@ -76,7 +76,7 @@
             <van-tab>
                 <div slot="title">
                     <van-icon name="like-o" size="20px"/> 
-                {{markCount}}
+                    {{markCount}}
                 </div>
                  <van-pull-refresh v-model="isMarkLoading" @refresh="onMarkRefresh">
                 <div class="markList" v-if="markList.length > 0">
@@ -162,7 +162,7 @@ export default {
       },
       onSaveRefresh() {
           this.$store.dispatch('content/getSaveById', this.content.content_id).then(rsp => {
-              this.$store.dispatch('content/markSign', this.content.content_id)
+             this.$store.dispatch('content/markSign', this.content.content_id)
               this.$store.dispatch('content/saveSign', this.content.content_id)
               if(rsp.code === 200) {
                   this.saveList = rsp.list;
@@ -184,8 +184,8 @@ export default {
       },
       onCommentRefresh() {
           this.$store.dispatch('content/getCommentById',this.content.content_id).then(rsp => {
-              this.$store.dispatch('content/markSign', this.content.content_id)
-              this.$store.dispatch('content/saveSign', this.content.content_id)
+            this.$store.dispatch('content/markSign', this.content.content_id)
+            this.$store.dispatch('content/saveSign', this.content.content_id)
               if(rsp.code === 200) {
                   this.commentList = rsp.list;
                   this.commentCount = rsp.count;

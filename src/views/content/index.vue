@@ -1,6 +1,7 @@
 <template>
-  <common-layout>
-    <div slot="content">
+  <common-layout> 
+    <div slot="content"> 
+       <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
       <div class="container">
         <div class="top">
           <div class="bg">
@@ -12,7 +13,8 @@
               size="30px"
               @click="toWrite"
             />
-          </div>
+          </div> 
+      
           <div class="user">
             <div class="userName" v-if="isLogin">{{nickName}}</div>
             <div class="userName" v-else>未登录</div>
@@ -39,13 +41,11 @@
         </div>
         <div class="content">
           <div class="contentList">
-             <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
-               <ContentItem :contentItem="contentList" :more="false" :playerOptions="playerOptions"/>
-            </van-pull-refresh> 
+          <ContentItem :contentItem="contentList" :more="false" :playerOptions="playerOptions"/>
           </div>
         </div>
       </div>
-
+       </van-pull-refresh> 
       <van-dialog
         v-model="show"
         title="提示"
@@ -57,6 +57,7 @@
         <div class="loginDialog">登录后才能写内容哟 ~_~</div>
       </van-dialog>
     </div>
+    
   </common-layout>
 </template>
 
@@ -109,8 +110,13 @@ export default {
         this.fetchList();
     },
     fetchList() {
+       const  toast = Toast.loading({
+            message: '加载中...',
+            forbidClick: true
+         })
       this.$store.dispatch("content/getAllOpenContent", 1000).then(rsp => {
         this.isLoading = false;
+        toast.clear();
         if (rsp.code === 200) {
           this.contentList = rsp.list;
           this.contentList.forEach((item, index) => {

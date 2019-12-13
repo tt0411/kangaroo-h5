@@ -117,7 +117,8 @@ export default {
 
 <style lang="scss" scoped>
 .gender{
-    display: flex;flex-direction: row;
+    display: flex;
+    flex-direction: row;
 }
 .tips{
     display: flex;

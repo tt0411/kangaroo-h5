@@ -87,8 +87,13 @@ export default {
    },
    methods: {
        fetchList() {
+        const  toast = Toast.loading({
+            message: '加载中...',
+            forbidClick: true
+         })
           this.$store.dispatch('content/getAllOpenContent', 10).then(rsp => {
             this.isLoading = false;
+            toast.clear();
            if(rsp.code === 200) {
                this.contentList = rsp.list;
                 this.contentList.forEach((item, index) => {
@@ -110,11 +115,10 @@ export default {
                         poster:
                         "https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=673709352,371074027&fm=26&gp=0.jpg", //你的封面地址
                         notSupportedMessage: "此视频暂无法播放，请稍后再试" //允许覆盖Video.js无法播放媒体源时显示的默认信息。
-                    });
-                });
-              
-           }
-       })
+                    })
+                })
+             }
+          })
        },
        toSearch(){
            this.$router.push('/search')

@@ -97,7 +97,7 @@ export default {
       methods: { 
         afterImgRead(file, detail) {
             const Toast = Toast.loading({
-                message: '视频上传中...',
+                message: '图片上传中...',
                 forbidClick: true
             });
             this.imgFile.push(file)  
@@ -114,9 +114,10 @@ export default {
                 formdata.append('type', 'img')
                 axios.post(`${MURL}/alioss/uploadOss`, formdata, config).then(res => {
                     if(res.data.code === 200) {
+                        Toast.clear();
                      if(this.imgFile.length === 1 ){
                          this.imgUrl = res.data.data
-                         Toast.clear();
+                         
                      }else{
                          this.backImgList.push(res.data.data)
                          this.imgUrl = this.backImgList.join(',')

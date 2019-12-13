@@ -17,6 +17,7 @@
 <script>
 import Empty from '../../components/empty'
 import ContentList from './contentList.vue'
+import { Toast } from 'vant'
 export default {
     components: { Empty, ContentList },
     data() {
@@ -42,7 +43,12 @@ export default {
         }
     },
     mounted() {
+      const  toast1 = Toast.loading({
+          message: '加载中...',
+          forbidClick: true
+      })
         this.$store.dispatch('content/getcontentByUid', this.active).then(rsp => {
+           toast1.clear();
             if(rsp.code === 200) {
                 this.contentList = rsp.list;
                 this.total = rsp.count;
@@ -72,7 +78,12 @@ export default {
     },
    methods: {
        changeContentType(value) {
+           const  toast2 = Toast.loading({
+            message: '加载中...',
+            forbidClick: true
+         })
            this.$store.dispatch('content/getcontentByUid', value).then(rsp => {
+             toast2.clear();
                if(rsp.code === 200) {
                    this.contentList = rsp.list;
                    this.total = rsp.count;

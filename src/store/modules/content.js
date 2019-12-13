@@ -35,10 +35,10 @@ const actions = {
    async getAllOpenContent(_, limitCount) {
        return await getAllOpenContent(limitCount)
    },
-   async getMyMarkContent(_) {
+   async getMyMarkContent() {
        return await getMyMarkContent()
    },
-   async getMySaveContent(_) {
+   async getMySaveContent() {
        return await getMySaveContent()
    },
    async getContentById(_, id) {
@@ -100,13 +100,13 @@ const actions = {
        }
        return rsp;
    },
-   async getcontentCountByUid(_) {
+   async getcontentCountByUid() {
        return await getcontentCountByUid()
    },
-   async getSaveByUid(_) {
+   async getSaveByUid() {
        return await getSaveByUid()
    },
-   async getMarkByUid(_) {
+   async getMarkByUid() {
        return await getMarkByUid()
    },
    async isDelContent({dispatch,state}, params) {

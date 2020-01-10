@@ -64,6 +64,7 @@ export default {
       },
       data(){
           return {
+            imgFile: [],
             backImgList: [],
             show: false,
             showImg: [],
@@ -98,6 +99,7 @@ export default {
                 message: '图片上传中...',
                 forbidClick: true
             }); 
+            this.imgFile.push(file)
             this.showImg.push(file.content)
              let config = {
                 headers: {
@@ -179,6 +181,7 @@ export default {
              this.audioSrc = ''
          },
          delBtn(index){
+             this.imgFile.splice(index ,1);
              this.backImgList.splice(index, 1);
          }
       }

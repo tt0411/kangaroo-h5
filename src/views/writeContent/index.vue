@@ -144,6 +144,9 @@ export default {
       }else if(!this.themeId) {
         Toast('请选择主题');
       }else {
+        if(!this.$refs.upload.backImgList.join(',')) {
+          Toast('图片地址为空')
+        }
         let params = {
             context: this.context,
             address: this.address,

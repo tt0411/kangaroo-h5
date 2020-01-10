@@ -64,9 +64,7 @@ export default {
       },
       data(){
           return {
-            imgFile: [],
             backImgList: [],
-            imgUrl: '',
             show: false,
             showImg: [],
             videoUrl: '',
@@ -99,8 +97,7 @@ export default {
             const Toast = Toast.loading({
                 message: '图片上传中...',
                 forbidClick: true
-            });
-            this.imgFile.push(file)  
+            }); 
             this.showImg.push(file.content)
              let config = {
                 headers: {
@@ -108,27 +105,19 @@ export default {
                 }
             };
             if(this.imgFile.length > 0) {
-                this.imgFile.forEach( (item, index) => {
                 const formdata = new FormData()
-                formdata.append('file', this.imgFile[index].file)
+                formdata.append('file', file.file)
                 formdata.append('type', 'img')
                 axios.post(`${MURL}/alioss/uploadOss`, formdata, config).then(res => {
                     if(res.data.code === 200) {
-                        Toast.clear();
-                     if(this.imgFile.length === 1 ){
-                         this.imgUrl = res.data.data
-                         
-                     }else{
+                         Toast.clear();
                          this.backImgList.push(res.data.data)
-                         this.imgUrl = this.backImgList.join(',')
-                       }
                       } 
                     }).catch(err => {
                         Toast.fail('系统错误')
                         console.log(err)
                         Toast.clear();
                 })
-            })  
           }
          },
          afterVideoRead(file, detail) {
@@ -190,16 +179,7 @@ export default {
              this.audioSrc = ''
          },
          delBtn(index){
-            if(isNaN(index) || index >= this.imgFile.length){
-                return false;
-            }
-            let tmp = [];
-            for(let i = 0; i < this.imgFile.length; i++){
-                if(this.imgFile[i] !== this.imgFile[index]){
-                tmp.push(this.imgFile[i]);
-                }
-            }
-            this.imgFile = tmp;
+             this.backImgList.splice(index, 1);
          }
       }
 }

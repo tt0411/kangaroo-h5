@@ -14,7 +14,7 @@
           <div class="name">{{item.nickName}}</div>
           <div class="time">发表于: {{item.create_time}}</div>
         </div>
-        <div class="sign" style="margin-left: 20%;margin-top: -5%;">
+        <div class="sign">
          <van-tag mark type="primary" v-if="item.status == 1 && item.flag == 0">待审核</van-tag>
          <van-tag mark type="success" v-if="item.status == 1 && item.flag == 1">审核通过</van-tag>
          <van-tag mark type="danger" v-if="item.status == 1 && item.flag == 2">审核未通过</van-tag>
@@ -138,11 +138,11 @@ export default {
     .info {
       display: flex;
       flex-direction: row;
+      justify-content: space-between;
       align-items: center;
       .name-time {
-        display: flex;
-        flex-direction: column;
         margin-left: 10px;
+        flex:1;
         .name {
           font-size: 16px;
           margin-bottom: 5px;

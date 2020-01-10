@@ -5,8 +5,13 @@
       </div>
       <div class="bg-user">
         <div class="avatar">
-           <van-image width="60" height="60" :round="true" fit="cover" :src="imgUrl[0]" @click="isPreview = true" />
+           <van-image width="60" height="60" :round="true" fit="cover" :src="imgUrl[0]" @click="isPreview = true" /> 
+        <div class="sex">
+          <img :src="sexImg[0]" v-if="sex == 1"/>
+          <img :src="sexImg[1]" v-else/>
         </div>
+        </div>
+       
         <div class="userName">{{nickName}}</div>
         <!-- <div class="signature">个性签名：{{signature}}</div> -->
       </div>
@@ -80,6 +85,11 @@ export default {
           themeAllCount: 0,
           markedCount: 0,
           savedCount: 0,
+          sex: 0,
+          sexImg: [
+            'https://i.loli.net/2019/12/16/Ti5udnjJwIgefxt.png',
+            'https://i.loli.net/2019/12/16/xYIJdfznZup57aD.png',
+          ],
         }
     },
     created() {
@@ -89,13 +99,14 @@ export default {
          if(rsp.code === 200) {
              this.imgUrl[0] = rsp.data.imgUrl;
              this.nickName = rsp.data.nickName;
+             this.sex = rsp.data.gender;
          }
        })
       getMyMarkContent(this.uid).then(rsp => {
           if(rsp.code === 200) {
              this.contentList = rsp.list;
              this.markCount = rsp.count;
-              this.contentList.forEach((item, index) => {
+             this.contentList.forEach((item, index) => {
                     this.playerOptions.push({
                         playbackRates: [0.7, 1.0, 1.5, 2.0], //播放速度
                         autoplay: false, //如果true,浏览器准备好时开始回放。
@@ -194,7 +205,18 @@ export default {
   align-items: center;
   .avatar{
     margin-top: 10px;
+    position: relative;
+  .sex {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    img {
+      width: 28px;
+      height: 28px;
+    }
+   }
   }
+  
   .userName{
     color: #ffffff;
     font-size: 18px;

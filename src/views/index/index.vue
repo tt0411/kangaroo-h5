@@ -40,7 +40,7 @@
         </van-sticky>
      </div> 
    </div>
-     <div slot="content">
+     <div slot="content" class="container">
      <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
        <ContentItem :contentItem="contentList" :playerOptions="playerOptions"/>
      </van-pull-refresh> 
@@ -54,6 +54,7 @@
 <script>
 import ContentItem from './contentItem.vue'
 import {Toast} from 'vant';
+import { mapState } from 'vuex';
 export default {
     components: { ContentItem },
     data(){
@@ -65,7 +66,6 @@ export default {
            videoContent: true,
            show: false,
            isLoading: false,
-           avater: 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2967487759,252864316&fm=26&gp=0.jpg',
        swiperList: [
            {id: 1, imgSrc: 'https://i.loli.net/2019/11/07/hAv6EFfGCSOeDRI.jpg'},
            {id: 2, imgSrc: 'https://i.loli.net/2019/11/07/tP3SgWAr7iBlZOx.jpg'},
@@ -82,6 +82,22 @@ export default {
        tipMsg: '',
      }
    },
+   computed: {
+       ...mapState(['content'])
+   },
+//    beforeRouteEnter(to, from, next) {
+//     next(vm => {
+//       // 通过 `vm` 访问组件实例
+//       if (from.name === 'theme' || from.name === 'user' || from.name === 'myContent') {
+//         vm.content.scrollTop = 0
+//         vm.fetchList()
+//         console.log(111)
+//       } else {
+//         vm.refreshList()
+//         console.log(222)
+//       }
+//     })
+//   },
    created() {
        this.fetchList();
        this.$store.dispatch('user/getInfo');
@@ -133,6 +149,16 @@ export default {
        onRefresh() {
            this.fetchList();
        },
+    //    refreshList() {
+    //      this.fetchList();
+    //      this.$nextTick(() => {
+    //       this.$el.querySelector('.container').parentNode.scrollTop = this.content.scrollTop
+    //      })
+    //    },
+    //     getScrollTop() {
+    //         let top = this.$el.querySelector('.container').parentNode.scrollTop
+    //         this.$store.commit('content/changeScrollTop', top)
+    //     },
        iconGo(item) {
            if(item.text === '创主题') {
                 if(localStorage.getItem('token')){

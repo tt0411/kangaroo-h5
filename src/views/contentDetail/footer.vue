@@ -50,9 +50,13 @@ export default {
   computed: {
     ...mapState(['content'])
   },
+  created() {
+    this.cid = this.content.content_id;
+    this.$store.dispatch('content/markSign', this.cid)
+    this.$store.dispatch('content/saveSign', this.cid)
+  },
   mounted() {
       this.is_comment = this.content.is_comment;
-      this.cid = this.content.content_id;
       this.isMark = this.content.isMark;
       this.isSave = this.content.isSave;
   },

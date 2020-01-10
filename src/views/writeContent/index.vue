@@ -148,7 +148,7 @@ export default {
             context: this.context,
             address: this.address,
             is_comment: this.isOpenComment ? 0 : 1,
-            img: this.$refs.upload.imgUrl, 
+            img: this.$refs.upload.backImgList.join(','), 
             video: this.$refs.upload.videoUrl,
             audio: this.$refs.upload.audioSrc,
             status: this.isOpen ? 1 : 0,

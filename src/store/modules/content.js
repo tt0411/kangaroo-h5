@@ -20,6 +20,7 @@ const state = {
     isMark: false,
     isSave: false,
     authorId: null,
+   // scrollTop: 0,
 }
 
 const actions = {
@@ -151,7 +152,10 @@ const mutations = {
     },
     changeAuthorId(state, payload) {
         state.authorId = payload
-    }
+    },
+    // changeScrollTop(state, payload) {
+    //     state.scrollTop = payload
+    // }
 }
 
 export default {

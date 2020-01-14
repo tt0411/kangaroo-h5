@@ -114,6 +114,7 @@ export default {
                     if(res.data.code === 200) {
                          Toast.clear();
                          this.backImgList.push(res.data.data)
+                         this.$store.commit('content/changeUploadImg', this.backImgList)
                       } 
                     }).catch(err => {
                         Toast.fail('系统错误')
@@ -140,6 +141,7 @@ export default {
                     if(res.data.code === 200) {
                         this.playerOptions.sources[0].src = res.data.data;
                         this.videoUrl = res.data.data;
+                         this.$store.commit('content/changeUploadVideo', this.videoUrl)
                         Toast1.clear();
                     }
                     }).catch(err => {
@@ -150,7 +152,8 @@ export default {
                 })
          },
          delVideo() {
-           this.playerOptions.sources[0].src = ''
+           this.playerOptions.sources[0].src = '',
+            this.$store.commit('content/changeUploadVideo', null)
          },
          afterAudioRead(file, detail) {
              const Toast2 = Toast.loading({
@@ -169,6 +172,7 @@ export default {
                 axios.post(`${MURL}/alioss/uploadOss`, formdata, config).then(res => {
                     if(res.data.code === 200) {
                         this.audioSrc = res.data.data;
+                        this.$store.commit('content/changeUploadAudio', this.audioSrc)
                         Toast2.clear();
                     }
                     }).catch(err => {
@@ -179,11 +183,13 @@ export default {
                 })
          },
          delAudio() {
-             this.audioSrc = ''
+             this.audioSrc = '',
+             this.$store.commit('content/changeUploadAudio', null)
          },
          delBtn(index){
              this.imgFile.splice(index ,1);
              this.backImgList.splice(index, 1);
+            this.$store.commit('content/changeUploadImg', this.backImgList)
          }
       }
 }

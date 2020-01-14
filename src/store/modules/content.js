@@ -21,6 +21,9 @@ const state = {
     isSave: false,
     authorId: null,
    // scrollTop: 0,
+   uploadImg: null,
+   uploadVideo: null,
+   uploadAudio: null,
 }
 
 const actions = {
@@ -153,6 +156,15 @@ const mutations = {
     changeAuthorId(state, payload) {
         state.authorId = payload
     },
+    changeUploadImg(state, payload) {
+        state.uploadImg = payload
+    },
+    changeUploadVideo(state, payload) {
+        state.uploadVideo = payload
+    },
+    changeUploadAudio(state, payload) {
+        state.uploadAudio = payload
+    }
     // changeScrollTop(state, payload) {
     //     state.scrollTop = payload
     // }

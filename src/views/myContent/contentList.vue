@@ -30,7 +30,7 @@
                 <van-col span="24">
                   <van-image
                     :src="item.img[0]"
-                    style="width: 100%;"
+                    style="width: 100%;" fit="cover"
                     @click="show = true"
                   ></van-image>
                 </van-col>
@@ -39,14 +39,14 @@
             <div v-if="item.img.length === 2">
               <van-row gutter="5">
                 <van-col span="12" v-for="(item1, index) in item.img" :key="index">
-                  <van-image :src="item1" style="width: 100%;height: 100px;" @click="show = true"></van-image>
+                  <van-image :src="item1" style="width: 100%;" fit="cover" @click="show = true"></van-image>
                 </van-col>
               </van-row>
             </div>
             <div v-if="item.img.length >= 3">
               <van-row gutter="5">
                 <van-col span="8" v-for="(item1, index) in item.img" :key="index">
-                  <van-image :src="item1" style="width: 100%;height: 100px;" @click="show = true"></van-image>
+                  <van-image :src="item1" style="width: 100%;" fit="cover" @click="show = true"></van-image>
                 </van-col>
               </van-row>
             </div>
@@ -87,7 +87,11 @@
             <div class="address-name">{{item.address}}</div>
           </div>
         </div>
+       <div class="remark" v-if="item.remark">
+        审核意见： {{item.remark}}
       </div>
+      </div>
+     
     </div>
   </div>
   <div v-else>
@@ -186,6 +190,15 @@ export default {
       .video-content {
         width: 100%;
         margin-bottom: 10px;
+      }
+      .remark {
+        width: 100%;
+        padding: 10px;
+        margin-left: -10px;
+        background-color: #eeeeee;
+        color: #999999;
+        max-height: 50px;
+        overflow-y: auto;
       }
     }
     .content-options {

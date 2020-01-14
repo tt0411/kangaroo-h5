@@ -29,7 +29,7 @@
             </van-tab>
          
             <van-tab> 
-                <div slot="title" v-if="!is_comment">
+                <div slot="title" v-if="is_comment == 1">
                     <van-icon name="chat-o" size="20px"/>
                     {{commentCount}}
                 </div>
@@ -38,7 +38,7 @@
                     0
                 </div> 
                 <van-pull-refresh v-model="isCommentLoading" @refresh="onCommentRefresh">
-                <div class="commentList" v-if="commentList.length > 0 && !is_comment">
+                <div class="commentList" v-if="commentList.length > 0 && is_comment == 1">
                    <div class="commentItem" v-for="(item, index) in commentList" :key="index">
                        <van-row gutter="5">
                             <van-col span="3">
@@ -67,8 +67,8 @@
                         </div>
                    </div>
                 </div>
-                <Empty :type="5" v-if="commentList.length == 0 && !is_comment"/>
-                <Empty :type="6" v-if="is_comment"/> 
+                <Empty :type="5" v-if="commentList.length == 0 && is_comment == 1"/>
+                <Empty :type="6" v-if="is_comment == 0"/> 
                 </van-pull-refresh>
             </van-tab>
            
@@ -115,7 +115,7 @@ export default {
            saveList: [],
            markList: [],
            commentList: [],
-           is_comment: false, // false 开启评论 true 关闭评论
+           is_comment: null, // 0 - 关闭评论 1 - 开启评论
            saveCount: 0,
            markCount: 0,
            commentCount: 0,
@@ -131,7 +131,8 @@ export default {
   },
   created() {
         this.id = this.content.content_id;
-        this.uid = this.content.authorId
+        this.uid = this.content.authorId;
+        this.is_comment = this.content.is_comment;
   },
   mounted() {
      this.$store.dispatch('content/getCommentById', this.id).then(rsp => {

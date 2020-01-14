@@ -32,7 +32,7 @@
             </van-col>  
         </van-row> 
         <div>
-             <van-uploader max-size="1024*30"  v-show="!this.playerOptions.sources[0].src" :preview-size="80" :upload-text="'上传视频'" capture="camera" accept="video/*" :after-read="afterVideoRead"></van-uploader>
+             <van-uploader  v-show="!this.playerOptions.sources[0].src" :preview-size="80" :upload-text="'上传视频'" capture="camera" accept="video/*" :after-read="afterVideoRead"></van-uploader>
         </div>
    </div>
    <div class="audio" v-if="type === 3">
@@ -43,7 +43,7 @@
             </van-col>  
         </van-row> 
         <div>
-             <van-uploader max-size="1024*10" v-show="!audioSrc" :upload-text="'上传音频'" :preview-size="80" capture="camera" accept="audio/*" :after-read="afterAudioRead"></van-uploader>
+             <van-uploader v-show="!audioSrc" :upload-text="'上传音频'" :preview-size="80"  accept="audio/mp3" :after-read="afterAudioRead"></van-uploader>
         </div>
    </div>
    </div>
@@ -143,9 +143,10 @@ export default {
                         Toast1.clear();
                     }
                     }).catch(err => {
+                        Toast1.clear();
                         Toast.fail('系统错误')
                         console.log(err) 
-                        Toast1.clear();
+                      
                 })
          },
          delVideo() {
@@ -166,15 +167,15 @@ export default {
                 formdata.append('file', this.sendAudio[0].file)
                 formdata.append('type', 'audio')
                 axios.post(`${MURL}/alioss/uploadOss`, formdata, config).then(res => {
-                    Toast2.clear();
                     if(res.data.code === 200) {
                         this.audioSrc = res.data.data;
                         Toast2.clear();
                     }
                     }).catch(err => {
+                    Toast2.clear();
                     Toast.fail('系统错误')
                     console.log(err)
-                    Toast2.clear();
+                    
                 })
          },
          delAudio() {

@@ -10,7 +10,7 @@ const state = {
     },
     contentList: [],
     content_id: null,
-    is_comment: true,
+    is_comment: null,
     saveList: [],
     markList: [],
     commentList: [],
@@ -130,7 +130,7 @@ const mutations = {
         state.content_id = payload
     },
     changeIsComment(state, payload) {
-        state.is_comment = payload == 0 ? true : false
+        state.is_comment = payload 
     },
     changeCommentList(state, payload) {
         state.commentList = payload.list

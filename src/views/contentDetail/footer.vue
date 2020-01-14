@@ -3,13 +3,13 @@
     <div class="input">
       <van-field
         style="background-color:#f5f5f5;font-size: 16px;"
-        :disabled="is_comment"
+        :disabled="is_comment === 0"
         v-model="message"
         rows="1"
         autosize
         type="textarea"
         maxlength="50"
-        :placeholder="is_comment ? '作者关闭了评论' : '来评论啦...'"
+        :placeholder="is_comment === 0 ? '作者关闭了评论' : '来评论啦...'"
       />
     </div>
     <div class="send">
@@ -42,7 +42,7 @@ export default {
       message: "",
       isSave: false,
       isMark: false,
-      is_comment: false,
+      is_comment: null,
       cid: null,
       show: false,
     }
@@ -52,13 +52,19 @@ export default {
   },
   created() {
     this.cid = this.content.content_id;
-    this.$store.dispatch('content/markSign', this.cid)
-    this.$store.dispatch('content/saveSign', this.cid)
+    this.$store.dispatch('content/markSign', this.cid).then(rsp => {
+      if(rsp.code === 200) {
+         this.isMark = rsp.sign
+      }
+    })
+    this.$store.dispatch('content/saveSign', this.cid).then(rsp => {
+      if(rsp.code === 200) {
+        this.isSave = rsp.sign
+      }
+    })
   },
   mounted() {
       this.is_comment = this.content.is_comment;
-      this.isMark = this.content.isMark;
-      this.isSave = this.content.isSave;
   },
   methods: {
     toLogin() {

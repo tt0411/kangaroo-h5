@@ -144,9 +144,6 @@ export default {
       }else if(!this.themeId) {
         Toast('请选择主题');
       }else {
-        if(!this.$refs.upload.backImgList.join(',')) {
-          Toast('图片地址为空')
-        }
         let params = {
             context: this.context,
             address: this.address,
@@ -178,10 +175,10 @@ export default {
         this.showThemebox = true;
     },
     selectTheme(item) {
-         this.showThemebox = false;
-         this.themeId = item.id;
-         this.theme = item.name;
-         this.isOpen = item.status === 1 ? true : false;
+        this.showThemebox = false;
+        this.themeId = item.id;
+        this.theme = item.name;
+        this.isOpen = item.status === 1 ? true : false;
     },
     toAddAddress() {
       this.$router.push("/addAddress");

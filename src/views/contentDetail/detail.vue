@@ -18,8 +18,9 @@
               <van-row>
                 <van-col span="24">
                   <van-image
-                    :src="detailData.img"
-                    style="width: 100%;height: 100px;"
+                    :src="detailData.img[0]"
+                    style="width: 100%;"
+                    fit="cover"
                     @click="show = true"
                   ></van-image>
                 </van-col>
@@ -29,7 +30,7 @@
             <div v-if="detailData.img.length === 2">
               <van-row gutter="5">
                 <van-col span="12" v-for="(item1, index) in detailData.img" :key="index">
-                  <van-image :src="item1" style="width: 100%;height: 100px;" @click="show = true"></van-image>
+                  <van-image :src="item1" style="width: 100%;" fit="cover" @click="show = true"></van-image>
                 </van-col>
               </van-row>
               <van-image-preview v-model="show" :images="detailData.img"></van-image-preview>
@@ -37,7 +38,7 @@
             <div v-if="detailData.img.length >= 3">
               <van-row gutter="5">
                 <van-col span="8" v-for="(item1, index) in detailData.img" :key="index">
-                  <van-image :src="item1" style="width: 100%;height: 100px;" @click="show = true"></van-image>
+                  <van-image :src="item1" style="width: 100%;" fit="cover" @click="show = true"></van-image>
                 </van-col>
               </van-row>
               <van-image-preview v-model="show" :images="detailData.img"></van-image-preview>
@@ -84,7 +85,7 @@ export default {
      this.$store.dispatch('content/getContentById', this.content.content_id).then(rsp => {
        if(rsp.code === 200) {
          this.detailData = rsp.data
-       
+         
          this.playerOptions = {
           playbackRates: [0.7, 1.0, 1.5, 2.0], //播放速度
           autoplay: false,

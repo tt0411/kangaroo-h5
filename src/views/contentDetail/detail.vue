@@ -11,9 +11,12 @@
         </div>
       </div>
       <div class="three-content">
-        <div class="img-content">
+         <div class="img-content" v-if="!detailData.img && !detailData.video && !detailData.audio">
           <div class="text-content" v-if="detailData.context">{{detailData.context}}</div>
-          <div class="imageList" v-if="detailData.img">
+          </div>
+        <div class="img-content" v-if="detailData.img">
+          <div class="text-content" v-if="detailData.context">{{detailData.context}}</div>
+          <div class="imageList">
             <div v-if="detailData.img.length === 1">
               <van-row>
                 <van-col span="24">

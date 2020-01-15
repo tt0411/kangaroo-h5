@@ -1,4 +1,4 @@
-import { MURL, URL} from './config.js'
+import { URL} from './config.js'
 import axios from 'axios'
 
 export function uploadImg(data) {

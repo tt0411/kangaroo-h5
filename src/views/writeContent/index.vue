@@ -162,6 +162,9 @@ export default {
          if(rsp.code === 200) {
            Toast.success(rsp.msg);
            this.$store.commit('content/changeSendData', {});
+           this.$store.commit('content/changeUploadImg', null);
+           this.$store.commit('content/changeUploadVideo', null);
+           this.$store.commit('content/changeUploadAudio', null);
            this.address = '';
            this.$router.push('/myContent');
          }

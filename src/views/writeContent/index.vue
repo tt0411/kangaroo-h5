@@ -129,7 +129,7 @@ export default {
   mounted() {
     this.address = this.$route.query.name || '';
     this.context = this.content.sendData.context;
-    this.tid = this.content.sendData.tid;
+    this.themeId = this.content.sendData.tid;
     this.theme = this.content.sendData.theme;
     this.isOpen = this.content.sendData.isOpen;
     this.isOpenComment = this.content.sendData.is_comment;
@@ -144,6 +144,10 @@ export default {
       }else if(!this.themeId) {
         Toast('请选择主题');
       }else {
+         Toast.loading({
+           message: '正在发表...',
+           forbidClick: true,
+        })
         let params = {
             context: this.context,
             address: this.address,
@@ -159,6 +163,7 @@ export default {
             tid: this.themeId
         }
        this.$store.dispatch('content/createContent', params).then(rsp => {
+         Toast.clear();
          if(rsp.code === 200) {
            Toast.success(rsp.msg);
            this.$store.commit('content/changeSendData', {});
@@ -167,6 +172,8 @@ export default {
            this.$store.commit('content/changeUploadAudio', null);
            this.address = '';
            this.$router.push('/myContent');
+         }else {
+           Toast.fail('内容发表失败')
          }
        })
       }
@@ -237,6 +244,16 @@ export default {
       this.$store.commit('content/changeSendData', data)
     },
     isOpenComment(newVal, oldVal) {
+      let data = {
+        context: this.context,
+        theme: this.theme,
+        tid: this.themeId,
+        isOpen: this.isOpen,
+        is_comment: this.isOpenComment
+      }
+      this.$store.commit('content/changeSendData', data)
+    },
+     themeId(newVal, oldVal) {
       let data = {
         context: this.context,
         theme: this.theme,

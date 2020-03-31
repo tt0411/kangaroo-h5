@@ -115,6 +115,7 @@ export default {
                          Toast.clear();
                          this.backImgList.push(res.data.data)
                          this.$store.commit('content/changeUploadImg', this.backImgList)
+
                       } 
                     }).catch(err => {
                         Toast.fail('系统错误')

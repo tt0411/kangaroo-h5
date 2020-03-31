@@ -155,7 +155,7 @@ export default {
             // img: this.$refs.upload.backImgList.join(',') || this.content.uploadImg.join(','), 
             // video: this.$refs.upload.videoUrl || this.content.uploadVideo,
             // audio: this.$refs.upload.audioSrc || this.content.uploadAudio,
-            img: this.content.uploadImg.join(','), 
+            img:this.content.uploadImg ? this.content.uploadImg.join(',') : '', 
             video: this.content.uploadVideo,
             audio: this.content.uploadAudio,
             status: this.isOpen ? 1 : 0,

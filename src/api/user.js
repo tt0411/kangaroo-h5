@@ -18,3 +18,6 @@ export const updateGender = (params) => request.put(`/user/updateGender?${string
 
 // 修改密码
 export const updatePwd = (params) => request.put(`/user/updatePwd?${stringify(params)}`)
+
+// 忘记密码重置密码
+export const resetPwd = (params) => request.put(`/user/userResetPwd?${stringify(params)}`)

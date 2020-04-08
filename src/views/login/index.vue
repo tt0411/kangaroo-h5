@@ -59,9 +59,6 @@ export default {
         }
     },
     methods: {
-        register() { 
-            this.$router.push('/register')
-        },
         login() {
             if(!this.user){
               this.userErrorMsg = '请填写账号'
@@ -83,8 +80,11 @@ export default {
             }
         },
         forgetPwd() {
-            this.$router.push('/forgetPwd')
-        }
+            this.$router.push({ path: "/inputPhone", query: { type: 1 } })
+        },
+         register() { 
+             this.$router.push({ path: "/inputPhone", query: { type: 2 } })
+        },
     },
     watch: {
         user(newVal, oldVal){

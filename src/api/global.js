@@ -37,3 +37,15 @@ export function resetPwd(params) {
         })
     })
 }
+
+// 获取短信验证码
+export function getSmsCode(params) {
+    return new Promise((resolve, reject) => {
+        axios.post(`${URL}/alisms/sendSmsCode?${stringify(params)}`).then((res) => {
+            resolve(res.data)
+        })
+        .catch((err) => {
+            reject(err)
+        })
+    })
+}

@@ -1,5 +1,6 @@
 import { URL} from './config.js'
 import axios from 'axios'
+const CryptoJS = require("crypto-js");
 
 export function uploadImg(data) {
     let config = {
@@ -18,4 +19,16 @@ export function uploadImg(data) {
           reject(err)
         })
     })
+}
+
+
+/**
+ * CryptoJS解密
+ */
+
+export const decryptCode = (afterEncrypt, secretKey = 'smsCodemimashi123') => {
+  return CryptoJS.DES.decrypt(afterEncrypt, CryptoJS.enc.Utf8.parse(secretKey), {
+    mode: CryptoJS.mode.ECB,
+    padding: CryptoJS.pad.Pkcs7
+  }).toString(CryptoJS.enc.Utf8);
 }

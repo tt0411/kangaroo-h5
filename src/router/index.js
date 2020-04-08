@@ -5,7 +5,7 @@ import Login from '@/views/login/index'
 import ContentDetail from '@/views/contentDetail/index'
 import Register from '@/views/register/index'
 import User from '@/views/user/index'
-import ForgetPwd from '@/views/forgetPwd/index'
+import InputPhone from '@/views/inputPhone/index'
 import ChangePwd from '@/views/changePwd/index'
 import Setting from '@/views/toSetting/index'
 import Info from '@/views/info/index'
@@ -21,6 +21,7 @@ import WriteContent from '@/views/writeContent/index'
 import HomePage from '@/views/homePage/index'
 import Addaddress from '@/views/addAddress/index'
 import MyContent from '@/views/myContent/index'
+import ResetPwd from '@/views/resetPwd/index'
 
 Vue.use(Router)
 
@@ -34,7 +35,7 @@ const router = new Router({
     { path: '/detail', name: 'detail', component: ContentDetail, meta: { title: '袋鼠空间' } },
     { path: '/register', name: 'register', component: Register, meta: { title: '注册' } },
     { path: '/user', name: 'user', component: User },
-    { path: '/forgetPwd', name: 'forgetPwd', component: ForgetPwd, meta: { title: '忘记密码'} },
+    { path: '/inputPhone', name: 'inputPhone', component: InputPhone, meta: { title: ''} },
     { path: '/changePwd', name: 'changePwd', component: ChangePwd, meta: { title: '修改密码'} },
     { path: '/setting', name: 'setting', component: Setting, meta: { title: '设置'} },
     { path: '/info', name: 'info', component: Info, meta: { title: '个人信息'} },
@@ -48,6 +49,7 @@ const router = new Router({
     { path: '/homePage', name: 'homePage', component: HomePage },
     { path: '/addAddress', name: 'addAddress', component: Addaddress },
     { path: '/myContent', name: 'myContent', component: MyContent, meta: { title: '我的内容'} },
+    { path: '/resetPwd', name: 'resetPwd', component: ResetPwd, meta: { title: '修改密码'} },
   ]
 })
 

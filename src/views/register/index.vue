@@ -15,7 +15,7 @@
            </van-cell-group>
            <div style="margin:0 10px;">
             <van-field required v-model="nickName" maxlength="10" label="用户名" placeholder="请填写用户名" />
-                <van-field required v-model="phone" maxlength="11" type="tel" label="手机号" placeholder="请填写手机号" />
+                <!-- <van-field required v-model="phone" maxlength="11" type="tel" label="手机号" placeholder="请填写手机号" /> -->
              <van-field required v-model="age" type="number" maxlength="2" label="年龄"  placeholder="请填写年龄" />
             <van-cell required>
             <template slot="title">
@@ -30,16 +30,16 @@
           </van-cell>
          <van-field v-model="password" type="password" maxlength="18" label="密码" placeholder="请填写密码" required/>
              <van-field v-model="repassword" type="password" maxlength="18" label="确认密码" placeholder="请填写确认密码" required/> 
-         <div class="tips">
+         <!-- <div class="tips">
              <div>
              <van-icon name="warning" color="#12C3DF"/>
              </div> 
              <div style="margin-top: -2px;">
              <span class="tips-content">手机号作为登录的唯一账号，请妥善保管</span>
              </div>
-         </div>
+         </div> -->
          <div class="register">
-              <van-button color="#12C3DF" round  size="large" @click="register">注册</van-button>
+              <van-button color="#12C3DF" round  size="large" @click="register">完善信息</van-button>
          </div>
         </div>
       </div>
@@ -64,6 +64,9 @@ export default {
             repassword: '',
             avatar: '',
         }
+    },
+    created() {
+       this.phone = this.$route.query.phone
     },
     methods: {
         previewImg() {
@@ -104,8 +107,8 @@ export default {
                }
                this.$store.dispatch("user/register",params).then(rsp => {
                    if(rsp.code === 200) {
-                       Toast('注册成功');
-                       this.$router.push('/login')
+                       Toast('信息完善成功');
+                       this.$router.push('/index')
                    }
                })
             }

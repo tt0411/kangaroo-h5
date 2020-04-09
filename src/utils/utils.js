@@ -5,12 +5,13 @@ const CryptoJS = require("crypto-js");
 export function uploadImg(data) {
     let config = {
         headers: {
-            'Content-Type': 'multipart/form-data'
+            'Content-Type': 'application/x-www-form-urlencoded'
         }
     }
     const formdata = new FormData()
     formdata.append('file', data)
     formdata.append('type', 'avater')
+    console.log(formdata.get('file'))
     return new Promise((resolve, reject) => {
         axios.post(`${URL}/alioss/uploadOss`, formdata, config).then(res => {
           resolve(res.data)

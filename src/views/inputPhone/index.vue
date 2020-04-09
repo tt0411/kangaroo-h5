@@ -70,21 +70,16 @@ export default {
              }
         },
         toSubmit(){
-              if(this.type == 1) {
+           if(decryptCode(this.rspCode) === this.code) {
+               if(this.type == 1) {
                    this.$router.push({ path: "/resetPwd", query: { phone: this.phone } });
                }else {
                     this.$router.push({ path: "/register", query: { phone: this.phone } });
                }
-        //    if(decryptCode(this.rspCode) === this.code) {
-        //        if(this.type == 1) {
-        //            this.$router.push({ path: "/resetPwd", query: { phone: this.phone } });
-        //        }else {
-        //             this.$router.push({ path: "/register", query: { phone: this.phone } });
-        //        }
              
-        //    }else {
-        //        Toast.fail('验证码不正确')
-        //    }
+           }else {
+               Toast.fail('验证码不正确')
+           }
         }
     },
     watch: {

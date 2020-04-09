@@ -30,16 +30,8 @@
           </van-cell>
          <van-field v-model="password" type="password" maxlength="18" label="密码" placeholder="请填写密码" required/>
              <van-field v-model="repassword" type="password" maxlength="18" label="确认密码" placeholder="请填写确认密码" required/> 
-         <!-- <div class="tips">
-             <div>
-             <van-icon name="warning" color="#12C3DF"/>
-             </div> 
-             <div style="margin-top: -2px;">
-             <span class="tips-content">手机号作为登录的唯一账号，请妥善保管</span>
-             </div>
-         </div> -->
          <div class="register">
-              <van-button color="#12C3DF" round  size="large" @click="register">完善信息</van-button>
+              <van-button color="#12C3DF" round  size="large" @click="register">注册</van-button>
          </div>
         </div>
       </div>
@@ -54,7 +46,7 @@ export default {
     data() {
         return {
             show: false,
-            imgUrl: ['https://i.loli.net/2019/11/04/PJSrydQFn3tN42p.png'],
+            imgUrl: require('../../assets/person.png'),
             imgFile: [],
             nickName: '',
             phone: '',
@@ -73,11 +65,20 @@ export default {
            this.show = true;
         },
         uploadImg(file) {
+            const Toast = Toast.loading({
+                message: '图片上传中...',
+                forbidClick: true
+            }); 
              this.imgUrl = []
              this.imgUrl[0] = file.content
-             this.imgFile.push(file)  
-             uploadImg(this.imgFile[0].file).then(res => {
-                this.avatar = res.data
+             let files = file.file
+             uploadImg(files).then(res => { 
+                 Toast.clear();
+                 if(res.code === 200) {
+                      this.avatar = res.data
+                 }else {
+                      Toast.fail(res.msg)
+                 }
             }) 
         },
         pickgender(name){
@@ -86,8 +87,6 @@ export default {
         register(){
             if(!this.nickName){
                Toast('请填写用户名') 
-            }else if(!this.phone || !(/^1[3456789]\d{9}$/.test(this.phone))){
-                Toast('手机号不合法')
             }else if(!this.age || this.age < 0){
                 Toast('年龄不合法')
             }else if(!this.password){
@@ -106,9 +105,9 @@ export default {
                    imgUrl: this.avatar || this.imgUrl[0],
                }
                this.$store.dispatch("user/register",params).then(rsp => {
+                   Toast(rsp.msg)
                    if(rsp.code === 200) {
-                       Toast('信息完善成功');
-                       this.$router.push('/index')
+                       this.$router.push('/login')
                    }
                })
             }
@@ -122,17 +121,6 @@ export default {
 .gender{
     display: flex;
     flex-direction: row;
-}
-.tips{
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    margin: 10px 0;
-    .tips-content{
-        color: #9c9a9a;
-        margin-left: 5px;
-        font-size: 14px;
-    }
 }
 .register{
     margin-top: 20px;

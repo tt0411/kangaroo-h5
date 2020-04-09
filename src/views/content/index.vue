@@ -69,9 +69,9 @@ export default {
   components: { ContentItem },
   data() {
     return {
-      imgUrl: "https://i.loli.net/2019/11/08/wlkQoEpDPJAyj19.jpg",
+      imgUrl: require('../../assets/bg.jpg'),
       avatar: "",
-      defaultAvatar: "https://i.loli.net/2019/11/20/aGvftlCNr7TOLKB.png",
+      defaultAvatar: require('../../assets/person.png'),
       nickName: "",
       show: false,
       isLogin: false,

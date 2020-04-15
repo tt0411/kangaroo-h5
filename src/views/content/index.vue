@@ -9,7 +9,7 @@
           </div>
           <div class="write">
             <van-icon
-              name="https://i.loli.net/2019/11/08/MPGuNnFwp936Jai.png"
+              :name="icon"
               size="30px"
               @click="toWrite"
             />
@@ -71,6 +71,7 @@ export default {
     return {
       imgUrl: require('../../assets/bg.jpg'),
       avatar: "",
+      icon: require('../../assets/icon.png'),
       defaultAvatar: require('../../assets/person.png'),
       nickName: "",
       show: false,

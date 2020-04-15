@@ -52,7 +52,7 @@ export default {
         return {
           showBox: false,
           active: 0,
-          imgSrc: 'https://i.loli.net/2019/11/07/VEPLA5j2NZSc4Wd.jpg',
+          imgSrc: require('../../assets/createTheme.jpg'),
           themeName: '',
           isOpen: false,
           nameError: '', 

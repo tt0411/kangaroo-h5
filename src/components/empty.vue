@@ -21,7 +21,7 @@
         <div class="text">暂无评论，快来抢沙发了</div>
     </div>
      <div class="img" v-if="type === 6">
-        <img :src="empty[4]" style="width: 60px; height: 60px;margin-top: 30px;"/>
+        <img :src="empty[4]" style="width: 50px; height: 50px;margin-top: 30px;"/>
         <div class="text">作者关闭了评论</div>
     </div>
   </div>
@@ -38,11 +38,11 @@ export default {
     data() {
         return {
             empty: [
-                'https://i.loli.net/2019/11/07/QoxGHMvq5ZdLTXn.png',
-                'https://i.loli.net/2019/11/07/gE4eZNaPVkqwcKi.png', 
-                'https://i.loli.net/2019/11/07/IzRsylA7oe2UCjE.png', 
-                'https://i.loli.net/2019/11/08/4F5i1MXdWgUSxet.png', 
-                'https://i.loli.net/2019/11/27/WPizHm1yvClEZdX.png',
+                require('../assets/empty1.png'),
+                require('../assets/empty2.png'), 
+                require('../assets/empty3.png'), 
+                require('../assets/empty4.png'), 
+                require('../assets/empty5.png'),
             ]
         }
     }

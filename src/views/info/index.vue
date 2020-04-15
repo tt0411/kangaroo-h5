@@ -81,8 +81,8 @@ export default {
        uploadImg(file) {
             this.imgUrl = []
             this.imgUrl[0] = file.content
-             this.imgFile.push(file)  
-             uploadImg(this.imgFile[0].file).then(res => {
+            let files = file.file
+             uploadImg(files).then(res => {
                 let params = {
                     imgUrl: res.data
                 }

@@ -43,7 +43,7 @@
           </div>
       </div>  
       <div>
-        <van-tabs v-model="active" animated color="#12C3DF" swipeable>
+        <van-tabs v-model="active" animated color="#6190e8" swipeable>
          <van-tab >
              <div slot="title">喜欢 {{markCount}}</div>
             <ContentItem :more="false" :contentItem="contentList" :playerOptions="playerOptions"/>
@@ -58,7 +58,7 @@
 </template>
 
 <script>
-import ContentItem from '../index/contentItem'
+import ContentItem from '../components/contentItem'
 import Empty from '../../components/empty.vue'
 import { getMyMarkContent, getMySaveContent, getcontentCountByUid, getSaveByUid, getMarkByUid } from '../../api/content'
 import { fetchUserTheme } from '../../api/theme'
@@ -198,7 +198,7 @@ export default {
 .container {
   position: relative;
 .bg-user {
-  background-color: #12C3DF;
+  background-color: #6190e8;
   height: 180px;
   display: flex;
   flex-direction: column;

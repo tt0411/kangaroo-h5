@@ -9,13 +9,13 @@
                 <div class="code" v-if="showCode">
                     <van-field v-model="code" center clearable maxlength="6" label="短信验证码" class="input" placeholder="请输入验证码">
                     <template #button>
-                        <van-button size="small" color="#12C3DF" :disabled="!canClick" @click="sendSms">{{codeTips}}</van-button>
+                        <van-button size="small" color="#6190e8" :disabled="!canClick" @click="sendSms">{{codeTips}}</van-button>
                     </template>
                     </van-field>
                 </div>
                </div>
           <div class="toSubmit">
-            <van-button color="#12C3DF" round  size="large"  @click="toSubmit" :disabled="isSubmit">下一步</van-button>
+            <van-button color="#6190e8" round  size="large"  @click="toSubmit" :disabled="isSubmit">下一步</van-button>
           </div>
       </div> 
     </div>
@@ -119,7 +119,7 @@ export default {
             flex-direction: column;
             margin-left: 5%;
             .input{
-                caret-color: #12C3DF;
+                caret-color: #6190e8;
                 font-size: 16px;
                 border-bottom: 1px solid #e2e2e2;
             }

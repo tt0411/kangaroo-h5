@@ -1,6 +1,6 @@
 <template>
    <div class="content-options">
-         <van-tabs v-model="active"  animated color="#12C3DF" swipeable>
+         <van-tabs v-model="active"  animated color="#6190e8" swipeable>
             <van-tab>
                 <div slot="title">
                     <van-icon name="star-o" size="20px" /> 
@@ -38,7 +38,7 @@
                     0
                 </div> 
                 <van-pull-refresh v-model="isCommentLoading" @refresh="onCommentRefresh">
-                <div class="commentList" v-if="commentList.length > 0 && is_comment == 1">
+                <div class="commentList" v-if="commentList.length > 0 && is_comment === 1">
                    <div class="commentItem" v-for="(item, index) in commentList" :key="index">
                        <van-row gutter="5">
                             <van-col span="3">
@@ -52,8 +52,11 @@
                                         <div class="name">
                                            {{item.nickName}}  
                                         </div>
-                                        <div style="margin-top: -6px;">
+                                        <div style="margin-top: -6px;flex: 1;">
                                         <van-tag type="danger"  v-if="item.uid == uid">作者</van-tag>
+                                        </div>
+                                        <div class="time">
+                                            {{item.create_time}}
                                         </div>
                                         </div>
                                     <div class="comment">
@@ -62,9 +65,9 @@
                                 </div>
                             </van-col>
                         </van-row>
-                        <div class="time">
+                        <!-- <div class="time">
                           评论时间：  {{item.create_time}}
-                        </div>
+                        </div> -->
                    </div>
                 </div>
                 <Empty :type="5" v-if="commentList.length == 0 && is_comment == 1"/>
@@ -91,7 +94,7 @@
                            <div class="name">{{item.nickName}}</div>
                         </van-col>
                         <van-col span="16">
-                            <div class="time">{{item.create_time}} 点赞了该内容</div>
+                            <div class="time">{{item.create_time}} 赞了该内容</div>
                         </van-col>
                      </van-row>
                     </div>
@@ -224,6 +227,7 @@ export default {
                 line-height: 30px;
                 color: #979494;
                 font-size: 12px;
+                text-align: right;
             }
         }
     }
@@ -239,6 +243,7 @@ export default {
                 line-height: 30px;
                 color: #979494;
                 font-size: 12px;
+                text-align: right;
             }
         }
     }
@@ -253,12 +258,16 @@ export default {
                     display: flex;
                     flex-direction: row;
                     align-items: center;
+                    justify-content: space-between;
                     .name{
                     margin-bottom: 5px;
                     color:#585656;
                     font-size: 15px;
                     margin-right: 10px;
-                 }
+                  }
+                  .time {
+                      color: #979494;
+                  }
                 }
                 
             }

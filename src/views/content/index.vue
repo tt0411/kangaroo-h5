@@ -45,12 +45,12 @@
           </div>
         </div>
       </div>
-       </van-pull-refresh> 
+      </van-pull-refresh> 
       <van-dialog
         v-model="show"
         title="提示"
         show-cancel-button
-        confirmButtonColor="#12C3DF"
+        confirmButtonColor="#6190e8"
         confirmButtonText="去登录"
         @confirm="toLogin"
       >
@@ -63,7 +63,7 @@
 
 <script>
 import { Toast } from "vant";
-import ContentItem from "../index/contentItem";
+import ContentItem from "../components/contentItem";
 import { mapState } from "vuex";
 export default {
   components: { ContentItem },

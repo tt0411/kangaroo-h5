@@ -7,7 +7,7 @@
                <van-field v-model="reNewPwd" type="password" required class="input" clearable label="确认新密码" maxlength="18" placeholder="请填写确认新密码"/>
           </div>
           <div class="changePwd">
-            <van-button color="#12C3DF" round  size="large"  @click="changePwd">修改密码</van-button>
+            <van-button color="#6190e8" round  size="large"  @click="changePwd">修改密码</van-button>
           </div>
       </div> 
     </div>

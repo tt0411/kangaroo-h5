@@ -18,6 +18,8 @@
 import Empty from '../../components/empty'
 import ContentList from './contentList.vue'
 import { Toast } from 'vant'
+import { mapState } from 'vuex'
+
 export default {
     components: { Empty, ContentList },
     data() {
@@ -42,12 +44,16 @@ export default {
             playerOptions: [],
         }
     },
+    computed: {
+       ...mapState(['content'])
+    },
     mounted() {
+      this.active = this.content.type
       const  toast1 = Toast.loading({
           message: '加载中...',
           forbidClick: true
       })
-        this.$store.dispatch('content/getcontentByUid', this.active).then(rsp => {
+        this.$store.dispatch('content/getcontentByUid', this.content.type).then(rsp => {
            toast1.clear();
             if(rsp.code === 200) {
                 this.contentList = rsp.list;
@@ -78,6 +84,7 @@ export default {
     },
    methods: {
        changeContentType(value) {
+           this.$store.commit('content/changeType', value)
            const  toast2 = Toast.loading({
             message: '加载中...',
             forbidClick: true

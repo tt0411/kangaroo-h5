@@ -59,7 +59,7 @@ export default {
       column-gap: 10px;
       column-width: 50%;
     .itemList{
-        background-image: linear-gradient( 135deg, #ABDCFF 10%, #12C3DF 100%);
+        background-image: linear-gradient( 135deg, #ABDCFF 10%, #6190e8 100%);
         display: flex;
         flex-direction: column;
         padding: 5px 10px;

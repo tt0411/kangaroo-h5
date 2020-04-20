@@ -24,6 +24,7 @@ const state = {
    uploadImg: null,
    uploadVideo: null,
    uploadAudio: null,
+   type: 9, // 我的内容 类型
 }
 
 const actions = {
@@ -164,6 +165,9 @@ const mutations = {
     },
     changeUploadAudio(state, payload) {
         state.uploadAudio = payload
+    },
+    changeType(state, payload) {
+        state.type = payload
     }
     // changeScrollTop(state, payload) {
     //     state.scrollTop = payload

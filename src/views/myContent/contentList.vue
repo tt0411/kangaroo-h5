@@ -123,7 +123,7 @@ export default {
   methods: {
     toDetail(item) { 
         if(item.status == 1 && item.flag == 1) {
-            this.$store.commit('content/changeIsComment',item.is_comment)
+            this.$store.commit('content/changeIsComment', item.is_comment)
             this.$store.commit('content/changeAuthorId', item.uid)
             this.$router.push({ path: "/detail", query: { id: item.id } });
         }

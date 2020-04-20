@@ -21,7 +21,7 @@
           <van-radio-group v-model="radio">
             <van-cell-group>
                 <van-cell :title="item.name" :label="item.address" clickable @click="checkedName(item, index)" v-for="(item, index) in addressList" :key="index">
-                  <van-radio slot="right-icon" checked-color="#12C3DF" :name="index" />
+                  <van-radio slot="right-icon" checked-color="#6190e8" :name="index" />
                 </van-cell>  
             </van-cell-group>
             </van-radio-group>
@@ -161,7 +161,7 @@ export default {
 <style lang="scss"scoped>
 // 重置van-bar
 .van-nav-bar {
-  background: #12C3DF;
+  background: #6190e8;
   .van-nav-bar__title {
     color: #ffffff;
   }
@@ -193,7 +193,7 @@ export default {
             font-size: 13px;
         }
         .picked{
-            color: #12C3DF;
+            color: #6190e8;
         }
     }
 }

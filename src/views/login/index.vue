@@ -25,7 +25,7 @@
                   </van-field>
               </div>
               <div class="login">
-                <van-button color="#12C3DF" round  size="large" @click="login">登录</van-button>
+                <van-button color="#6190e8" round  size="large" @click="login">登录</van-button>
               </div>
               <div class="bottom">
                      <div class="tips" @click="forgetPwd">
@@ -33,7 +33,7 @@
                           <span class="tips-content">忘记密码</span>
                         </div>
                         <div>
-                          <van-icon name="question" color="#12C3DF"/>
+                          <van-icon name="question" color="#6190e8"/>
                         </div> 
                     </div>
                   <div class="register" @click="register">
@@ -48,6 +48,7 @@
 
 <script>
 import {Toast} from 'vant'
+
 export default {
     data(){
         return {
@@ -71,7 +72,7 @@ export default {
                 }
                this.$store.dispatch("user/login", params).then(rsp => {
                    if(rsp.code === 200) {
-                       localStorage.setItem('token', rsp.token) 
+                        localStorage.setItem('token', rsp.token) 
                        this.$router.push('/user')       
                    }else{
                        Toast.fail(rsp.msg)
@@ -124,7 +125,7 @@ export default {
             flex-direction: column;
             margin-left: 5%;
             .input{
-                caret-color: #12C3DF;
+                caret-color: #6190e8;
                 font-size: 16px;
                 border-bottom: 1px solid #e2e2e2;
             }
@@ -149,7 +150,7 @@ export default {
             }
         }
             .register{
-                color:#12C3DF;
+                color:#6190e8;
                 margin-right: 10px;
             }
         }

@@ -67,10 +67,10 @@ export default {
 
 <style lang="scss" scoped>
  .input{
-        caret-color: #12C3DF;
+        caret-color: #6190e8;
         margin-top: 20px;
         font-size: 16px;
-        border-bottom: 1px solid #12C3DF;
+        border-bottom: 1px solid #6190e8;
         width: 96%;
         margin-left: 2%;
     }
@@ -81,7 +81,7 @@ export default {
     }
 // 重置van-bar
 .van-nav-bar {
-  background: #12C3DF;
+  background: #6190e8;
   .van-nav-bar__title {
     color: #ffffff;
   }

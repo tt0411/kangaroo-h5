@@ -7,7 +7,7 @@
                <van-image round width="46px" height="46px" :src="imgUrl[0]" @click="previewImg"></van-image>
             </template>
             <van-uploader :after-read="uploadImg" accept="image/*" capture="camera">
-                <!-- <van-button icon="photo" color="#12C3DF" size="small" >上传图片</van-button> -->
+                <!-- <van-button icon="photo" color="#6190e8" size="small" >上传图片</van-button> -->
                 <van-icon name="arrow" size="20px" style="line-height: 46px"/>
             </van-uploader>
             </van-cell> 
@@ -22,8 +22,8 @@
                 <div class="gender">
                 <span class="custom-title">性别</span>
                 <van-radio-group @change="pickgender" v-model="gender" style="display:flex;flex-direction: row;margin-left: 62px;">
-                 <van-radio checked-color="#12C3DF" name="1">男</van-radio> &nbsp;&nbsp;&nbsp;&nbsp;
-                 <van-radio checked-color="#12C3DF" name="2">女</van-radio>
+                 <van-radio checked-color="#6190e8" name="1">男</van-radio> &nbsp;&nbsp;&nbsp;&nbsp;
+                 <van-radio checked-color="#6190e8" name="2">女</van-radio>
                 </van-radio-group>
                 </div> 
             </template>
@@ -31,7 +31,7 @@
          <van-field v-model="password" type="password" maxlength="18" label="密码" placeholder="请填写密码" required/>
              <van-field v-model="repassword" type="password" maxlength="18" label="确认密码" placeholder="请填写确认密码" required/> 
          <div class="register">
-              <van-button color="#12C3DF" round  size="large" @click="register">注册</van-button>
+              <van-button color="#6190e8" round  size="large" @click="register">注册</van-button>
          </div>
         </div>
       </div>

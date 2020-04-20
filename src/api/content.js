@@ -61,3 +61,6 @@ export const isDelContent = (params) => request.post(`/content/isDelContent?${st
 // 获取用户所有内容(分类)
 export const getcontentByUid = (status) => request.get(`/content/getContentByUid?status=${status}`)
 
+// 用户开启关闭评论
+export const isCommentContent = (params) => request.get(`/content/isCommentContent?${stringify(params)}`)
+

@@ -13,20 +13,20 @@
       />
     </div>
     <div class="send">
-      <van-button color="#12C3DF" size="small" round @click="sendMessage" v-if="message">发布</van-button>
+      <van-button color="#6190e8" size="small" round @click="sendMessage" v-if="message">发布</van-button>
     </div>
     <div class="save_mark">
       <div class="save" @click="toSave">
-        <van-icon name="star" size="22px" color="#12C3DF" v-if="isSave" />
+        <van-icon name="star" size="22px" color="#6190e8" v-if="isSave" />
         <van-icon name="star-o" size="22px" color="#afaeae" v-else />
       </div>
       <div class="mark" @click="toMark">
-        <van-icon name="like" size="22px" color="#12C3DF" v-if="isMark" />
+        <van-icon name="like" size="22px" color="#6190e8" v-if="isMark" />
         <van-icon name="like-o" size="22px" color="#afaeae" v-else />
       </div>
     </div>
 
-      <van-dialog v-model="show" title="提示" show-cancel-button confirmButtonColor="#12C3DF" confirmButtonText="去登录" @confirm="toLogin">
+      <van-dialog v-model="show" title="提示" show-cancel-button confirmButtonColor="#6190e8" confirmButtonText="去登录" @confirm="toLogin">
          <div class="loginDialog">登录后才能操作哟 ~_~</div>
         </van-dialog>
   </div>

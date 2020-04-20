@@ -32,7 +32,7 @@
                        </van-row>
                  </div>
           </div>  
-            <van-dialog v-model="showBox" title="修改主题" show-cancel-button  :beforeClose="beforeClose" confirm-button-color="#12C3DF">
+            <van-dialog v-model="showBox" title="修改主题" show-cancel-button  :beforeClose="beforeClose" confirm-button-color="#6190e8">
                 <div class="theme">
                     <van-field v-model="themeName"  label="主题名称"  maxlength="10" class="input" clearable required :error-message="nameError"/>
                 </div>
@@ -46,7 +46,7 @@
 </template>
 
 <script>
-import ContentItem from '../index/contentItem'
+import ContentItem from '../components/contentItem'
 import {Toast} from 'vant'
 export default {
     components: { ContentItem },
@@ -70,7 +70,7 @@ export default {
         this.id = this.$route.query.id;
         this.name = this.$route.query.name;
         if(this.$route.query.isEdit) {
-            this.isEdit = this.$route.query.isEdit;
+            this.isEdit = true;
             this.$store.dispatch('content/getMycontentByTid', this.id).then(rsp => {
                 if(rsp.code === 200) {
                     this.contentList = rsp.list;
@@ -210,8 +210,8 @@ export default {
 <style lang="scss" scoped> 
     .card {
       .item{
-         background-image: linear-gradient( 135deg, #ABDCFF 10%, #12C3DF 100%);
-       // background-color: #12C3DF;
+         background-image: linear-gradient( 135deg, #ABDCFF 10%, #6190e8 100%);
+       // background-color: #6190e8;
         display: flex;
         flex-direction: column;
         padding: 5px 10px;

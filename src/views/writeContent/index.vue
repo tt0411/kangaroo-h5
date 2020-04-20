@@ -1,7 +1,7 @@
 <template>
   <div class="container">
      <van-nav-bar title="写内容" left-text=""  right-text="" left-arrow @click-left="onClickLeft" @click-right="onClickRight">
-      <van-button slot="right" color="#12C3DF" size="large">发表</van-button>
+      <van-button slot="right" color="#6190e8" size="large">发表</van-button>
     </van-nav-bar>
     <div class="content">
       <van-field
@@ -15,7 +15,7 @@
     </div>
     <div class="addAddress" @click="toAddAddress">
       <div>
-        <van-icon name="location-o" size="20px" color="#12C3DF" v-if="address" />
+        <van-icon name="location-o" size="20px" color="#6190e8" v-if="address" />
         <van-icon name="location-o" size="20px" color="#5e5b5b" v-else />
       </div>
       <div>
@@ -26,12 +26,12 @@
     <div class="isOpen">
       <div class="name">是否公开</div>
       <div class="switch">
-        <van-switch v-model="isOpen" active-color="#12C3DF" size="18px" />
+        <van-switch v-model="isOpen" active-color="#6190e8" size="18px" />
       </div>
     </div>
     <div class="tips" v-if="isOpen">
       <div>
-        <van-icon name="warning" color="#12C3DF" />
+        <van-icon name="warning" color="#6190e8" />
       </div>
       <div style="margin-top: -2px;">
         <span class="tips-content">内容公开审核通过后，所有人可见</span>
@@ -40,12 +40,12 @@
     <div class="isOpenComment">
       <div class="name">是否关闭评论</div>
       <div class="switch">
-        <van-switch v-model="isOpenComment" active-color="#12C3DF" size="18px" />
+        <van-switch v-model="isOpenComment" active-color="#6190e8" size="18px" />
       </div>
     </div>
     <div class="tips" v-if="isOpenComment">
       <div>
-        <van-icon name="warning" color="#12C3DF" />
+        <van-icon name="warning" color="#6190e8" />
       </div>
       <div style="margin-top: -2px;">
         <span class="tips-content">关闭评论后，此内容下所有人无法评论</span>
@@ -84,7 +84,7 @@
     </div>
 
 
-     <van-dialog v-model="show" title="提示" show-cancel-button confirmButtonColor="#12C3DF" @cancel="toBack" confirmButtonText="去创建" @confirm="toCreate">
+     <van-dialog v-model="show" title="提示" show-cancel-button confirmButtonColor="#6190e8" @cancel="toBack" confirmButtonText="去创建" @confirm="toCreate">
          <div class="loginDialog">由于您未创建主题或创建主题正在审核中当前不能发表内容</div>
         </van-dialog>
   </div>
@@ -270,7 +270,7 @@ export default {
 <style lang="scss" scoped>
 // 重置van-bar
 .van-nav-bar {
-  background: #12c3df;
+  background: #6190e8;
   .van-nav-bar__title {
     color: #ffffff;
   }

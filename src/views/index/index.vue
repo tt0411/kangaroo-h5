@@ -44,7 +44,7 @@
      <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
        <ContentItem :contentItem="contentList" :playerOptions="playerOptions"/>
      </van-pull-refresh> 
-      <van-dialog v-model="show" title="提示" show-cancel-button confirmButtonColor="#12C3DF" confirmButtonText="去登录" @confirm="toLogin">
+      <van-dialog v-model="show" title="提示" show-cancel-button confirmButtonColor="#6190e8" confirmButtonText="去登录" @confirm="toLogin">
          <div class="loginDialog">{{tipMsg}}</div>
         </van-dialog>
      </div>
@@ -52,8 +52,8 @@
 </template>
 
 <script>
-import ContentItem from './contentItem.vue'
-import {Toast} from 'vant';
+import ContentItem from '../components/contentItem'
+import { Toast } from 'vant';
 import { mapState } from 'vuex';
 export default {
     components: { ContentItem },
@@ -223,7 +223,7 @@ export default {
     .s{
         width: 5px;
         height: 25px;
-        background-color: #12C3DF;  
+        background-color: #6190e8;  
         border-radius: 5px;
         margin: 5px 10px;
     }

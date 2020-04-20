@@ -35,7 +35,7 @@ export default {
 <style scoped lang='scss'>
 // 重置van-bar
 .van-nav-bar {
-  background: #12C3DF;
+  background: #6190e8;
   .van-nav-bar__title {
     color: #ffffff;
   }

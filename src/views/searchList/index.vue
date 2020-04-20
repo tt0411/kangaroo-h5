@@ -79,7 +79,7 @@
 <script>
 import { Toast } from "vant";
 import Empty from "../../components/empty";
-import ContentItem from '../index/contentItem'
+import ContentItem from '../components/contentItem'
 export default {
   components: { Empty, ContentItem },
   data() {

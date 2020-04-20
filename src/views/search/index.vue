@@ -4,7 +4,7 @@
           <div class="container">
            <div class="search">
            <div class="typeList">
-           <van-dropdown-menu active-color="#12C3DF">
+           <van-dropdown-menu active-color="#6190e8">
                 <van-dropdown-item v-model="value" :options="typeList" @change="pickedType" />
             </van-dropdown-menu>
            </div>

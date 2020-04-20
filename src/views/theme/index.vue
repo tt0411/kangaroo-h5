@@ -8,7 +8,7 @@
        <div class="bg_index" @click="createTheme">
          <img :src="imgSrc" />
         </div>
-          <van-tabs v-model="active" animated color="#12C3DF" @click="onClickTab" swipeable>
+          <van-tabs v-model="active" animated color="#6190e8" @click="onClickTab" swipeable>
           <van-tab title="公开主题">
             <OpenItem />
           </van-tab>
@@ -17,16 +17,16 @@
           </van-tab>
       </van-tabs>
      </div>
-       <van-dialog v-model="showBox" title="创建主题" show-cancel-button  :beforeClose="beforeClose" confirm-button-color="#12C3DF">
+       <van-dialog v-model="showBox" title="创建主题" show-cancel-button  :beforeClose="beforeClose" confirm-button-color="#6190e8">
         <div class="theme">
              <van-field v-model="themeName"  label="主题名称" placeholder="请输入主题名称" maxlength="10" class="input" clearable required :error-message="nameError"/>
              <div class="isOpen">
                <div class="name">是否公开</div>
-               <div class="switch"><van-switch v-model="isOpen" active-color="#12C3DF" size="24px"/></div>
+               <div class="switch"><van-switch v-model="isOpen" active-color="#6190e8" size="24px"/></div>
              </div>
              <div class="tips" v-if="isOpen">
              <div>
-             <van-icon name="warning" color="#12C3DF"/>
+             <van-icon name="warning" color="#6190e8"/>
              </div> 
              <div style="margin-top: -2px;">
                <span class="tips-content">主题公开审核通过后，所有人可见，其主题下的所有内容也将默认所有人可见</span>
@@ -35,7 +35,7 @@
         </div>
     </van-dialog>
 
-      <van-dialog v-model="show" title="提示" show-cancel-button confirmButtonColor="#12C3DF" confirmButtonText="去登录" @confirm="toLogin">
+      <van-dialog v-model="show" title="提示" show-cancel-button confirmButtonColor="#6190e8" confirmButtonText="去登录" @confirm="toLogin">
          <div class="loginDialog">登录后才能创建主题哟 ~_~</div>
         </van-dialog>
     </div>

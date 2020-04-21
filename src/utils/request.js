@@ -3,6 +3,7 @@ import axios from 'axios'
 import Vue from 'vue'
 import { Toast } from 'vant'
 import { URL } from './config'
+import { getStorage } from './utils'
 Vue.use(Toast)
 
 const errorHandle = status => {
@@ -34,13 +35,13 @@ request.interceptors.request.use(
     if (!(config.data instanceof FormData)) {
       config.headers = {
         Accept: 'application/json',
-        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        'Authorization': `Bearer ${getStorage('token')}`,
         'Content-Type': 'application/json; charset=utf-8',
         ...config.headers
       }
     }else{
       config.headers = {
-        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        'Authorization': `Bearer ${getStorage('token')}`,
         'Content-Type': 'application/json; charset=utf-8',
         ...config.headers
       }

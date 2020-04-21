@@ -48,6 +48,7 @@
 
 <script>
 import {Toast} from 'vant'
+import { setStorage } from '../../utils/utils'
 
 export default {
     data(){
@@ -72,8 +73,8 @@ export default {
                 }
                this.$store.dispatch("user/login", params).then(rsp => {
                    if(rsp.code === 200) {
-                        localStorage.setItem('token', rsp.token) 
-                       this.$router.push('/user')       
+                        setStorage('token', rsp.token, 1000*3600*24) 
+                        this.$router.push('/user')       
                    }else{
                        Toast.fail(rsp.msg)
                    }
